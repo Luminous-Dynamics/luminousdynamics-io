@@ -1,0 +1,205 @@
+/* Syntax Highlighting for Code Blocks
+   Based on Tomorrow Night theme
+   Optimized for dark backgrounds */
+
+/* PrismJS overrides for our dark theme */
+code[class*="language-"],
+pre[class*="language-"] {
+    color: #e8eaed;
+    background: none;
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.6;
+    tab-size: 2;
+    hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+    padding: 1em;
+    margin: 0;
+    overflow: auto;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+    padding: 0.1em 0.3em;
+    border-radius: 0.3em;
+    white-space: normal;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #6b7785;
+}
+
+.token.punctuation {
+    color: #a8b2c1;
+}
+
+.token.namespace {
+    opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #ff6d00;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #00e5ff;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #ffd740;
+    background: none;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #b388ff;
+}
+
+.token.function,
+.token.class-name {
+    color: #00e5ff;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #ff6d00;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+/* Line numbers (if used) */
+.line-numbers .line-numbers-rows {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.line-numbers-rows > span::before {
+    color: #6b7785;
+}
+
+/* Line highlighting */
+.line-highlight {
+    background: rgba(0, 229, 255, 0.1);
+}
+
+/* JSON specific */
+.language-json .token.property {
+    color: #00e5ff;
+}
+
+.language-json .token.string {
+    color: #ffd740;
+}
+
+/* JavaScript specific */
+.language-javascript .token.keyword,
+.language-js .token.keyword {
+    color: #b388ff;
+}
+
+.language-javascript .token.function,
+.language-js .token.function {
+    color: #00e5ff;
+}
+
+/* Bash/Shell specific */
+.language-bash .token.function,
+.language-shell .token.function {
+    color: #00e5ff;
+}
+
+.language-bash .token.keyword,
+.language-shell .token.keyword {
+    color: #b388ff;
+}
+
+/* Python specific */
+.language-python .token.keyword {
+    color: #b388ff;
+}
+
+.language-python .token.builtin {
+    color: #00e5ff;
+}
+
+.language-python .token.decorator {
+    color: #ffd740;
+}
+
+/* TypeScript specific */
+.language-typescript .token.keyword,
+.language-ts .token.keyword {
+    color: #b388ff;
+}
+
+.language-typescript .token.type,
+.language-ts .token.type {
+    color: #ffd740;
+}
+
+/* Selection */
+pre[class*="language-"]::selection,
+pre[class*="language-"] ::selection,
+code[class*="language-"]::selection,
+code[class*="language-"] ::selection {
+    background: rgba(179, 136, 255, 0.3);
+}
+
+/* Scrollbar styling for code blocks */
+pre[class*="language-"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+pre[class*="language-"]::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
