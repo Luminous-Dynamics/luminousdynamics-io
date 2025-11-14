@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Luminous Dynamics</title>
+    <meta name="description" content="Page not found. Return to Luminous Dynamics Developer Portal.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0, 229, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 215, 64, 0.1) 0%, transparent 50%),
+                var(--bg-primary);
+            padding: var(--space-xl);
+        }
+
+        .error-content {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            background: var(--gradient-electric);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: var(--space-md);
+            animation: pulse 2s infinite;
+        }
+
+        .error-title {
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .error-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xxl);
+            line-height: 1.6;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-link-list {
+            margin-top: var(--space-xxl);
+            padding-top: var(--space-xxl);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .error-link-list h3 {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-lg);
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            text-align: left;
+        }
+
+        .quick-link {
+            display: block;
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: all var(--transition-base);
+        }
+
+        .quick-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .quick-link-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .quick-link-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-code" aria-label="Error 404">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-description">
+                The page you're looking for doesn't exist or has been moved.
+                Let's get you back to building sacred technology.
+            </p>
+
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">
+                    <span class="btn-icon" aria-hidden="true">⚡</span>
+                    Return Home
+                </a>
+                <a href="/#docs" class="btn btn-secondary">
+                    <span class="btn-icon" aria-hidden="true">📖</span>
+                    Browse Docs
+                </a>
+            </div>
+
+            <div class="error-link-list">
+                <h3>Popular Pages</h3>
+                <div class="quick-links">
+                    <a href="/#apis" class="quick-link">
+                        <div class="quick-link-title">APIs</div>
+                        <div class="quick-link-desc">Explore our API offerings</div>
+                    </a>
+                    <a href="/#playground" class="quick-link">
+                        <div class="quick-link-title">Playground</div>
+                        <div class="quick-link-desc">Test APIs in your browser</div>
+                    </a>
+                    <a href="/#quickstart" class="quick-link">
+                        <div class="quick-link-title">Quick Start</div>
+                        <div class="quick-link-desc">Get started in 5 minutes</div>
+                    </a>
+                    <a href="https://github.com/Luminous-Dynamics" class="quick-link" target="_blank" rel="noopener noreferrer">
+                        <div class="quick-link-title">GitHub</div>
+                        <div class="quick-link-desc">View our open source code</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Track 404 for analytics (if implemented)
+        console.log('404 Error - Page not found:', window.location.pathname);
+    </script>
+</body>
+</html>

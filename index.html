@@ -44,6 +44,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/syntax.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
 
     <!-- Prism for syntax highlighting -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
@@ -62,7 +63,14 @@
                 </a>
             </div>
 
-            <div class="nav-menu">
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-menu" id="nav-menu">
                 <a href="#apis" class="nav-link">APIs</a>
                 <a href="#tools" class="nav-link">Tools</a>
                 <a href="#docs" class="nav-link">Docs</a>

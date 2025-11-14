@@ -712,6 +712,55 @@ bridge.emit('intention.set', {
     }
 
     // =========================
+    // Mobile Menu Toggle
+    // =========================
+    function initMobileMenu() {
+        const menuToggle = $('.mobile-menu-toggle');
+        const navMenu = $('.nav-menu');
+        const navLinks = $$('.nav-menu .nav-link');
+
+        if (!menuToggle || !navMenu) return;
+
+        // Toggle menu
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        // Close menu when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+
+        // Close menu when clicking overlay
+        document.addEventListener('click', (e) => {
+            if (document.body.classList.contains('menu-open') &&
+                !navMenu.contains(e.target) &&
+                !menuToggle.contains(e.target)) {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                menuToggle.setAttribute('aria-expanded', 'false');
+                navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                menuToggle.focus();
+            }
+        });
+    }
+
+    // =========================
     // Initialization
     // =========================
     function init() {
@@ -726,6 +775,7 @@ bridge.emit('intention.set', {
         initOpenPlayground();
         initHeaderScroll();
         initStatsObserver();
+        initMobileMenu();
         initCleanup();
 
         // Start background tasks
