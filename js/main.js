@@ -761,6 +761,36 @@ bridge.emit('intention.set', {
     }
 
     // =========================
+    // Service Worker Registration
+    // =========================
+    function registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('[PWA] Service Worker registered:', registration.scope);
+
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('[PWA] New Service Worker installing...');
+
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('[PWA] New content available - refresh to update');
+                                    // Show update notification (implement toast in future)
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('[PWA] Service Worker registration failed:', error);
+                    });
+            });
+        }
+    }
+
+    // =========================
     // Initialization
     // =========================
     function init() {
@@ -777,6 +807,9 @@ bridge.emit('intention.set', {
         initStatsObserver();
         initMobileMenu();
         initCleanup();
+
+        // Register service worker for PWA
+        registerServiceWorker();
 
         // Start background tasks
         startActivityFeed();

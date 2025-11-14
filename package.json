@@ -1,0 +1,65 @@
+{
+  "name": "luminousdynamics-io",
+  "version": "1.0.0",
+  "description": "Developer portal for Luminous Dynamics - APIs and tools for consciousness-first technology",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000",
+    "lint:html": "npx htmlhint '**/*.html'",
+    "lint:css": "npx stylelint '**/*.css'",
+    "lint:js": "npx eslint '**/*.js'",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "format:css": "npx prettier --write '**/*.css'",
+    "format:js": "npx prettier --write '**/*.js'",
+    "format": "npm run format:css && npm run format:js",
+    "lighthouse": "npx @lhci/cli@0.12.x autorun",
+    "lighthouse:ci": "npx @lhci/cli@0.12.x autorun --config=.lighthouserc.json",
+    "test": "echo \"No tests yet\" && exit 0",
+    "validate": "npm run lint && npm run lighthouse",
+    "build": "echo \"No build step required - static site\" && exit 0",
+    "deploy": "echo \"Deployed via GitHub Pages\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Luminous-Dynamics/luminousdynamics-io.git"
+  },
+  "keywords": [
+    "developer-portal",
+    "api",
+    "documentation",
+    "consciousness-technology",
+    "terra-atlas",
+    "luminous-nix",
+    "sacred-bridge",
+    "renewable-energy",
+    "nixos"
+  ],
+  "author": "Luminous Dynamics",
+  "license": "SEE LICENSE IN sacred-reciprocity-license",
+  "bugs": {
+    "url": "https://github.com/Luminous-Dynamics/luminousdynamics-io/issues"
+  },
+  "homepage": "https://luminousdynamics.io",
+  "devDependencies": {
+    "@lhci/cli": "^0.12.0",
+    "eslint": "^8.56.0",
+    "htmlhint": "^1.1.4",
+    "http-server": "^14.1.1",
+    "prettier": "^3.2.4",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "> 1%",
+    "not dead"
+  ]
+}
