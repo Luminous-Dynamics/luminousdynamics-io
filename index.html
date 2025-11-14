@@ -53,6 +53,9 @@
     <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/syntax.css">
+    <link rel="stylesheet" href="styles/toast.css">
+    <link rel="stylesheet" href="styles/playground-enhanced.css">
+    <link rel="stylesheet" href="styles/keyboard-help.css">
     <link rel="stylesheet" href="styles/print.css" media="print">
 
     <!-- Prism for syntax highlighting -->
@@ -301,6 +304,29 @@ node.on('peer', peer => {
             <h2 class="section-title">Interactive Playground</h2>
             <p class="section-subtitle">Test our APIs directly in your browser</p>
 
+            <!-- Playground Toolbar -->
+            <div class="playground-toolbar">
+                <div class="toolbar-group">
+                    <button class="btn-small" onclick="PlaygroundEnhanced.Favorites.add()" aria-label="Save current request to favorites">
+                        ⭐ Save Favorite
+                        <span class="keyboard-hint">
+                            <span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">S</span>
+                        </span>
+                    </button>
+                    <button class="btn-small" onclick="PlaygroundEnhanced.Share.copyLink()" aria-label="Copy shareable link">
+                        🔗 Share
+                    </button>
+                </div>
+                <div class="toolbar-group">
+                    <button class="btn-small" onclick="PlaygroundEnhanced.ResponseDisplay.copyResponse()" aria-label="Copy response to clipboard">
+                        📋 Copy Response
+                    </button>
+                    <button class="btn-small" onclick="PlaygroundEnhanced.ResponseDisplay.downloadResponse()" aria-label="Download response as JSON">
+                        ⬇️ Download
+                    </button>
+                </div>
+            </div>
+
             <div class="playground-container">
                 <div class="playground-tabs" role="tablist" aria-label="API examples">
                     <button class="tab active" data-api="terra" role="tab" aria-selected="true" aria-controls="playground-content" id="tab-terra">Terra Atlas</button>
@@ -377,7 +403,49 @@ console.log(data);</code></pre>
                     <button class="btn btn-primary btn-run" data-run-playground aria-label="Execute API request">
                         <span class="btn-icon" aria-hidden="true">▶</span>
                         Run Request
+                        <span class="keyboard-hint">
+                            <span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">Enter</span>
+                        </span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Playground Sidebar: History & Favorites -->
+            <div class="playground-sidebar">
+                <!-- History Section -->
+                <div class="sidebar-section">
+                    <h3>
+                        Request History
+                        <div class="sidebar-actions">
+                            <button class="btn-small" onclick="PlaygroundEnhanced.History.export()" aria-label="Export history">
+                                Export
+                            </button>
+                            <button class="btn-small btn-danger" onclick="PlaygroundEnhanced.History.clear()" aria-label="Clear all history">
+                                Clear
+                            </button>
+                        </div>
+                    </h3>
+                    <div id="history-list">
+                        <div class="empty-state">No history yet. Run a request to get started!</div>
+                    </div>
+                </div>
+
+                <!-- Favorites Section -->
+                <div class="sidebar-section">
+                    <h3>
+                        Favorites
+                        <div class="sidebar-actions">
+                            <button class="btn-small" onclick="PlaygroundEnhanced.Favorites.export()" aria-label="Export favorites">
+                                Export
+                            </button>
+                            <button class="btn-small btn-danger" onclick="PlaygroundEnhanced.Favorites.clear()" aria-label="Clear all favorites">
+                                Clear
+                            </button>
+                        </div>
+                    </h3>
+                    <div id="favorites-list">
+                        <div class="empty-state">No favorites yet. Save your favorite requests!</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -564,7 +632,12 @@ console.log(data);</code></pre>
 
             <div class="footer-bottom">
                 <p>© 2025 Luminous Dynamics - Building consciousness-first technology</p>
-                <p class="footer-meta">All APIs use <a href="/sacred-reciprocity-license">Sacred Reciprocity License</a></p>
+                <p class="footer-meta">
+                    All APIs use <a href="/sacred-reciprocity-license">Sacred Reciprocity License</a> •
+                    <button onclick="KeyboardShortcuts.showHelp()" style="background: none; border: none; color: inherit; cursor: pointer; text-decoration: underline; padding: 0; font-size: inherit;" aria-label="Show keyboard shortcuts">
+                        Keyboard Shortcuts <kbd style="font-size: 0.75rem; padding: 0.125rem 0.375rem;">?</kbd>
+                    </button>
+                </p>
             </div>
         </div>
     </footer>
@@ -575,6 +648,10 @@ console.log(data);</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer></script>
+    <script src="js/web-vitals.js" defer></script>
+    <script src="js/toast.js" defer></script>
+    <script src="js/playground-enhanced.js" defer></script>
+    <script src="js/keyboard.js" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>

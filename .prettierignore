@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Minified files
+*.min.js
+*.min.css
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Lighthouse
+.lighthouseci/
+lhci_reports/
+
+# Generated files
+CHANGELOG.md
+
+# External libraries
+vendor/

@@ -354,16 +354,20 @@ bridge.emit('intention.set', {
      * @param {boolean} success - Whether copy was successful
      */
     function showCopyFeedback(button, success) {
-        const originalText = button.textContent;
-        const originalBg = button.style.background;
-
-        button.textContent = success ? 'Copied!' : 'Failed';
-        button.style.background = success ? 'rgba(0, 200, 83, 0.1)' : 'rgba(255, 23, 68, 0.1)';
-
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = originalBg;
-        }, CONFIG.copyFeedbackDuration);
+        if (window.Toast) {
+            if (success) {
+                window.Toast.success('Code copied to clipboard!');
+            } else {
+                window.Toast.error('Failed to copy code');
+            }
+        } else {
+            // Fallback if Toast isn't loaded yet
+            const originalText = button.textContent;
+            button.textContent = success ? 'Copied!' : 'Failed';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, CONFIG.copyFeedbackDuration);
+        }
     }
 
     // =========================
@@ -419,12 +423,47 @@ bridge.emit('intention.set', {
                     outputContainer.style.borderColor = '';
                 }, 500);
             }
+
+            // Show success toast
+            const responseTime = response.meta?.response_time || CONFIG.playgroundRunDelay + 'ms';
+            if (window.Toast) {
+                window.Toast.success(`Request successful! Response time: ${responseTime}`);
+            }
+
+            // Save to history
+            if (window.PlaygroundEnhanced) {
+                window.PlaygroundEnhanced.History.add({
+                    api: api,
+                    code: example.code,
+                    response: outputElement.textContent,
+                    success: true,
+                    responseTime: responseTime
+                });
+            }
         } catch (err) {
             console.error('Playground error:', err);
-            outputElement.textContent = JSON.stringify({
+            const errorOutput = JSON.stringify({
                 error: 'Failed to execute request',
                 message: err.message
             }, null, 2);
+
+            outputElement.textContent = errorOutput;
+
+            // Show error toast
+            if (window.Toast) {
+                window.Toast.error('Request failed: ' + err.message);
+            }
+
+            // Save error to history
+            if (window.PlaygroundEnhanced) {
+                window.PlaygroundEnhanced.History.add({
+                    api: api,
+                    code: example.code,
+                    response: errorOutput,
+                    success: false,
+                    responseTime: 'N/A'
+                });
+            }
         } finally {
             // Reset button
             runBtn.disabled = false;
@@ -778,7 +817,17 @@ bridge.emit('intention.set', {
                             newWorker.addEventListener('statechange', () => {
                                 if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                                     console.log('[PWA] New content available - refresh to update');
-                                    // Show update notification (implement toast in future)
+
+                                    // Show update notification
+                                    if (window.Toast) {
+                                        window.Toast.info('New update available!', {
+                                            duration: 0, // Persist until dismissed
+                                            action: {
+                                                text: 'Reload',
+                                                callback: () => window.location.reload()
+                                            }
+                                        });
+                                    }
                                 }
                             });
                         });

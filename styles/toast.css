@@ -1,0 +1,300 @@
+/* ===========================
+   Toast Notification System
+   Professional user feedback
+   =========================== */
+
+/* Toast Container */
+.toast-container {
+    position: fixed;
+    z-index: 10000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+/* Container Positions */
+.toast-top-right {
+    top: var(--space-lg);
+    right: var(--space-lg);
+}
+
+.toast-top-left {
+    top: var(--space-lg);
+    left: var(--space-lg);
+}
+
+.toast-bottom-right {
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+}
+
+.toast-bottom-left {
+    bottom: var(--space-lg);
+    left: var(--space-lg);
+}
+
+.toast-top-center {
+    top: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.toast-bottom-center {
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Toast Base Styles */
+.toast {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    min-width: 300px;
+    max-width: 500px;
+    padding: var(--space-md);
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toast-container.toast-top-right .toast,
+.toast-container.toast-bottom-right .toast {
+    transform: translateX(400px);
+}
+
+.toast-container.toast-top-left .toast,
+.toast-container.toast-bottom-left .toast {
+    transform: translateX(-400px);
+}
+
+.toast-container.toast-top-center .toast,
+.toast-container.toast-bottom-center .toast {
+    transform: translateY(-100px);
+}
+
+/* Toast Show Animation */
+.toast.toast-show {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+}
+
+/* Toast Hide Animation */
+.toast.toast-hide {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* Toast Content */
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex: 1;
+}
+
+/* Toast Icon */
+.toast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 50%;
+}
+
+/* Toast Message */
+.toast-message {
+    flex: 1;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+/* Toast Action Button */
+.toast-action {
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.toast-action:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.toast-action:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Toast Close Button */
+.toast-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all var(--transition-fast);
+    padding: 0;
+}
+
+.toast-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.toast-close:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Toast Types */
+
+/* Success Toast */
+.toast-success {
+    border-left: 4px solid var(--accent-success);
+}
+
+.toast-success .toast-icon {
+    background: rgba(0, 200, 83, 0.15);
+    color: var(--accent-success);
+}
+
+/* Error Toast */
+.toast-error {
+    border-left: 4px solid var(--accent-error);
+}
+
+.toast-error .toast-icon {
+    background: rgba(255, 23, 68, 0.15);
+    color: var(--accent-error);
+}
+
+/* Warning Toast */
+.toast-warning {
+    border-left: 4px solid var(--accent-warning);
+}
+
+.toast-warning .toast-icon {
+    background: rgba(255, 109, 0, 0.15);
+    color: var(--accent-warning);
+}
+
+/* Info Toast */
+.toast-info {
+    border-left: 4px solid var(--accent-primary);
+}
+
+.toast-info .toast-icon {
+    background: rgba(0, 229, 255, 0.15);
+    color: var(--accent-primary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .toast-container {
+        left: var(--space-md) !important;
+        right: var(--space-md) !important;
+        bottom: var(--space-md);
+        top: auto !important;
+        transform: none !important;
+    }
+
+    .toast {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .toast.toast-show {
+        transform: translateY(0);
+    }
+
+    .toast-container .toast {
+        transform: translateY(100px);
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .toast {
+        transition: opacity 0.1s ease !important;
+    }
+
+    .toast.toast-show {
+        animation: none;
+    }
+}
+
+/* Focus Styles */
+.toast:focus-within {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5),
+                0 0 0 3px rgba(0, 229, 255, 0.3);
+}
+
+/* Loading State (optional) */
+.toast-loading {
+    border-left-color: var(--accent-primary);
+}
+
+.toast-loading::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--accent-primary);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: toast-spin 0.6s linear infinite;
+}
+
+@keyframes toast-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Progress Bar (optional) */
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent-primary);
+    opacity: 0.3;
+    transform-origin: left;
+    animation: toast-progress 5s linear forwards;
+}
+
+@keyframes toast-progress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}
