@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Status - Luminous Dynamics</title>
+    <meta name="description" content="Real-time API status monitoring for Luminous Dynamics services. Check uptime, response times, and incident history for Terra Atlas, Luminous Nix, and Sacred Bridge.">
+    <meta name="keywords" content="API status, system status, uptime, monitoring, service health, Terra Atlas status, Luminous Nix status">
+    <meta name="author" content="Luminous Dynamics">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luminousdynamics.io/status.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://luminousdynamics.io/status.html">
+    <meta property="og:title" content="System Status - Luminous Dynamics">
+    <meta property="og:description" content="Real-time API status monitoring for Luminous Dynamics services.">
+    <meta property="og:image" content="https://luminousdynamics.io/og-image.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://luminousdynamics.io/status.html">
+    <meta name="twitter:title" content="System Status - Luminous Dynamics">
+    <meta name="twitter:description" content="Real-time API status monitoring for Luminous Dynamics services.">
+    <meta name="twitter:image" content="https://luminousdynamics.io/og-image.svg">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+    <link rel="stylesheet" href="styles/status-dashboard.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
+
+    <!-- Theme initialization (prevent FOUC) -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" role="banner">
+        <nav class="nav-container" role="navigation" aria-label="Main navigation">
+            <div class="nav-brand">
+                <a href="/" class="brand-link" aria-label="Luminous Dynamics Home">
+                    <span class="brand-icon" aria-hidden="true">⚡</span>
+                    <span class="brand-text">luminous<span class="brand-accent">.io</span></span>
+                </a>
+            </div>
+
+            <!-- Mobile menu toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#apis" class="nav-link">APIs</a>
+                <a href="/#docs" class="nav-link">Docs</a>
+                <a href="/#playground" class="nav-link">Playground</a>
+                <a href="/status.html" class="nav-link active">Status</a>
+                <a href="https://github.com/Luminous-Dynamics" class="nav-link nav-github" target="_blank" rel="noopener noreferrer" aria-label="Visit our GitHub">
+                    <svg class="github-icon" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true">
+                        <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-container">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="status-header">
+                <div>
+                    <h1 class="status-title">System Status</h1>
+                    <p class="status-subtitle">Real-time monitoring of all Luminous Dynamics services</p>
+                </div>
+                <div class="status-actions">
+                    <button id="refresh-button" class="status-action-btn" aria-label="Refresh status">
+                        <span aria-hidden="true">⟳</span>
+                        Refresh
+                    </button>
+                    <button id="badge-button" class="status-action-btn" aria-label="Get status badge">
+                        <span aria-hidden="true">🏷️</span>
+                        Badge
+                    </button>
+                    <button id="subscribe-button" class="status-action-btn" aria-label="Subscribe to updates">
+                        <span aria-hidden="true">🔔</span>
+                        Subscribe
+                    </button>
+                    <label class="auto-refresh-control">
+                        <input type="checkbox" id="auto-refresh-toggle" aria-label="Toggle auto-refresh">
+                        <span>Auto-refresh</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Last Refresh Time -->
+            <div class="last-refresh">
+                Last updated: <span id="last-refresh-time">--:--</span>
+            </div>
+
+            <!-- Error Container -->
+            <div id="status-error" role="alert" aria-live="assertive"></div>
+
+            <!-- Loading State -->
+            <div id="status-loader" style="display: none;" role="status" aria-label="Loading status data">
+                <div class="loader-spinner"></div>
+            </div>
+
+            <!-- Status Content -->
+            <div id="status-content">
+                <!-- Overall Status -->
+                <section class="status-section" aria-labelledby="overall-status-heading">
+                    <h2 id="overall-status-heading" class="sr-only">Overall System Status</h2>
+                    <div id="overall-status"></div>
+                </section>
+
+                <!-- Services -->
+                <section class="status-section" aria-labelledby="services-heading">
+                    <div class="section-header">
+                        <div>
+                            <h2 id="services-heading" class="section-title">Services</h2>
+                            <p class="section-subtitle">Individual service status and performance metrics</p>
+                        </div>
+                    </div>
+                    <div id="services-list"></div>
+                </section>
+
+                <!-- Metrics -->
+                <section class="status-section" aria-labelledby="metrics-heading">
+                    <div class="section-header">
+                        <div>
+                            <h2 id="metrics-heading" class="section-title">Platform Metrics</h2>
+                            <p class="section-subtitle">Real-time platform performance</p>
+                        </div>
+                    </div>
+                    <div id="metrics-section"></div>
+                </section>
+
+                <!-- Status History -->
+                <section class="status-section" aria-labelledby="history-heading">
+                    <div class="section-header">
+                        <div>
+                            <h2 id="history-heading" class="section-title">Uptime History</h2>
+                            <p class="section-subtitle">Last 10 days</p>
+                        </div>
+                    </div>
+                    <div id="status-history"></div>
+                </section>
+
+                <!-- Recent Incidents -->
+                <section class="status-section" aria-labelledby="incidents-heading">
+                    <div class="section-header">
+                        <div>
+                            <h2 id="incidents-heading" class="section-title">Recent Incidents</h2>
+                            <p class="section-subtitle">Past incidents and resolutions</p>
+                        </div>
+                    </div>
+                    <div id="incidents-list"></div>
+                </section>
+
+                <!-- Scheduled Maintenance -->
+                <section class="status-section" aria-labelledby="maintenance-heading">
+                    <div class="section-header">
+                        <div>
+                            <h2 id="maintenance-heading" class="section-title">Scheduled Maintenance</h2>
+                            <p class="section-subtitle">Upcoming maintenance windows</p>
+                        </div>
+                    </div>
+                    <div id="maintenance-list"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-heading">Luminous Dynamics</h3>
+                <p class="footer-text">Building sacred technology that serves consciousness</p>
+                <div class="footer-status">
+                    <span class="status-dot status-operational" aria-hidden="true"></span>
+                    <span>All Systems Operational</span>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-heading">APIs</h3>
+                <ul class="footer-links">
+                    <li><a href="/#apis" class="footer-link">Terra Atlas API</a></li>
+                    <li><a href="/#apis" class="footer-link">Luminous Nix</a></li>
+                    <li><a href="/#apis" class="footer-link">Sacred Bridge</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-heading">Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="/#docs" class="footer-link">Documentation</a></li>
+                    <li><a href="/#playground" class="footer-link">API Playground</a></li>
+                    <li><a href="/status.html" class="footer-link">System Status</a></li>
+                    <li><a href="https://github.com/Luminous-Dynamics" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-heading">Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="/SECURITY.md" class="footer-link">Security</a></li>
+                    <li><a href="/CODE_OF_CONDUCT.md" class="footer-link">Code of Conduct</a></li>
+                    <li><a href="/CONTRIBUTING.md" class="footer-link">Contributing</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Luminous Dynamics. All rights reserved.</p>
+            <p class="tagline">⚡ Built with Consciousness</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container" role="region" aria-label="Notifications" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/theme.js" defer></script>
+    <script src="js/toast.js" defer></script>
+    <script src="js/status-dashboard.js" defer></script>
+    <script src="js/main.js" defer></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(err => console.error('SW registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>
