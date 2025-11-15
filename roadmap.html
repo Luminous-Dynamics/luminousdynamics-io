@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Roadmap | Luminous Dynamics</title>
+    <meta name="description" content="Explore the Luminous Dynamics product roadmap - upcoming features, releases, and development timeline for our APIs and developer tools">
+    <meta name="keywords" content="roadmap, product roadmap, development timeline, upcoming features, releases, Luminous Dynamics">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luminousdynamics.io/roadmap.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+    <link rel="stylesheet" href="styles/accessibility-enhanced.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
+    <link rel="stylesheet" href="styles/print-enhanced.css" media="print">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .roadmap-page {
+            min-height: 100vh;
+            background: var(--bg-primary, #0a0b0d);
+            padding: 2rem;
+        }
+
+        .roadmap-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .roadmap-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .roadmap-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .roadmap-icon {
+            font-size: 3rem;
+        }
+
+        .roadmap-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Filter Tabs */
+        .roadmap-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 20px;
+            color: var(--text-secondary, #a8b2c1);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(0, 229, 255, 0.1);
+            border-color: var(--accent-primary, #00e5ff);
+            color: var(--accent-primary, #00e5ff);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            box-shadow: 0 4px 12px rgba(0, 229, 255, 0.2);
+        }
+
+        /* Legend */
+        .roadmap-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .legend-badge.shipped {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .legend-badge.in-progress {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+        }
+
+        .legend-badge.planned {
+            background: rgba(255, 170, 0, 0.1);
+            border: 1px solid #ffaa00;
+            color: #ffaa00;
+        }
+
+        .legend-badge.future {
+            background: rgba(168, 178, 193, 0.1);
+            border: 1px solid #a8b2c1;
+            color: #a8b2c1;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-primary, #00e5ff), transparent);
+        }
+
+        /* Quarter Section */
+        .quarter-section {
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .quarter-section.hidden {
+            display: none;
+        }
+
+        .quarter-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quarter-marker {
+            position: absolute;
+            left: -2.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: var(--accent-primary, #00e5ff);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--bg-primary, #0a0b0d), 0 0 12px rgba(0, 229, 255, 0.5);
+        }
+
+        .quarter-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+        }
+
+        .quarter-date {
+            color: var(--text-tertiary, #6c757d);
+            font-size: 0.9rem;
+        }
+
+        /* Roadmap Items */
+        .roadmap-items {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .roadmap-item {
+            padding: 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .roadmap-item:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(8px);
+            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.15);
+        }
+
+        .roadmap-item.hidden {
+            display: none;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .item-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .item-icon {
+            font-size: 1.25rem;
+        }
+
+        .item-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            flex-shrink: 0;
+        }
+
+        .item-status.shipped {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+        }
+
+        .item-status.in-progress {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+        }
+
+        .item-status.planned {
+            background: rgba(255, 170, 0, 0.1);
+            border: 1px solid #ffaa00;
+            color: #ffaa00;
+        }
+
+        .item-status.future {
+            background: rgba(168, 178, 193, 0.1);
+            border: 1px solid #a8b2c1;
+            color: #a8b2c1;
+        }
+
+        .item-description {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .item-product {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 12px;
+            color: var(--accent-primary, #00e5ff);
+            font-weight: 600;
+        }
+
+        .item-link {
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .item-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(-4px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .roadmap-title {
+                font-size: 2rem;
+            }
+
+            .roadmap-page {
+                padding: 1.5rem 1rem;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .quarter-marker {
+                left: -1.9rem;
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .roadmap-item:hover {
+                transform: translateX(4px);
+            }
+
+            .roadmap-legend {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="roadmap-page">
+        <div class="roadmap-container">
+            <!-- Header -->
+            <div class="roadmap-header">
+                <h1 class="roadmap-title">
+                    <span class="roadmap-icon" aria-hidden="true">🗺️</span>
+                    Product Roadmap
+                </h1>
+                <p class="roadmap-subtitle">
+                    Explore our development timeline and upcoming features. We believe in transparency and building in public.
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="roadmap-filters" role="group" aria-label="Filter roadmap by product">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="terra-atlas">Terra Atlas API</button>
+                <button class="filter-btn" data-filter="luminous-nix">Luminous Nix</button>
+                <button class="filter-btn" data-filter="mycelix">Mycelix Protocol</button>
+                <button class="filter-btn" data-filter="portal">Developer Portal</button>
+            </div>
+
+            <!-- Legend -->
+            <div class="roadmap-legend" role="group" aria-label="Status legend">
+                <div class="legend-item">
+                    <span class="legend-badge shipped">Shipped</span>
+                    <span>Released & Available</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-badge in-progress">In Progress</span>
+                    <span>Actively Developing</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-badge planned">Planned</span>
+                    <span>Scheduled & Scoped</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-badge future">Future</span>
+                    <span>Under Consideration</span>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <!-- Q4 2025 -->
+                <section class="quarter-section" id="q4-2025">
+                    <div class="quarter-marker" aria-hidden="true"></div>
+                    <div class="quarter-header">
+                        <div>
+                            <h2 class="quarter-title">Q4 2025</h2>
+                            <p class="quarter-date">October - December 2025</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-items">
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🎨</span>
+                                    Developer Portal v5
+                                </h3>
+                                <span class="item-status shipped">Shipped</span>
+                            </div>
+                            <p class="item-description">
+                                Complete redesign of the developer portal with enhanced documentation, interactive playground, keyboard shortcuts, and WCAG AAA accessibility.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌐</span>
+                                    Developer Portal
+                                </span>
+                                <a href="/changelog.html" class="item-link">
+                                    <span aria-hidden="true">📝</span>
+                                    View Changelog
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="terra-atlas">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🌍</span>
+                                    Terra Atlas v1.0 GA
+                                </h3>
+                                <span class="item-status in-progress">In Progress</span>
+                            </div>
+                            <p class="item-description">
+                                General availability release of Terra Atlas API with comprehensive renewable energy site data, advanced filtering, and global coverage.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌱</span>
+                                    Terra Atlas
+                                </span>
+                                <a href="/docs/api-reference.html#terra-atlas" class="item-link">
+                                    <span aria-hidden="true">📖</span>
+                                    API Docs
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🤝</span>
+                                    Community Resources
+                                </h3>
+                                <span class="item-status in-progress">In Progress</span>
+                            </div>
+                            <p class="item-description">
+                                FAQ page, Roadmap transparency, Community hub, Code of Conduct, and Contributing guidelines for open collaboration.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌐</span>
+                                    Developer Portal
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Q1 2026 -->
+                <section class="quarter-section" id="q1-2026">
+                    <div class="quarter-marker" aria-hidden="true"></div>
+                    <div class="quarter-header">
+                        <div>
+                            <h2 class="quarter-title">Q1 2026</h2>
+                            <p class="quarter-date">January - March 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-items">
+                        <div class="roadmap-item" data-product="luminous-nix">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🧠</span>
+                                    NixOS AI-Powered Configuration
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Natural language interface for NixOS system configuration. Describe what you want in plain English, get production-ready Nix configurations.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">❄️</span>
+                                    Luminous Nix
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="terra-atlas">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">📊</span>
+                                    Real-time Energy Data
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Live energy production data from renewable sites, WebSocket subscriptions, and historical trend analysis.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌱</span>
+                                    Terra Atlas
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">📚</span>
+                                    Interactive Tutorials
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Step-by-step guided tutorials with in-browser code execution, progress tracking, and certification badges.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌐</span>
+                                    Developer Portal
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🔍</span>
+                                    Full-Text Documentation Search
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Algolia-powered search across all documentation, code examples, and API references with instant results.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌐</span>
+                                    Developer Portal
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Q2 2026 -->
+                <section class="quarter-section" id="q2-2026">
+                    <div class="quarter-marker" aria-hidden="true"></div>
+                    <div class="quarter-header">
+                        <div>
+                            <h2 class="quarter-title">Q2 2026</h2>
+                            <p class="quarter-date">April - June 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-items">
+                        <div class="roadmap-item" data-product="mycelix">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🍄</span>
+                                    Mycelix Protocol v1.0
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Decentralized knowledge graph protocol enabling collaborative, interconnected documentation and API discovery across the ecosystem.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🕸️</span>
+                                    Mycelix Protocol
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🔔</span>
+                                    Webhooks & Event System
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Real-time webhooks for all API events, configurable endpoints, signature verification, and retry logic.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌱</span>
+                                    Terra Atlas
+                                </span>
+                                <span class="item-product">
+                                    <span aria-hidden="true">❄️</span>
+                                    Luminous Nix
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="terra-atlas">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🤖</span>
+                                    ML-Powered Site Recommendations
+                                </h3>
+                                <span class="item-status planned">Planned</span>
+                            </div>
+                            <p class="item-description">
+                                Machine learning models to recommend optimal renewable energy sites based on geography, weather patterns, and energy needs.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌱</span>
+                                    Terra Atlas
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Q3 2026 -->
+                <section class="quarter-section" id="q3-2026">
+                    <div class="quarter-marker" aria-hidden="true"></div>
+                    <div class="quarter-header">
+                        <div>
+                            <h2 class="quarter-title">Q3 2026</h2>
+                            <p class="quarter-date">July - September 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-items">
+                        <div class="roadmap-item" data-product="luminous-nix">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">☁️</span>
+                                    Cloud Infrastructure Templates
+                                </h3>
+                                <span class="item-status future">Future</span>
+                            </div>
+                            <p class="item-description">
+                                Pre-built NixOS configurations for popular cloud platforms (AWS, GCP, Azure) with Terraform integration.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">❄️</span>
+                                    Luminous Nix
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🏗️</span>
+                                    Architecture Guides
+                                </h3>
+                                <span class="item-status future">Future</span>
+                            </div>
+                            <p class="item-description">
+                                Comprehensive guides for microservices, event-driven architectures, and scalable system design patterns using our APIs.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌐</span>
+                                    Developer Portal
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="mycelix">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🌐</span>
+                                    Decentralized API Registry
+                                </h3>
+                                <span class="item-status future">Future</span>
+                            </div>
+                            <p class="item-description">
+                                Distributed registry for API discovery, versioning, and governance across the Mycelix network.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🕸️</span>
+                                    Mycelix Protocol
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Q4 2026 -->
+                <section class="quarter-section" id="q4-2026">
+                    <div class="quarter-marker" aria-hidden="true"></div>
+                    <div class="quarter-header">
+                        <div>
+                            <h2 class="quarter-title">Q4 2026</h2>
+                            <p class="quarter-date">October - December 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="roadmap-items">
+                        <div class="roadmap-item" data-product="terra-atlas">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🗺️</span>
+                                    Global Energy Map Visualization
+                                </h3>
+                                <span class="item-status future">Future</span>
+                            </div>
+                            <p class="item-description">
+                                Interactive 3D globe showing worldwide renewable energy sites, production data, and carbon offset impact in real-time.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌱</span>
+                                    Terra Atlas
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="luminous-nix">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🔐</span>
+                                    Security Hardening Profiles
+                                </h3>
+                                <span class="item-status future">Future</span>
+                            </div>
+                            <p class="item-description">
+                                Pre-configured security profiles for different compliance requirements (SOC 2, HIPAA, PCI-DSS) with automated auditing.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">❄️</span>
+                                    Luminous Nix
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="roadmap-item" data-product="portal">
+                            <div class="item-header">
+                                <h3 class="item-title">
+                                    <span class="item-icon" aria-hidden="true">🎮</span>
+                                    API Playground v2
+                                </h3>
+                                <span class="item-status future">Future</span>
+                            </div>
+                            <p class="item-description">
+                                Enhanced interactive playground with request collections, environment variables, collaboration features, and Postman-like functionality.
+                            </p>
+                            <div class="item-meta">
+                                <span class="item-product">
+                                    <span aria-hidden="true">🌐</span>
+                                    Developer Portal
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Back Link -->
+            <a href="/" class="back-link">
+                <span aria-hidden="true">←</span>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/structured-data.js" defer></script>
+
+    <!-- Roadmap Filter Script -->
+    <script>
+        (function() {
+            'use strict';
+
+            function initRoadmap() {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                const roadmapItems = document.querySelectorAll('.roadmap-item');
+                const quarterSections = document.querySelectorAll('.quarter-section');
+
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const filter = button.dataset.filter;
+
+                        // Update active button
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+
+                        // Filter items
+                        if (filter === 'all') {
+                            roadmapItems.forEach(item => item.classList.remove('hidden'));
+                            quarterSections.forEach(section => section.classList.remove('hidden'));
+                        } else {
+                            roadmapItems.forEach(item => {
+                                if (item.dataset.product === filter) {
+                                    item.classList.remove('hidden');
+                                } else {
+                                    item.classList.add('hidden');
+                                }
+                            });
+
+                            // Hide quarters with no visible items
+                            quarterSections.forEach(section => {
+                                const visibleItems = section.querySelectorAll('.roadmap-item:not(.hidden)');
+                                if (visibleItems.length === 0) {
+                                    section.classList.add('hidden');
+                                } else {
+                                    section.classList.remove('hidden');
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initRoadmap);
+            } else {
+                initRoadmap();
+            }
+        })();
+    </script>
+</body>
+</html>

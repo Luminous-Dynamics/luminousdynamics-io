@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions | Luminous Dynamics</title>
+    <meta name="description" content="Find answers to common questions about Luminous Dynamics APIs, authentication, rate limits, billing, and technical support">
+    <meta name="keywords" content="FAQ, frequently asked questions, help, support, API questions, developer help, Luminous Dynamics">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luminousdynamics.io/faq.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+    <link rel="stylesheet" href="styles/accessibility-enhanced.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
+    <link rel="stylesheet" href="styles/print-enhanced.css" media="print">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .faq-page {
+            min-height: 100vh;
+            background: var(--bg-primary, #0a0b0d);
+            padding: 2rem;
+        }
+
+        .faq-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .faq-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .faq-icon {
+            font-size: 3rem;
+        }
+
+        .faq-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search */
+        .faq-search {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .faq-search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            color: var(--text-primary, #e8eaed);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .faq-search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary, #00e5ff);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+        }
+
+        .faq-search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            color: var(--text-tertiary, #6c757d);
+            pointer-events: none;
+        }
+
+        /* Category Navigation */
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-secondary, rgba(255, 255, 255, 0.05));
+        }
+
+        .category-link {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 20px;
+            color: var(--text-secondary, #a8b2c1);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-link:hover,
+        .category-link:focus {
+            background: rgba(0, 229, 255, 0.1);
+            border-color: var(--accent-primary, #00e5ff);
+            color: var(--accent-primary, #00e5ff);
+            transform: translateY(-2px);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+
+        .faq-section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid rgba(0, 229, 255, 0.2);
+        }
+
+        .faq-section-icon {
+            font-size: 1.5rem;
+        }
+
+        /* FAQ Items (Accordion) */
+        .faq-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active {
+            border-color: var(--accent-primary, #00e5ff);
+            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.1);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-primary, #e8eaed);
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .faq-question:focus {
+            outline: 2px solid var(--accent-primary, #00e5ff);
+            outline-offset: -2px;
+        }
+
+        .faq-question-icon {
+            flex-shrink: 0;
+            font-size: 1.25rem;
+            transition: transform 0.3s ease;
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .faq-item.active .faq-question-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.7;
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer-content ul,
+        .faq-answer-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .faq-answer-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer-content code {
+            background: rgba(0, 229, 255, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .faq-answer-content a {
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .faq-answer-content a:hover {
+            border-bottom-color: var(--accent-primary, #00e5ff);
+        }
+
+        /* Contact CTA */
+        .faq-contact {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(0, 193, 222, 0.05));
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .faq-contact-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-contact-text {
+            color: var(--text-secondary, #a8b2c1);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .faq-contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .faq-contact-link {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-contact-link:hover {
+            background: rgba(0, 229, 255, 0.1);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-2px);
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(-4px);
+        }
+
+        /* Hidden items (for search) */
+        .faq-item.hidden {
+            display: none;
+        }
+
+        .faq-section.hidden {
+            display: none;
+        }
+
+        /* No results message */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-secondary, #a8b2c1);
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .faq-title {
+                font-size: 2rem;
+            }
+
+            .faq-page {
+                padding: 1.5rem 1rem;
+            }
+
+            .faq-categories {
+                gap: 0.5rem;
+            }
+
+            .category-link {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .faq-contact-links {
+                flex-direction: column;
+            }
+
+            .faq-contact-link {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="faq-page">
+        <div class="faq-container">
+            <!-- Header -->
+            <div class="faq-header">
+                <h1 class="faq-title">
+                    <span class="faq-icon" aria-hidden="true">❓</span>
+                    Frequently Asked Questions
+                </h1>
+                <p class="faq-subtitle">
+                    Find quick answers to common questions about Luminous Dynamics APIs, authentication, rate limits, and more
+                </p>
+
+                <!-- Search -->
+                <div class="faq-search">
+                    <span class="faq-search-icon" aria-hidden="true">🔍</span>
+                    <input
+                        type="text"
+                        id="faq-search"
+                        class="faq-search-input"
+                        placeholder="Search FAQs..."
+                        aria-label="Search frequently asked questions"
+                    >
+                </div>
+            </div>
+
+            <!-- Category Navigation -->
+            <nav class="faq-categories" aria-label="FAQ categories">
+                <a href="#getting-started" class="category-link">
+                    <span aria-hidden="true">🚀</span>
+                    Getting Started
+                </a>
+                <a href="#authentication" class="category-link">
+                    <span aria-hidden="true">🔐</span>
+                    Authentication
+                </a>
+                <a href="#api-usage" class="category-link">
+                    <span aria-hidden="true">💻</span>
+                    API Usage
+                </a>
+                <a href="#rate-limits" class="category-link">
+                    <span aria-hidden="true">⚡</span>
+                    Rate Limits
+                </a>
+                <a href="#billing" class="category-link">
+                    <span aria-hidden="true">💳</span>
+                    Billing
+                </a>
+                <a href="#technical" class="category-link">
+                    <span aria-hidden="true">🔧</span>
+                    Technical
+                </a>
+                <a href="#security" class="category-link">
+                    <span aria-hidden="true">🛡️</span>
+                    Security
+                </a>
+            </nav>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="no-results">
+                <div class="no-results-icon" aria-hidden="true">🔍</div>
+                <h2>No results found</h2>
+                <p>Try different keywords or browse by category</p>
+            </div>
+
+            <!-- Getting Started -->
+            <section id="getting-started" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">🚀</span>
+                    Getting Started
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I get started with Luminous Dynamics APIs?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Getting started is easy! Follow these steps:</p>
+                                <ol>
+                                    <li>Visit our <a href="/docs/getting-started.html">Getting Started guide</a></li>
+                                    <li>Sign up for a free account (coming soon)</li>
+                                    <li>Generate your API key from the dashboard</li>
+                                    <li>Install one of our <a href="/docs/sdks.html">official SDKs</a> or use the REST API directly</li>
+                                    <li>Make your first API call following our <a href="/examples.html">code examples</a></li>
+                                </ol>
+                                <p>Check out our <a href="/docs/api-reference.html">API Reference</a> for detailed endpoint documentation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Which programming languages are supported?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We provide official SDKs for 7 popular programming languages:</p>
+                                <ul>
+                                    <li><strong>JavaScript/TypeScript</strong> - Node.js and browser support</li>
+                                    <li><strong>Python</strong> - Python 3.7+</li>
+                                    <li><strong>Go</strong> - Go 1.18+</li>
+                                    <li><strong>Rust</strong> - Latest stable</li>
+                                    <li><strong>Ruby</strong> - Ruby 2.7+</li>
+                                    <li><strong>PHP</strong> - PHP 7.4+</li>
+                                    <li><strong>Java</strong> - Java 11+</li>
+                                </ul>
+                                <p>You can also use our REST API with any language that supports HTTP requests. See our <a href="/docs/sdks.html">SDK documentation</a> for installation guides.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Is there a free tier or trial available?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Yes! We offer a generous free tier that includes:</p>
+                                <ul>
+                                    <li>10,000 API calls per month</li>
+                                    <li>Access to all three major APIs (Terra Atlas, Luminous Nix, Mycelix)</li>
+                                    <li>Community support via Discord and GitHub</li>
+                                    <li>Full documentation and code examples</li>
+                                </ul>
+                                <p>No credit card required to get started. You can upgrade to a paid plan when you need higher limits or premium features.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">🔐</span>
+                    Authentication
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I authenticate my API requests?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We use API key authentication. Include your API key in the request headers:</p>
+                                <code>Authorization: Bearer YOUR_API_KEY</code>
+                                <p>Example using curl:</p>
+                                <code>curl -H "Authorization: Bearer lum_sk_..." https://api.luminousdynamics.io/v1/...</code>
+                                <p>Never expose your API keys in client-side code or public repositories. Use environment variables to store them securely.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Where do I find my API key?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>After signing up (coming soon), you can find your API keys in the Dashboard:</p>
+                                <ol>
+                                    <li>Log in to your account</li>
+                                    <li>Navigate to Settings → API Keys</li>
+                                    <li>Click "Create New Key"</li>
+                                    <li>Copy your key and store it securely</li>
+                                </ol>
+                                <p><strong>Important:</strong> API keys are only shown once. If you lose your key, you'll need to create a new one and rotate your credentials.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I rotate my API keys?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Yes! We recommend rotating your API keys regularly for security:</p>
+                                <ol>
+                                    <li>Create a new API key in the dashboard</li>
+                                    <li>Update your applications to use the new key</li>
+                                    <li>Test that the new key works correctly</li>
+                                    <li>Revoke the old key</li>
+                                </ol>
+                                <p>You can have multiple active keys to facilitate zero-downtime rotation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Usage -->
+            <section id="api-usage" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">💻</span>
+                    API Usage
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What data formats do the APIs support?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>All our APIs use JSON for both requests and responses:</p>
+                                <ul>
+                                    <li><strong>Request:</strong> Send JSON in the request body with <code>Content-Type: application/json</code></li>
+                                    <li><strong>Response:</strong> Receive JSON with proper content type headers</li>
+                                    <li><strong>Encoding:</strong> UTF-8 character encoding</li>
+                                </ul>
+                                <p>Some endpoints also support URL-encoded form data for simpler requests.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I handle errors?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Our APIs use standard HTTP status codes and provide detailed error messages:</p>
+                                <ul>
+                                    <li><strong>200-299:</strong> Success</li>
+                                    <li><strong>400-499:</strong> Client errors (invalid request, authentication failure, etc.)</li>
+                                    <li><strong>500-599:</strong> Server errors (retry with exponential backoff)</li>
+                                </ul>
+                                <p>Error responses include a JSON body with <code>error</code> and <code>message</code> fields. See our <a href="/docs/best-practices.html">Best Practices</a> guide for error handling patterns.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Are there webhooks for real-time updates?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Webhook support is coming in Q2 2026! This will include:</p>
+                                <ul>
+                                    <li>Real-time event notifications</li>
+                                    <li>Configurable webhook endpoints</li>
+                                    <li>Signature verification for security</li>
+                                    <li>Retry logic for failed deliveries</li>
+                                </ul>
+                                <p>In the meantime, you can poll our APIs or use WebSocket connections for certain endpoints. Check our <a href="/roadmap.html">Roadmap</a> for updates.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rate Limits -->
+            <section id="rate-limits" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">⚡</span>
+                    Rate Limits
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What are the rate limits?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Rate limits vary by plan:</p>
+                                <ul>
+                                    <li><strong>Free Tier:</strong> 100 requests/minute, 10,000 requests/month</li>
+                                    <li><strong>Pro:</strong> 1,000 requests/minute, 1M requests/month</li>
+                                    <li><strong>Enterprise:</strong> Custom limits based on your needs</li>
+                                </ul>
+                                <p>Rate limit headers are included in all responses to help you track usage. See our <a href="/docs/best-practices.html">Best Practices</a> for handling rate limits gracefully.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I check my current rate limit status?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Every API response includes rate limit headers:</p>
+                                <ul>
+                                    <li><code>X-RateLimit-Limit</code> - Total requests allowed per window</li>
+                                    <li><code>X-RateLimit-Remaining</code> - Requests remaining in current window</li>
+                                    <li><code>X-RateLimit-Reset</code> - Unix timestamp when the limit resets</li>
+                                </ul>
+                                <p>When you exceed the limit, you'll receive a <code>429 Too Many Requests</code> response with a <code>Retry-After</code> header.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What happens if I exceed the rate limit?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>When you exceed your rate limit:</p>
+                                <ol>
+                                    <li>You'll receive a <code>429 Too Many Requests</code> HTTP status</li>
+                                    <li>The response includes a <code>Retry-After</code> header indicating when to retry</li>
+                                    <li>Your requests will be rejected until the rate limit window resets</li>
+                                </ol>
+                                <p>We recommend implementing exponential backoff and respecting the <code>Retry-After</code> header. See our <a href="/examples.html">error handling examples</a> for implementation patterns.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Billing -->
+            <section id="billing" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">💳</span>
+                    Billing & Pricing
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How does pricing work?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We offer flexible, usage-based pricing:</p>
+                                <ul>
+                                    <li><strong>Free Tier:</strong> $0/month - 10,000 API calls</li>
+                                    <li><strong>Pro:</strong> $49/month - 1M API calls, premium support</li>
+                                    <li><strong>Enterprise:</strong> Custom pricing - Unlimited calls, SLA, dedicated support</li>
+                                </ul>
+                                <p>Overage charges apply if you exceed your plan limits. Check your dashboard for real-time usage tracking.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I change my plan?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Yes! You can upgrade or downgrade your plan anytime:</p>
+                                <ul>
+                                    <li><strong>Upgrades:</strong> Take effect immediately with prorated billing</li>
+                                    <li><strong>Downgrades:</strong> Take effect at the end of your current billing cycle</li>
+                                    <li><strong>Cancellations:</strong> Cancel anytime with no penalties</li>
+                                </ul>
+                                <p>Contact our sales team for Enterprise plans.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Do you offer discounts for nonprofits or education?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Yes! We support nonprofits and educational institutions:</p>
+                                <ul>
+                                    <li><strong>Nonprofits:</strong> 50% off Pro plans with valid 501(c)(3) status</li>
+                                    <li><strong>Education:</strong> Free Pro access for students and educators</li>
+                                    <li><strong>Open Source:</strong> Sponsored plans for qualifying open source projects</li>
+                                </ul>
+                                <p>Email <a href="mailto:dev@luminousdynamics.io">dev@luminousdynamics.io</a> with your details to apply.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical -->
+            <section id="technical" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">🔧</span>
+                    Technical
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>What is the API uptime SLA?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Our uptime commitments by plan:</p>
+                                <ul>
+                                    <li><strong>Free:</strong> Best effort, no SLA</li>
+                                    <li><strong>Pro:</strong> 99.9% uptime SLA</li>
+                                    <li><strong>Enterprise:</strong> 99.99% uptime SLA with redundancy</li>
+                                </ul>
+                                <p>Check our <a href="/status.html">System Status</a> page for real-time uptime and incident history.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Where are the API servers located?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We have global presence with servers in:</p>
+                                <ul>
+                                    <li>🇺🇸 United States (primary)</li>
+                                    <li>🇪🇺 Europe (Frankfurt, London)</li>
+                                    <li>🇦🇺 Asia-Pacific (Singapore, Tokyo)</li>
+                                </ul>
+                                <p>All requests are automatically routed to the nearest data center for optimal latency. Enterprise customers can request specific regions for data residency compliance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I test my integration?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We provide several testing tools:</p>
+                                <ul>
+                                    <li><strong>Test Mode:</strong> Use test API keys that don't count toward your quota</li>
+                                    <li><strong>API Playground:</strong> Interactive testing in your browser (on homepage)</li>
+                                    <li><strong>Postman Collection:</strong> Import our collection for local testing</li>
+                                    <li><strong>Mock Servers:</strong> Test against mock responses without hitting production</li>
+                                </ul>
+                                <p>Test keys are prefixed with <code>lum_test_</code> instead of <code>lum_sk_</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security -->
+            <section id="security" class="faq-section">
+                <h2 class="faq-section-title">
+                    <span class="faq-section-icon" aria-hidden="true">🛡️</span>
+                    Security & Privacy
+                </h2>
+                <div class="faq-items">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How is my data secured?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We implement industry-standard security practices:</p>
+                                <ul>
+                                    <li><strong>Encryption:</strong> TLS 1.3 for all data in transit</li>
+                                    <li><strong>Storage:</strong> AES-256 encryption for data at rest</li>
+                                    <li><strong>Access:</strong> Role-based access control (RBAC)</li>
+                                    <li><strong>Auditing:</strong> Comprehensive audit logs</li>
+                                    <li><strong>Compliance:</strong> SOC 2, GDPR, CCPA compliant</li>
+                                </ul>
+                                <p>See our <a href="/security.html">Security Policy</a> for details.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I report a security vulnerability?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>We take security seriously. To report a vulnerability:</p>
+                                <ol>
+                                    <li>Email <a href="mailto:security@luminousdynamics.io">security@luminousdynamics.io</a></li>
+                                    <li>Include detailed steps to reproduce</li>
+                                    <li>Use our PGP key for sensitive reports (available on security page)</li>
+                                    <li>Allow 90 days for coordinated disclosure</li>
+                                </ol>
+                                <p>We offer bounties for valid security reports. See our <a href="/security.html">Security Policy</a> for the responsible disclosure process.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Is my API key secure?</span>
+                            <span class="faq-question-icon" aria-hidden="true">▼</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>API key security best practices:</p>
+                                <ul>
+                                    <li><strong>Never</strong> commit keys to version control</li>
+                                    <li><strong>Use</strong> environment variables to store keys</li>
+                                    <li><strong>Rotate</strong> keys regularly (every 90 days recommended)</li>
+                                    <li><strong>Restrict</strong> key permissions to minimum required</li>
+                                    <li><strong>Monitor</strong> key usage in your dashboard</li>
+                                </ul>
+                                <p>If you suspect a key has been compromised, revoke it immediately and create a new one.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact CTA -->
+            <div class="faq-contact">
+                <h2 class="faq-contact-title">Still have questions?</h2>
+                <p class="faq-contact-text">
+                    Can't find the answer you're looking for? We're here to help!
+                </p>
+                <div class="faq-contact-links">
+                    <a href="mailto:dev@luminousdynamics.io" class="faq-contact-link">
+                        <span aria-hidden="true">📧</span>
+                        Email Support
+                    </a>
+                    <a href="https://discord.gg/luminous" class="faq-contact-link" target="_blank" rel="noopener noreferrer">
+                        <span aria-hidden="true">💬</span>
+                        Join Discord
+                    </a>
+                    <a href="https://github.com/luminous-dynamics" class="faq-contact-link" target="_blank" rel="noopener noreferrer">
+                        <span aria-hidden="true">🐙</span>
+                        GitHub Discussions
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back Link -->
+            <a href="/" class="back-link">
+                <span aria-hidden="true">←</span>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/structured-data.js" defer></script>
+
+    <!-- FAQ Accordion Script -->
+    <script>
+        (function() {
+            'use strict';
+
+            // Initialize FAQ accordion
+            function initFAQ() {
+                const faqItems = document.querySelectorAll('.faq-item');
+                const searchInput = document.getElementById('faq-search');
+
+                // Accordion functionality
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question');
+
+                    question.addEventListener('click', () => {
+                        const isActive = item.classList.contains('active');
+
+                        // Close all items
+                        faqItems.forEach(i => {
+                            i.classList.remove('active');
+                            i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                        });
+
+                        // Open clicked item if it wasn't active
+                        if (!isActive) {
+                            item.classList.add('active');
+                            question.setAttribute('aria-expanded', 'true');
+                        }
+                    });
+
+                    // Keyboard support
+                    question.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            question.click();
+                        }
+                    });
+                });
+
+                // Search functionality
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => {
+                        const searchTerm = e.target.value.toLowerCase().trim();
+                        let visibleCount = 0;
+
+                        if (searchTerm === '') {
+                            // Show all items
+                            faqItems.forEach(item => item.classList.remove('hidden'));
+                            document.querySelectorAll('.faq-section').forEach(section => section.classList.remove('hidden'));
+                            document.getElementById('no-results').classList.remove('show');
+                            return;
+                        }
+
+                        // Filter items
+                        faqItems.forEach(item => {
+                            const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                            const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+
+                            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                                item.classList.remove('hidden');
+                                visibleCount++;
+                            } else {
+                                item.classList.add('hidden');
+                            }
+                        });
+
+                        // Hide empty sections
+                        document.querySelectorAll('.faq-section').forEach(section => {
+                            const visibleItems = section.querySelectorAll('.faq-item:not(.hidden)');
+                            if (visibleItems.length === 0) {
+                                section.classList.add('hidden');
+                            } else {
+                                section.classList.remove('hidden');
+                            }
+                        });
+
+                        // Show no results message
+                        if (visibleCount === 0) {
+                            document.getElementById('no-results').classList.add('show');
+                        } else {
+                            document.getElementById('no-results').classList.remove('show');
+                        }
+                    });
+                }
+
+                // Smooth scroll to categories
+                document.querySelectorAll('.category-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').substring(1);
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initFAQ);
+            } else {
+                initFAQ();
+            }
+        })();
+    </script>
+</body>
+</html>

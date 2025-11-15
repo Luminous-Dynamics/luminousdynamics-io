@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community | Luminous Dynamics</title>
+    <meta name="description" content="Join the Luminous Dynamics developer community - connect with developers, share projects, get help, and contribute to building consciousness-first technology">
+    <meta name="keywords" content="community, developer community, open source, Discord, GitHub, contributors, Luminous Dynamics">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luminousdynamics.io/community.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+    <link rel="stylesheet" href="styles/accessibility-enhanced.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
+    <link rel="stylesheet" href="styles/print-enhanced.css" media="print">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .community-page {
+            min-height: 100vh;
+            background: var(--bg-primary, #0a0b0d);
+            padding: 2rem;
+        }
+
+        .community-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .community-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .community-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .community-icon {
+            font-size: 3rem;
+        }
+
+        .community-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Stats */
+        .community-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary, #a8b2c1);
+            font-size: 0.9rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .section-description {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+
+        /* Community Channels */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .channel-card {
+            padding: 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .channel-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.15);
+        }
+
+        .channel-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .channel-icon {
+            font-size: 2.5rem;
+        }
+
+        .channel-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+        }
+
+        .channel-description {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .channel-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .channel-cta {
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Featured Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.15);
+        }
+
+        .project-header {
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-author {
+            font-size: 0.85rem;
+            color: var(--text-tertiary, #6c757d);
+        }
+
+        .project-description {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .project-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Hall of Fame */
+        .hall-of-fame {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contributor-card {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(0, 193, 222, 0.05));
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .contributor-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.2);
+        }
+
+        .contributor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-secondary, #0f1116);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--accent-primary, #00e5ff);
+        }
+
+        .contributor-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.5rem;
+        }
+
+        .contributor-stats {
+            font-size: 0.85rem;
+            color: var(--text-secondary, #a8b2c1);
+        }
+
+        /* Call to Action */
+        .cta-box {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.08), rgba(0, 193, 222, 0.08));
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 12px;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1rem;
+        }
+
+        .cta-text {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .cta-button {
+            padding: 0.875rem 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button:hover {
+            background: rgba(0, 229, 255, 0.1);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-2px);
+        }
+
+        .cta-button.primary {
+            background: var(--accent-primary, #00e5ff);
+            color: var(--bg-primary, #0a0b0d);
+            border-color: var(--accent-primary, #00e5ff);
+        }
+
+        .cta-button.primary:hover {
+            background: var(--accent-secondary, #00c1de);
+            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.3);
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(-4px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .community-title {
+                font-size: 2rem;
+            }
+
+            .community-page {
+                padding: 1.5rem 1rem;
+            }
+
+            .channels-grid,
+            .projects-grid,
+            .hall-of-fame {
+                grid-template-columns: 1fr;
+            }
+
+            .community-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="community-page">
+        <div class="community-container">
+            <!-- Header -->
+            <div class="community-header">
+                <h1 class="community-title">
+                    <span class="community-icon" aria-hidden="true">🌟</span>
+                    Community
+                </h1>
+                <p class="community-subtitle">
+                    Join developers from around the world building consciousness-first applications. Connect, learn, and grow together.
+                </p>
+            </div>
+
+            <!-- Community Stats -->
+            <div class="community-stats">
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">⭐</span>
+                    <div class="stat-number">2.4K</div>
+                    <div class="stat-label">GitHub Stars</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">👥</span>
+                    <div class="stat-number">847</div>
+                    <div class="stat-label">Discord Members</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">🎯</span>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Contributors</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon" aria-hidden="true">🚀</span>
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Community Projects</div>
+                </div>
+            </div>
+
+            <!-- Community Channels -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">💬</span>
+                    Join the Conversation
+                </h2>
+                <p class="section-description">
+                    Connect with fellow developers, ask questions, share knowledge, and get help from our community and team.
+                </p>
+
+                <div class="channels-grid">
+                    <a href="https://discord.gg/luminous" class="channel-card" target="_blank" rel="noopener noreferrer">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">💬</span>
+                            <h3 class="channel-name">Discord</h3>
+                        </div>
+                        <p class="channel-description">
+                            Real-time chat with the community. Get help, share ideas, and connect with other developers building with our APIs.
+                        </p>
+                        <div class="channel-meta">
+                            <span class="channel-cta">
+                                Join Discord →
+                            </span>
+                            <span>847 members</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/luminous-dynamics" class="channel-card" target="_blank" rel="noopener noreferrer">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">🐙</span>
+                            <h3 class="channel-name">GitHub</h3>
+                        </div>
+                        <p class="channel-description">
+                            Contribute to our open source projects, report issues, request features, and participate in code reviews.
+                        </p>
+                        <div class="channel-meta">
+                            <span class="channel-cta">
+                                View on GitHub →
+                            </span>
+                            <span>2.4K stars</span>
+                        </div>
+                    </a>
+
+                    <a href="https://stackoverflow.com/questions/tagged/luminous-dynamics" class="channel-card" target="_blank" rel="noopener noreferrer">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">💡</span>
+                            <h3 class="channel-name">Stack Overflow</h3>
+                        </div>
+                        <p class="channel-description">
+                            Ask and answer technical questions. Use the #luminous-dynamics tag for community support.
+                        </p>
+                        <div class="channel-meta">
+                            <span class="channel-cta">
+                                Ask a Question →
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="https://twitter.com/luminousdynamics" class="channel-card" target="_blank" rel="noopener noreferrer">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">🐦</span>
+                            <h3 class="channel-name">Twitter/X</h3>
+                        </div>
+                        <p class="channel-description">
+                            Follow us for product updates, community highlights, developer tips, and announcements.
+                        </p>
+                        <div class="channel-meta">
+                            <span class="channel-cta">
+                                Follow @luminousdynamics →
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Featured Projects -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🌟</span>
+                    Community Showcase
+                </h2>
+                <p class="section-description">
+                    Discover amazing projects built by our community using Luminous Dynamics APIs.
+                </p>
+
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">Solar Site Finder</h3>
+                            <p class="project-author">by @greentech_dev</p>
+                        </div>
+                        <p class="project-description">
+                            Interactive web app that uses Terra Atlas API to help homeowners find the best locations for solar panel installations based on sunlight exposure and energy potential.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Terra Atlas</span>
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Maps</span>
+                        </div>
+                        <a href="https://github.com/example/solar-site-finder" class="project-link" target="_blank" rel="noopener noreferrer">
+                            <span aria-hidden="true">🔗</span>
+                            View Project
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">NixOS Fleet Manager</h3>
+                            <p class="project-author">by @devops_wizard</p>
+                        </div>
+                        <p class="project-description">
+                            Dashboard for managing multiple NixOS servers using Luminous Nix API. Natural language configuration updates across your entire infrastructure.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Luminous Nix</span>
+                            <span class="project-tag">Go</span>
+                            <span class="project-tag">DevOps</span>
+                        </div>
+                        <a href="https://github.com/example/nixos-fleet" class="project-link" target="_blank" rel="noopener noreferrer">
+                            <span aria-hidden="true">🔗</span>
+                            View Project
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">Energy Dashboard</h3>
+                            <p class="project-author">by @data_viz_pro</p>
+                        </div>
+                        <p class="project-description">
+                            Real-time visualization dashboard showing global renewable energy production, trends, and carbon offset impact using Terra Atlas streaming data.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">Terra Atlas</span>
+                            <span class="project-tag">D3.js</span>
+                            <span class="project-tag">WebSocket</span>
+                        </div>
+                        <a href="https://github.com/example/energy-dashboard" class="project-link" target="_blank" rel="noopener noreferrer">
+                            <span aria-hidden="true">🔗</span>
+                            View Project
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hall of Fame -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🏆</span>
+                    Top Contributors
+                </h2>
+                <p class="section-description">
+                    Recognizing our amazing contributors who make Luminous Dynamics better every day.
+                </p>
+
+                <div class="hall-of-fame">
+                    <a href="https://github.com/contributor1" class="contributor-card" target="_blank" rel="noopener noreferrer">
+                        <div class="contributor-avatar">🧑‍💻</div>
+                        <h3 class="contributor-name">Alex Chen</h3>
+                        <p class="contributor-stats">127 contributions</p>
+                    </a>
+
+                    <a href="https://github.com/contributor2" class="contributor-card" target="_blank" rel="noopener noreferrer">
+                        <div class="contributor-avatar">👩‍💻</div>
+                        <h3 class="contributor-name">Sarah Johnson</h3>
+                        <p class="contributor-stats">89 contributions</p>
+                    </a>
+
+                    <a href="https://github.com/contributor3" class="contributor-card" target="_blank" rel="noopener noreferrer">
+                        <div class="contributor-avatar">🧑‍💻</div>
+                        <h3 class="contributor-name">Marcus Wu</h3>
+                        <p class="contributor-stats">73 contributions</p>
+                    </a>
+
+                    <a href="https://github.com/contributor4" class="contributor-card" target="_blank" rel="noopener noreferrer">
+                        <div class="contributor-avatar">👩‍💻</div>
+                        <h3 class="contributor-name">Priya Patel</h3>
+                        <p class="contributor-stats">61 contributions</p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Getting Help -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🤝</span>
+                    Getting Help
+                </h2>
+                <p class="section-description">
+                    Need assistance? We're here to help through multiple channels:
+                </p>
+
+                <div class="channels-grid">
+                    <div class="channel-card" style="cursor: default;">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">📚</span>
+                            <h3 class="channel-name">Documentation</h3>
+                        </div>
+                        <p class="channel-description">
+                            Comprehensive guides, API references, and code examples to help you get started and build successfully.
+                        </p>
+                        <div class="channel-meta">
+                            <a href="/docs/" class="channel-cta">
+                                Browse Docs →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="channel-card" style="cursor: default;">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">❓</span>
+                            <h3 class="channel-name">FAQ</h3>
+                        </div>
+                        <p class="channel-description">
+                            Quick answers to common questions about authentication, rate limits, billing, and technical issues.
+                        </p>
+                        <div class="channel-meta">
+                            <a href="/faq.html" class="channel-cta">
+                                View FAQ →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="channel-card" style="cursor: default;">
+                        <div class="channel-header">
+                            <span class="channel-icon" aria-hidden="true">📧</span>
+                            <h3 class="channel-name">Email Support</h3>
+                        </div>
+                        <p class="channel-description">
+                            For account issues, billing questions, or detailed technical support, reach out to our team directly.
+                        </p>
+                        <div class="channel-meta">
+                            <a href="mailto:dev@luminousdynamics.io" class="channel-cta">
+                                dev@luminousdynamics.io →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <div class="cta-box">
+                <h2 class="cta-title">Ready to Get Involved?</h2>
+                <p class="cta-text">
+                    Whether you want to contribute code, write documentation, help others, or just learn - there's a place for you in our community.
+                </p>
+                <div class="cta-buttons">
+                    <a href="/contributing.html" class="cta-button primary">
+                        <span aria-hidden="true">🌟</span>
+                        Start Contributing
+                    </a>
+                    <a href="/code-of-conduct.html" class="cta-button">
+                        <span aria-hidden="true">📜</span>
+                        Read Code of Conduct
+                    </a>
+                    <a href="https://discord.gg/luminous" class="cta-button" target="_blank" rel="noopener noreferrer">
+                        <span aria-hidden="true">💬</span>
+                        Join Discord
+                    </a>
+                </div>
+            </div>
+
+            <!-- Back Link -->
+            <a href="/" class="back-link">
+                <span aria-hidden="true">←</span>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/structured-data.js" defer></script>
+</body>
+</html>
