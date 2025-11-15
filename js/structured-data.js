@@ -203,6 +203,8 @@
             return 'home';
         } else if (path.includes('/docs/')) {
             return 'documentation';
+        } else if (path.includes('/faq')) {
+            return 'faq';
         } else if (path.includes('/changelog')) {
             return 'changelog';
         } else if (path.includes('/contributing')) {
@@ -332,6 +334,43 @@
     }
 
     /**
+     * Add schemas for FAQ page
+     */
+    function addFAQPageSchemas() {
+        // Extract FAQ questions and answers from the page
+        const faqItems = document.querySelectorAll('.faq-item');
+        const faqs = [];
+
+        faqItems.forEach(item => {
+            const questionElement = item.querySelector('.faq-question span');
+            const answerElement = item.querySelector('.faq-answer-content');
+
+            if (questionElement && answerElement) {
+                faqs.push({
+                    question: questionElement.textContent.trim(),
+                    answer: answerElement.textContent.trim()
+                });
+            }
+        });
+
+        const schemas = [
+            generateOrganizationSchema(),
+            generateWebPageSchema({
+                title: document.title,
+                description: getMetaDescription(),
+                url: window.location.href
+            })
+        ];
+
+        if (faqs.length > 0) {
+            schemas.push(generateFAQPageSchema(faqs));
+        }
+
+        injectSchemas(schemas);
+        console.log(`[Structured Data] Added FAQ page schemas (${faqs.length} questions)`);
+    }
+
+    /**
      * Add schemas for generic pages
      */
     function addGenericPageSchemas() {
@@ -371,6 +410,9 @@
         switch (pageType) {
             case 'home':
                 addHomePageSchemas();
+                break;
+            case 'faq':
+                addFAQPageSchemas();
                 break;
             case 'documentation':
             case 'examples':
