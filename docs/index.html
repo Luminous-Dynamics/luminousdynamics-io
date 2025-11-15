@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Luminous Dynamics Developer Portal</title>
+    <meta name="description" content="Complete documentation for Luminous Dynamics APIs, SDKs, and tools - guides, references, and best practices">
+    <meta name="keywords" content="documentation, API docs, developer guide, SDK reference, Luminous Dynamics, Terra Atlas, Luminous Nix, Mycelix">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luminousdynamics.io/docs/">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/themes.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/toast.css">
+    <link rel="stylesheet" href="../styles/print.css" media="print">
+    <link rel="stylesheet" href="../styles/print-enhanced.css" media="print">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .docs-index-page {
+            min-height: 100vh;
+            background: var(--bg-primary, #0a0b0d);
+            padding: 2rem;
+        }
+
+        .docs-index-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .docs-index-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .docs-index-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .docs-index-icon {
+            font-size: 3.5rem;
+        }
+
+        .docs-index-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search (Prepared for future) */
+        .docs-search {
+            max-width: 600px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .docs-search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            color: var(--text-primary, #e8eaed);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .docs-search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary, #00e5ff);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+        }
+
+        .docs-search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            color: var(--text-tertiary, #6c757d);
+            pointer-events: none;
+        }
+
+        .search-coming-soon {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-tertiary, #6c757d);
+            font-style: italic;
+        }
+
+        /* Quick Stats */
+        .docs-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary, #a8b2c1);
+            font-size: 0.9rem;
+        }
+
+        /* Category Section */
+        .docs-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-header {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .category-icon {
+            font-size: 1.75rem;
+        }
+
+        .category-description {
+            color: var(--text-secondary, #a8b2c1);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Documentation Cards */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .doc-card {
+            position: relative;
+            padding: 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .doc-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.15);
+        }
+
+        .doc-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .doc-card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.75rem;
+        }
+
+        .doc-card-description {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .doc-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-tertiary, #6c757d);
+        }
+
+        .doc-card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .doc-card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #00ff88;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .doc-card-badge.coming-soon {
+            background: rgba(255, 170, 0, 0.1);
+            border-color: #ffaa00;
+            color: #ffaa00;
+        }
+
+        /* Popular Docs */
+        .popular-docs {
+            margin-bottom: 4rem;
+        }
+
+        .popular-docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .popular-card {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(0, 193, 222, 0.05));
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .popular-card:hover {
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 229, 255, 0.2);
+        }
+
+        .popular-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .popular-card-description {
+            color: var(--text-secondary, #a8b2c1);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(-4px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .docs-index-title {
+                font-size: 2.5rem;
+            }
+
+            .docs-index-page {
+                padding: 1.5rem 1rem;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .docs-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="docs-index-page">
+        <div class="docs-index-container">
+            <!-- Header -->
+            <div class="docs-index-header">
+                <h1 class="docs-index-title">
+                    <span class="docs-index-icon" aria-hidden="true">📚</span>
+                    Documentation
+                </h1>
+                <p class="docs-index-subtitle">
+                    Everything you need to build with Luminous Dynamics - from quick starts to advanced patterns
+                </p>
+
+                <!-- Search (Coming Soon) -->
+                <div class="docs-search">
+                    <span class="docs-search-icon" aria-hidden="true">🔍</span>
+                    <input
+                        type="text"
+                        class="docs-search-input"
+                        placeholder="Search documentation..."
+                        disabled
+                        aria-label="Search documentation"
+                    >
+                    <p class="search-coming-soon">🚧 Search coming soon</p>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="docs-stats">
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Core Guides</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Language SDKs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Major APIs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Possibilities</div>
+                </div>
+            </div>
+
+            <!-- Popular Documentation -->
+            <section class="popular-docs">
+                <h2 class="category-title">
+                    <span class="category-icon" aria-hidden="true">⭐</span>
+                    Popular Pages
+                </h2>
+                <div class="popular-docs-grid">
+                    <a href="getting-started.html" class="popular-card">
+                        <div class="popular-card-title">
+                            <span aria-hidden="true">🚀</span>
+                            Getting Started
+                        </div>
+                        <p class="popular-card-description">
+                            Your first steps with Luminous Dynamics APIs
+                        </p>
+                    </a>
+                    <a href="api-reference.html" class="popular-card">
+                        <div class="popular-card-title">
+                            <span aria-hidden="true">📖</span>
+                            API Reference
+                        </div>
+                        <p class="popular-card-description">
+                            Complete endpoint documentation
+                        </p>
+                    </a>
+                    <a href="sdks.html" class="popular-card">
+                        <div class="popular-card-title">
+                            <span aria-hidden="true">🛠️</span>
+                            SDKs & Libraries
+                        </div>
+                        <p class="popular-card-description">
+                            Official client libraries in 7 languages
+                        </p>
+                    </a>
+                    <a href="../examples.html" class="popular-card">
+                        <div class="popular-card-title">
+                            <span aria-hidden="true">💡</span>
+                            Code Examples
+                        </div>
+                        <p class="popular-card-description">
+                            Real-world integration examples
+                        </p>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Getting Started -->
+            <section class="docs-category">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <span class="category-icon" aria-hidden="true">🚀</span>
+                        Getting Started
+                    </h2>
+                    <p class="category-description">
+                        New to Luminous Dynamics? Start here to learn the basics and make your first API call.
+                    </p>
+                </div>
+                <div class="docs-grid">
+                    <a href="getting-started.html" class="doc-card">
+                        <div class="doc-card-badge">Essential</div>
+                        <span class="doc-card-icon" aria-hidden="true">🎯</span>
+                        <h3 class="doc-card-title">Quick Start Guide</h3>
+                        <p class="doc-card-description">
+                            Get up and running in minutes. Learn authentication, make your first request, and explore the APIs.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                5 min read
+                            </span>
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">📊</span>
+                                Beginner
+                            </span>
+                        </div>
+                    </a>
+
+                    <div class="doc-card" style="opacity: 0.6; cursor: not-allowed;">
+                        <div class="doc-card-badge coming-soon">Coming Soon</div>
+                        <span class="doc-card-icon" aria-hidden="true">🎓</span>
+                        <h3 class="doc-card-title">Tutorials</h3>
+                        <p class="doc-card-description">
+                            Step-by-step tutorials for common use cases and integration patterns.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">🔜</span>
+                                Coming Q1 2026
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- API Reference -->
+            <section class="docs-category">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <span class="category-icon" aria-hidden="true">📖</span>
+                        API Reference
+                    </h2>
+                    <p class="category-description">
+                        Comprehensive documentation for all endpoints, parameters, and responses.
+                    </p>
+                </div>
+                <div class="docs-grid">
+                    <a href="api-reference.html" class="doc-card">
+                        <div class="doc-card-badge">Complete</div>
+                        <span class="doc-card-icon" aria-hidden="true">🔌</span>
+                        <h3 class="doc-card-title">Complete API Reference</h3>
+                        <p class="doc-card-description">
+                            Detailed documentation for all three major APIs: Terra Atlas, Luminous Nix, and Mycelix Protocol.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                15 min read
+                            </span>
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">📊</span>
+                                All Levels
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="../examples.html" class="doc-card">
+                        <span class="doc-card-icon" aria-hidden="true">💻</span>
+                        <h3 class="doc-card-title">API Examples</h3>
+                        <p class="doc-card-description">
+                            Real-world code examples in multiple languages showing common API patterns and best practices.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                10 min read
+                            </span>
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">📊</span>
+                                Intermediate
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SDKs & Integration -->
+            <section class="docs-category">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <span class="category-icon" aria-hidden="true">🛠️</span>
+                        SDKs & Integration
+                    </h2>
+                    <p class="category-description">
+                        Official client libraries and integration guides for your favorite programming languages.
+                    </p>
+                </div>
+                <div class="docs-grid">
+                    <a href="sdks.html" class="doc-card">
+                        <div class="doc-card-badge">7 Languages</div>
+                        <span class="doc-card-icon" aria-hidden="true">📦</span>
+                        <h3 class="doc-card-title">SDKs & Libraries</h3>
+                        <p class="doc-card-description">
+                            Official SDKs for JavaScript, Python, Go, Rust, Ruby, PHP, and Java with installation guides and examples.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                12 min read
+                            </span>
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">📊</span>
+                                All Levels
+                            </span>
+                        </div>
+                    </a>
+
+                    <div class="doc-card" style="opacity: 0.6; cursor: not-allowed;">
+                        <div class="doc-card-badge coming-soon">Coming Soon</div>
+                        <span class="doc-card-icon" aria-hidden="true">🔗</span>
+                        <h3 class="doc-card-title">Webhooks</h3>
+                        <p class="doc-card-description">
+                            Real-time event notifications for your applications via webhooks and WebSocket connections.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">🔜</span>
+                                Coming Q2 2026
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Best Practices -->
+            <section class="docs-category">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <span class="category-icon" aria-hidden="true">⚡</span>
+                        Best Practices & Advanced
+                    </h2>
+                    <p class="category-description">
+                        Production-ready patterns, performance optimization, and advanced integration techniques.
+                    </p>
+                </div>
+                <div class="docs-grid">
+                    <a href="best-practices.html" class="doc-card">
+                        <div class="doc-card-badge">Recommended</div>
+                        <span class="doc-card-icon" aria-hidden="true">🎯</span>
+                        <h3 class="doc-card-title">Best Practices</h3>
+                        <p class="doc-card-description">
+                            Production patterns for error handling, rate limiting, caching, security, and performance optimization.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                20 min read
+                            </span>
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">📊</span>
+                                Advanced
+                            </span>
+                        </div>
+                    </a>
+
+                    <div class="doc-card" style="opacity: 0.6; cursor: not-allowed;">
+                        <div class="doc-card-badge coming-soon">Coming Soon</div>
+                        <span class="doc-card-icon" aria-hidden="true">🏗️</span>
+                        <h3 class="doc-card-title">Architecture Patterns</h3>
+                        <p class="doc-card-description">
+                            Microservices, event-driven architectures, and scalable system design with Luminous APIs.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">🔜</span>
+                                Coming Q3 2026
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community & Support -->
+            <section class="docs-category">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <span class="category-icon" aria-hidden="true">🤝</span>
+                        Community & Support
+                    </h2>
+                    <p class="category-description">
+                        Contributing guidelines, community resources, and getting help.
+                    </p>
+                </div>
+                <div class="docs-grid">
+                    <a href="../contributing.html" class="doc-card">
+                        <span class="doc-card-icon" aria-hidden="true">🌟</span>
+                        <h3 class="doc-card-title">Contributing Guide</h3>
+                        <p class="doc-card-description">
+                            Learn how to contribute code, documentation, and ideas to the Luminous Dynamics ecosystem.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                10 min read
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="../code-of-conduct.html" class="doc-card">
+                        <span class="doc-card-icon" aria-hidden="true">📜</span>
+                        <h3 class="doc-card-title">Code of Conduct</h3>
+                        <p class="doc-card-description">
+                            Community guidelines and our commitment to creating a welcoming, inclusive environment for all.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                8 min read
+                            </span>
+                        </div>
+                    </a>
+
+                    <div class="doc-card" style="opacity: 0.6; cursor: not-allowed;">
+                        <div class="doc-card-badge coming-soon">Coming Soon</div>
+                        <span class="doc-card-icon" aria-hidden="true">❓</span>
+                        <h3 class="doc-card-title">FAQ</h3>
+                        <p class="doc-card-description">
+                            Frequently asked questions about APIs, pricing, limits, and common technical issues.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">🔜</span>
+                                Coming Soon
+                            </span>
+                        </div>
+                    </div>
+
+                    <a href="../changelog.html" class="doc-card">
+                        <span class="doc-card-icon" aria-hidden="true">📝</span>
+                        <h3 class="doc-card-title">Changelog</h3>
+                        <p class="doc-card-description">
+                            Track new features, improvements, and updates to the developer portal and APIs.
+                        </p>
+                        <div class="doc-card-meta">
+                            <span class="doc-card-tag">
+                                <span aria-hidden="true">⏱️</span>
+                                5 min read
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Back Link -->
+            <a href="../" class="back-link">
+                <span aria-hidden="true">←</span>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/toast.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/header-theme-toggle.js" defer></script>
+    <script src="../js/structured-data.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,640 @@
+/**
+ * Enhanced Print Stylesheet
+ * - Optimized for black & white printing
+ * - Hides interactive elements
+ * - Shows URLs for links
+ * - Page break controls
+ * - Professional documentation printing
+ */
+
+/* =========================
+   Print Reset & Base Styles
+   ========================= */
+
+@media print {
+    /* Reset colors for B&W printing */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Page setup */
+    @page {
+        margin: 2cm;
+        size: A4;
+    }
+
+    @page :first {
+        margin-top: 1cm;
+    }
+
+    /* Base typography */
+    body {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        background: #fff;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        color: #000;
+    }
+
+    h1 {
+        font-size: 24pt;
+        margin-top: 0;
+        border-bottom: 2pt solid #000;
+        padding-bottom: 0.5em;
+    }
+
+    h2 {
+        font-size: 18pt;
+        margin-top: 1em;
+        border-bottom: 1pt solid #000;
+        padding-bottom: 0.3em;
+    }
+
+    h3 {
+        font-size: 14pt;
+        margin-top: 0.8em;
+    }
+
+    h4 {
+        font-size: 12pt;
+        margin-top: 0.6em;
+    }
+
+    /* Paragraphs */
+    p {
+        orphans: 3;
+        widows: 3;
+        margin: 0.5em 0;
+    }
+
+    /* Lists */
+    ul, ol {
+        page-break-inside: avoid;
+    }
+
+    li {
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* Tables */
+    table {
+        border-collapse: collapse;
+        page-break-inside: avoid;
+        width: 100%;
+        margin: 1em 0;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    th, td {
+        border: 1pt solid #000;
+        padding: 0.5em;
+        text-align: left;
+    }
+
+    th {
+        background: #f0f0f0 !important;
+        font-weight: bold;
+    }
+
+    /* Images */
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+        border: 1pt solid #ddd;
+    }
+
+    /* Code blocks */
+    pre, code {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 10pt;
+        border: 1pt solid #000;
+        background: #f5f5f5 !important;
+        page-break-inside: avoid;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    pre {
+        padding: 0.5em;
+        margin: 0.5em 0;
+        overflow: visible;
+    }
+
+    code {
+        padding: 0.1em 0.3em;
+    }
+
+    /* Blockquotes */
+    blockquote {
+        border-left: 3pt solid #000;
+        padding-left: 1em;
+        margin: 1em 0;
+        font-style: italic;
+        page-break-inside: avoid;
+    }
+
+    /* =========================
+       Link Handling
+       ========================= */
+
+    /* Show URLs after links */
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+        color: #666 !important;
+        word-wrap: break-word;
+    }
+
+    /* Don't show URLs for internal anchors */
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    /* Don't show URLs for images or buttons */
+    a[href] img,
+    a[href].btn,
+    a[href].button {
+        page-break-inside: avoid;
+    }
+
+    a[href] img:after,
+    a[href].btn:after,
+    a[href].button:after {
+        content: "";
+    }
+
+    /* Abbreviations */
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /* =========================
+       Hide Interactive Elements
+       ========================= */
+
+    /* Navigation and header */
+    header,
+    nav,
+    .site-header,
+    .nav-container,
+    .navbar,
+    .nav-brand,
+    .nav-links,
+    .header-theme-toggle {
+        display: none !important;
+    }
+
+    /* Footer elements */
+    footer,
+    .site-footer,
+    .footer-newsletter,
+    .footer-social,
+    .footer-theme-selector,
+    .footer-back-to-top,
+    .scroll-to-top {
+        display: none !important;
+    }
+
+    /* Interactive controls */
+    button,
+    .btn,
+    .button,
+    input,
+    textarea,
+    select,
+    form,
+    .copy-button,
+    .code-copy-button,
+    .theme-toggle,
+    .theme-selector {
+        display: none !important;
+    }
+
+    /* Modals and overlays */
+    .modal,
+    .overlay,
+    .popup,
+    .tooltip,
+    .toast,
+    .notification,
+    .keyboard-modal {
+        display: none !important;
+    }
+
+    /* Progress indicators */
+    .scroll-progress,
+    .loading,
+    .spinner,
+    .progress-bar {
+        display: none !important;
+    }
+
+    /* Skip links */
+    .skip-to-content,
+    .skip-link {
+        display: none !important;
+    }
+
+    /* Social media */
+    .social-links,
+    .social-share,
+    .share-buttons {
+        display: none !important;
+    }
+
+    /* Animations and decorative elements */
+    .animation,
+    .animate,
+    [class*="fade"],
+    [class*="slide"] {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* =========================
+       Show Important Content
+       ========================= */
+
+    /* Ensure main content is visible */
+    main,
+    article,
+    section,
+    .content,
+    .main-content,
+    .documentation,
+    .docs-content {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* =========================
+       Page Breaks
+       ========================= */
+
+    /* Break before major sections */
+    .page-break-before,
+    .section,
+    article {
+        page-break-before: auto;
+    }
+
+    /* Break after major sections */
+    .page-break-after {
+        page-break-after: always;
+    }
+
+    /* Avoid breaks inside these elements */
+    .keep-together,
+    .no-break,
+    figure,
+    .code-example,
+    .api-example,
+    .example-block {
+        page-break-inside: avoid;
+    }
+
+    /* Force break before h1 */
+    h1 {
+        page-break-before: always;
+    }
+
+    /* First h1 on page shouldn't break */
+    h1:first-of-type {
+        page-break-before: avoid;
+    }
+
+    /* =========================
+       Documentation-Specific
+       ========================= */
+
+    /* API documentation */
+    .api-endpoint,
+    .api-method,
+    .api-parameter {
+        page-break-inside: avoid;
+        margin: 1em 0;
+        border: 1pt solid #000;
+        padding: 0.5em;
+    }
+
+    .api-method {
+        font-weight: bold;
+        font-family: 'Courier New', monospace;
+    }
+
+    /* Code examples */
+    .code-example,
+    .example-block {
+        margin: 1em 0;
+        page-break-inside: avoid;
+    }
+
+    .example-title {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    /* Language tabs (show all languages in print) */
+    .lang-tabs,
+    .tab-buttons {
+        display: none !important;
+    }
+
+    .tab-content,
+    .lang-content {
+        display: block !important;
+        opacity: 1 !important;
+        position: static !important;
+    }
+
+    .tab-pane {
+        display: block !important;
+        page-break-inside: avoid;
+        margin-bottom: 1em;
+    }
+
+    .tab-pane::before {
+        content: "Language: " attr(data-lang);
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+    }
+
+    /* Playground */
+    .playground,
+    .api-playground {
+        display: none !important;
+    }
+
+    /* =========================
+       Page Header/Footer
+       ========================= */
+
+    /* Print page title and URL in header */
+    body::before {
+        content: "Luminous Dynamics Developer Portal";
+        display: block;
+        text-align: center;
+        font-size: 10pt;
+        font-weight: bold;
+        padding-bottom: 0.5em;
+        border-bottom: 1pt solid #000;
+        margin-bottom: 1em;
+    }
+
+    /* Print URL and date in footer */
+    body::after {
+        content: "Printed from: " attr(data-print-url) " | Date: " attr(data-print-date);
+        display: block;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 9pt;
+        color: #666 !important;
+        padding-top: 0.5em;
+        border-top: 1pt solid #ccc;
+    }
+
+    /* =========================
+       Special Print Elements
+       ========================= */
+
+    /* Print-only elements */
+    .print-only {
+        display: block !important;
+    }
+
+    .no-print,
+    .screen-only {
+        display: none !important;
+    }
+
+    /* QR codes for important URLs */
+    .print-qr-code {
+        max-width: 2cm;
+        max-height: 2cm;
+        border: none;
+    }
+
+    /* Table of contents */
+    .print-toc {
+        page-break-after: always;
+        margin-bottom: 2em;
+    }
+
+    .print-toc h2 {
+        margin-top: 0;
+    }
+
+    .print-toc ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .print-toc li {
+        margin: 0.3em 0;
+    }
+
+    /* =========================
+       Utilities
+       ========================= */
+
+    /* Text utilities */
+    .text-center {
+        text-align: center !important;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+
+    .font-mono {
+        font-family: 'Courier New', monospace !important;
+    }
+
+    /* Spacing utilities */
+    .mt-1 { margin-top: 0.5em !important; }
+    .mt-2 { margin-top: 1em !important; }
+    .mt-3 { margin-top: 1.5em !important; }
+    .mb-1 { margin-bottom: 0.5em !important; }
+    .mb-2 { margin-bottom: 1em !important; }
+    .mb-3 { margin-bottom: 1.5em !important; }
+
+    /* =========================
+       Specific Page Elements
+       ========================= */
+
+    /* Hero section */
+    .hero-section {
+        border-bottom: 2pt solid #000;
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+    }
+
+    .hero-title {
+        font-size: 24pt;
+        margin-bottom: 0.5em;
+    }
+
+    .hero-subtitle {
+        font-size: 14pt;
+        margin-bottom: 1em;
+    }
+
+    /* Feature cards */
+    .feature-card,
+    .card {
+        border: 1pt solid #000;
+        padding: 0.5em;
+        margin: 0.5em 0;
+        page-break-inside: avoid;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 12pt;
+    }
+
+    /* Status badges */
+    .badge,
+    .status-badge,
+    .tag {
+        border: 1pt solid #000;
+        padding: 0.1em 0.3em;
+        font-size: 9pt;
+        font-weight: bold;
+    }
+
+    /* Changelog versions */
+    .version-section {
+        page-break-inside: avoid;
+        margin: 1em 0;
+        border-bottom: 1pt solid #000;
+        padding-bottom: 0.5em;
+    }
+
+    .version-number {
+        font-size: 16pt;
+        font-weight: bold;
+    }
+
+    .version-badge {
+        border: 1pt solid #000;
+        padding: 0.1em 0.3em;
+        font-size: 8pt;
+    }
+
+    /* Contributing guidelines */
+    .contribution-type,
+    .guideline-section {
+        page-break-inside: avoid;
+        margin: 1em 0;
+    }
+
+    /* =========================
+       Accessibility in Print
+       ========================= */
+
+    /* Screen reader only text */
+    .sr-only,
+    .visually-hidden {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        clip: auto !important;
+        white-space: normal !important;
+    }
+
+    /* Ensure focus indicators don't print */
+    :focus {
+        outline: none !important;
+    }
+
+    /* =========================
+       Performance
+       ========================= */
+
+    /* Remove transitions and animations */
+    * {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+    }
+
+    /* Simplify backgrounds */
+    *[style*="background"] {
+        background: transparent !important;
+    }
+
+    /* =========================
+       Browser-Specific Fixes
+       ========================= */
+
+    /* Chrome/Edge print fix */
+    @media print and (-webkit-min-device-pixel-ratio: 0) {
+        body {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    }
+
+    /* Firefox print fix */
+    @-moz-document url-prefix() {
+        body {
+            print-color-adjust: exact;
+        }
+    }
+}
+
+/* =========================
+   Print Preview Simulation
+   ========================= */
+
+/* When .print-preview class is added to body, simulate print styles */
+body.print-preview {
+    background: white;
+    color: black;
+}
+
+body.print-preview * {
+    background: transparent;
+    color: black;
+}
+
+body.print-preview header,
+body.print-preview nav,
+body.print-preview footer,
+body.print-preview button,
+body.print-preview .modal {
+    display: none;
+}
