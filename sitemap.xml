@@ -60,3 +60,32 @@
     -->
 
 </urlset>
+    <!-- Phase 5G Pages -->
+    <url>
+        <loc>https://luminousdynamics.io/contributing.html</loc>
+        <lastmod>2025-11-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://luminousdynamics.io/examples.html</loc>
+        <lastmod>2025-11-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://luminousdynamics.io/changelog.html</loc>
+        <lastmod>2025-11-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://luminousdynamics.io/security.html</loc>
+        <lastmod>2025-11-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>

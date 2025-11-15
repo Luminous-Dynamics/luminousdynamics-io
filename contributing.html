@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributing Guide | Luminous Dynamics</title>
+    <meta name="description" content="Learn how to contribute to Luminous Dynamics - development setup, code guidelines, and PR process">
+    <meta name="keywords" content="contributing, open source, development, pull requests, code guidelines">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .contributing-page {
+            min-height: 100vh;
+            background: var(--bg-primary, #0a0b0d);
+            padding: 2rem;
+        }
+
+        .contributing-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contributing-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .contributing-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .contributing-icon {
+            font-size: 3rem;
+        }
+
+        .contributing-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 3.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-secondary, rgba(255, 255, 255, 0.05));
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 1.85rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.7;
+        }
+
+        .section-content p {
+            margin-bottom: 1.25rem;
+        }
+
+        .section-content h3 {
+            font-size: 1.35rem;
+            color: var(--text-primary, #e8eaed);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .section-content li {
+            position: relative;
+            padding: 0.625rem 0 0.625rem 2rem;
+            border-left: 2px solid rgba(0, 229, 255, 0.2);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-content li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent-primary, #00e5ff);
+            font-weight: bold;
+        }
+
+        .section-content ol {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .section-content ol li {
+            counter-increment: step-counter;
+            padding-left: 3rem;
+        }
+
+        .section-content ol li::before {
+            content: counter(step-counter);
+            left: 0.5rem;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-primary, #00e5ff);
+            color: var(--bg-primary, #0a0b0d);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .code-block {
+            padding: 1.25rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-primary, #e8eaed);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .code-block code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .info-box {
+            padding: 1.5rem;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box strong {
+            color: var(--accent-primary, #00e5ff);
+        }
+
+        .warning-box {
+            padding: 1.5rem;
+            background: rgba(255, 170, 0, 0.05);
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box strong {
+            color: #ffaa00;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .quick-link-card {
+            padding: 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link-card:hover {
+            background: var(--bg-tertiary, #1a1c22);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 229, 255, 0.15);
+        }
+
+        .quick-link-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .quick-link-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-link-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.5;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .contributing-title {
+                font-size: 2rem;
+            }
+
+            .contributing-page {
+                padding: 1.5rem 1rem;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="contributing-page">
+        <div class="contributing-container">
+            <!-- Header -->
+            <div class="contributing-header">
+                <h1 class="contributing-title">
+                    <span class="contributing-icon" aria-hidden="true">🤝</span>
+                    Contributing Guide
+                </h1>
+                <p class="contributing-subtitle">
+                    Thank you for your interest in contributing to Luminous Dynamics! This guide will help you get started.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <a href="#getting-started" class="quick-link-card">
+                    <div class="quick-link-icon">🚀</div>
+                    <div class="quick-link-title">Getting Started</div>
+                    <div class="quick-link-desc">Set up your development environment</div>
+                </a>
+                <a href="#code-style" class="quick-link-card">
+                    <div class="quick-link-icon">📝</div>
+                    <div class="quick-link-title">Code Style</div>
+                    <div class="quick-link-desc">Follow our coding standards</div>
+                </a>
+                <a href="#pull-requests" class="quick-link-card">
+                    <div class="quick-link-icon">🔀</div>
+                    <div class="quick-link-title">Pull Requests</div>
+                    <div class="quick-link-desc">Submit your contributions</div>
+                </a>
+            </div>
+
+            <!-- Ways to Contribute -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">💡</span>
+                    Ways to Contribute
+                </h2>
+                <div class="section-content">
+                    <p>
+                        There are many ways to contribute to Luminous Dynamics:
+                    </p>
+                    <ul>
+                        <li><strong>Report bugs</strong> - Help us identify and fix issues</li>
+                        <li><strong>Suggest features</strong> - Share your ideas for improvements</li>
+                        <li><strong>Write documentation</strong> - Improve guides, tutorials, and API docs</li>
+                        <li><strong>Fix bugs</strong> - Submit pull requests for known issues</li>
+                        <li><strong>Add features</strong> - Implement new functionality</li>
+                        <li><strong>Review code</strong> - Help review pull requests from other contributors</li>
+                        <li><strong>Improve tests</strong> - Add or enhance test coverage</li>
+                        <li><strong>Answer questions</strong> - Help other users on Discord or GitHub</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Getting Started -->
+            <section id="getting-started" class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🚀</span>
+                    Getting Started
+                </h2>
+                <div class="section-content">
+                    <h3>Prerequisites</h3>
+                    <p>Before you begin, ensure you have the following installed:</p>
+                    <ul>
+                        <li><strong>Node.js</strong> 18.x or higher</li>
+                        <li><strong>npm</strong> 9.x or higher (or <strong>pnpm</strong> 8.x)</li>
+                        <li><strong>Git</strong> 2.x or higher</li>
+                        <li><strong>A code editor</strong> (we recommend VS Code)</li>
+                    </ul>
+
+                    <h3>Development Setup</h3>
+                    <p>Follow these steps to set up your development environment:</p>
+
+                    <ol>
+                        <li>
+                            <strong>Fork the repository</strong>
+                            <p>Click the "Fork" button on GitHub to create your own copy</p>
+                        </li>
+                        <li>
+                            <strong>Clone your fork</strong>
+                            <div class="code-block"><code>git clone https://github.com/YOUR_USERNAME/luminousdynamics-io.git
+cd luminousdynamics-io</code></div>
+                        </li>
+                        <li>
+                            <strong>Add upstream remote</strong>
+                            <div class="code-block"><code>git remote add upstream https://github.com/Luminous-Dynamics/luminousdynamics-io.git</code></div>
+                        </li>
+                        <li>
+                            <strong>Install dependencies</strong>
+                            <div class="code-block"><code>npm install
+# or
+pnpm install</code></div>
+                        </li>
+                        <li>
+                            <strong>Start development server</strong>
+                            <div class="code-block"><code>npm run dev
+# or
+python -m http.server 8000</code></div>
+                        </li>
+                        <li>
+                            <strong>Open in browser</strong>
+                            <p>Navigate to <code>http://localhost:8000</code></p>
+                        </li>
+                    </ol>
+
+                    <div class="info-box">
+                        <strong>💡 Tip:</strong> We use a simple static site architecture. No build step is required for development—just open the HTML files in your browser or use a local server.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Style -->
+            <section id="code-style" class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">📝</span>
+                    Code Style Guidelines
+                </h2>
+                <div class="section-content">
+                    <h3>JavaScript</h3>
+                    <ul>
+                        <li>Use <strong>ES6+ features</strong> (arrow functions, const/let, template literals)</li>
+                        <li>Follow <strong>2-space indentation</strong></li>
+                        <li>Use <strong>single quotes</strong> for strings</li>
+                        <li>Add <strong>JSDoc comments</strong> for functions</li>
+                        <li>Use <strong>meaningful variable names</strong></li>
+                        <li>Prefer <strong>const</strong> over let, avoid var</li>
+                        <li>Use <strong>async/await</strong> for promises</li>
+                    </ul>
+
+                    <div class="code-block"><pre><code>/**
+ * Calculate reading time for content
+ * @param {HTMLElement} element - Content element
+ * @returns {number} Reading time in minutes
+ */
+function calculateReadingTime(element) {
+    const text = element.textContent;
+    const words = text.trim().split(/\s+/).length;
+    return Math.ceil(words / 225);
+}</code></pre></div>
+
+                    <h3>HTML</h3>
+                    <ul>
+                        <li>Use <strong>semantic HTML5 elements</strong> (header, nav, main, article, section)</li>
+                        <li>Add <strong>ARIA labels</strong> for accessibility</li>
+                        <li>Use <strong>4-space indentation</strong></li>
+                        <li>Include <strong>alt text</strong> for all images</li>
+                        <li>Validate with <strong>W3C validator</strong></li>
+                    </ul>
+
+                    <h3>CSS</h3>
+                    <ul>
+                        <li>Use <strong>CSS custom properties</strong> for theming</li>
+                        <li>Follow <strong>BEM naming</strong> for complex components</li>
+                        <li>Mobile-first responsive design</li>
+                        <li>Use <strong>rem/em</strong> for sizing (not px)</li>
+                        <li>Add <strong>comments</strong> for sections</li>
+                        <li>Support <strong>prefers-reduced-motion</strong></li>
+                    </ul>
+
+                    <h3>Accessibility</h3>
+                    <ul>
+                        <li><strong>WCAG AA compliance</strong> minimum (AAA preferred)</li>
+                        <li>Keyboard navigation support</li>
+                        <li>Screen reader compatibility</li>
+                        <li>Color contrast ratio 4.5:1 minimum</li>
+                        <li>Focus indicators on interactive elements</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Git Workflow -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🌳</span>
+                    Git Workflow
+                </h2>
+                <div class="section-content">
+                    <h3>Branching Strategy</h3>
+                    <p>We use a simple Git workflow:</p>
+                    <ul>
+                        <li><code>main</code> - Production-ready code</li>
+                        <li><code>feature/feature-name</code> - New features</li>
+                        <li><code>fix/bug-name</code> - Bug fixes</li>
+                        <li><code>docs/topic-name</code> - Documentation updates</li>
+                    </ul>
+
+                    <h3>Creating a Branch</h3>
+                    <div class="code-block"><code># Update your local main
+git checkout main
+git pull upstream main
+
+# Create a new branch
+git checkout -b feature/amazing-feature</code></div>
+
+                    <h3>Commit Messages</h3>
+                    <p>Follow the <strong>Conventional Commits</strong> specification:</p>
+                    <div class="code-block"><code>type(scope): subject
+
+body (optional)
+
+footer (optional)</code></div>
+
+                    <p><strong>Types:</strong></p>
+                    <ul>
+                        <li><code>feat</code> - New feature</li>
+                        <li><code>fix</code> - Bug fix</li>
+                        <li><code>docs</code> - Documentation only</li>
+                        <li><code>style</code> - Formatting, missing semicolons, etc.</li>
+                        <li><code>refactor</code> - Code restructuring</li>
+                        <li><code>perf</code> - Performance improvement</li>
+                        <li><code>test</code> - Adding tests</li>
+                        <li><code>chore</code> - Maintenance tasks</li>
+                    </ul>
+
+                    <p><strong>Examples:</strong></p>
+                    <div class="code-block"><code>feat(api): add WebSocket support for real-time updates
+
+fix(ui): resolve mobile navigation overlay z-index issue
+
+docs(contributing): add code style guidelines</code></div>
+                </div>
+            </section>
+
+            <!-- Pull Requests -->
+            <section id="pull-requests" class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🔀</span>
+                    Pull Request Process
+                </h2>
+                <div class="section-content">
+                    <h3>Before Submitting</h3>
+                    <ul>
+                        <li>Ensure your code follows our <a href="#code-style">code style guidelines</a></li>
+                        <li>Test your changes thoroughly</li>
+                        <li>Update documentation if needed</li>
+                        <li>Add or update tests for new functionality</li>
+                        <li>Ensure all tests pass</li>
+                        <li>Rebase on latest main branch</li>
+                    </ul>
+
+                    <h3>Submitting a Pull Request</h3>
+                    <ol>
+                        <li>
+                            <strong>Push your branch</strong>
+                            <div class="code-block"><code>git push origin feature/amazing-feature</code></div>
+                        </li>
+                        <li>
+                            <strong>Open a pull request</strong>
+                            <p>Go to GitHub and click "Compare & pull request"</p>
+                        </li>
+                        <li>
+                            <strong>Fill out the PR template</strong>
+                            <ul>
+                                <li>Describe what you've changed and why</li>
+                                <li>Reference related issues</li>
+                                <li>Add screenshots for UI changes</li>
+                                <li>List any breaking changes</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Wait for review</strong>
+                            <p>Maintainers will review your PR and may request changes</p>
+                        </li>
+                        <li>
+                            <strong>Address feedback</strong>
+                            <p>Make requested changes and push new commits</p>
+                        </li>
+                        <li>
+                            <strong>Merge!</strong>
+                            <p>Once approved, a maintainer will merge your PR</p>
+                        </li>
+                    </ol>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Important:</strong> Please do not force-push to your PR branch after opening a pull request. This makes it difficult to review changes.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">🧪</span>
+                    Testing
+                </h2>
+                <div class="section-content">
+                    <h3>Manual Testing</h3>
+                    <ul>
+                        <li>Test in <strong>multiple browsers</strong> (Chrome, Firefox, Safari, Edge)</li>
+                        <li>Test on <strong>different devices</strong> (desktop, tablet, mobile)</li>
+                        <li>Test with <strong>keyboard navigation</strong></li>
+                        <li>Test with <strong>screen reader</strong> (NVDA, JAWS, VoiceOver)</li>
+                        <li>Test <strong>both themes</strong> (light and dark)</li>
+                        <li>Test with <strong>reduced motion</strong> enabled</li>
+                    </ul>
+
+                    <h3>Automated Testing</h3>
+                    <p>Run automated tests before submitting:</p>
+                    <div class="code-block"><code># Lint code
+npm run lint
+
+# Run tests
+npm test
+
+# Check accessibility
+npm run a11y
+
+# Build for production
+npm run build</code></div>
+                </div>
+            </section>
+
+            <!-- Code of Conduct -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">📜</span>
+                    Code of Conduct
+                </h2>
+                <div class="section-content">
+                    <p>
+                        We are committed to providing a welcoming and inclusive environment for all contributors.
+                    </p>
+                    <ul>
+                        <li>Be respectful and considerate</li>
+                        <li>Welcome newcomers and help them get started</li>
+                        <li>Give and receive constructive feedback gracefully</li>
+                        <li>Focus on what is best for the community</li>
+                        <li>Show empathy towards other community members</li>
+                    </ul>
+                    <p>
+                        Please read our full <a href="/code-of-conduct.html">Code of Conduct</a> for more details.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Questions -->
+            <section class="section">
+                <h2 class="section-title">
+                    <span class="section-icon" aria-hidden="true">❓</span>
+                    Questions?
+                </h2>
+                <div class="section-content">
+                    <p>
+                        If you have questions about contributing, feel free to reach out:
+                    </p>
+                    <ul>
+                        <li><strong>Discord:</strong> <a href="https://discord.gg/luminous" target="_blank" rel="noopener noreferrer">Join our Discord server</a></li>
+                        <li><strong>GitHub Discussions:</strong> <a href="https://github.com/Luminous-Dynamics/luminousdynamics-io/discussions" target="_blank" rel="noopener noreferrer">Start a discussion</a></li>
+                        <li><strong>Email:</strong> <a href="mailto:dev@luminousdynamics.io">dev@luminousdynamics.io</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Back Link -->
+            <a href="/" class="back-link">
+                <span aria-hidden="true">←</span>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/header-theme-toggle.js" defer></script>
+    <script src="js/structured-data.js" defer></script>
+    <script src="js/scroll-progress.js" defer></script>
+    <script src="js/code-copy.js" defer></script>
+    <script src="js/reading-time.js" defer></script>
+</body>
+</html>
