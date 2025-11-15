@@ -51,6 +51,7 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/syntax.css">
     <link rel="stylesheet" href="styles/toast.css">
@@ -60,6 +61,19 @@
 
     <!-- Prism for syntax highlighting -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <!-- Theme initialization (prevent FOUC) -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 <body>
     <!-- Skip to main content for accessibility -->
@@ -650,6 +664,7 @@ console.log(data);</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer></script>
     <script src="js/web-vitals.js" defer></script>
     <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
     <script src="js/playground-enhanced.js" defer></script>
     <script src="js/keyboard.js" defer></script>
     <script src="js/main.js" defer></script>
