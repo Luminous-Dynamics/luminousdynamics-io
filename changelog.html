@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog | Luminous Dynamics Developer Portal</title>
+    <meta name="description" content="Developer Portal changelog - Track new features, improvements, and bug fixes">
+    <meta name="keywords" content="changelog, updates, releases, version history, Luminous Dynamics">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .changelog-page {
+            min-height: 100vh;
+            background: var(--bg-primary, #0a0b0d);
+            padding: 2rem;
+        }
+
+        .changelog-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .changelog-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .changelog-title {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary, #00e5ff), var(--accent-secondary, #00c1de));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .changelog-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+        }
+
+        .version-section {
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border-secondary, rgba(255, 255, 255, 0.05));
+        }
+
+        .version-section:last-child {
+            border-bottom: none;
+        }
+
+        .version-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .version-number {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+        }
+
+        .version-date {
+            font-size: 0.95rem;
+            color: var(--text-tertiary, #6c757d);
+            font-family: 'Courier New', monospace;
+        }
+
+        .version-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 12px;
+            color: var(--accent-primary, #00e5ff);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .version-badge.latest {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+
+        .changes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .change-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .change-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.75rem;
+        }
+
+        .category-icon {
+            font-size: 1.25rem;
+        }
+
+        .change-items {
+            list-style: none;
+            padding-left: 2rem;
+            margin: 0;
+        }
+
+        .change-item {
+            position: relative;
+            padding: 0.5rem 0;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+        }
+
+        .change-item::before {
+            content: '→';
+            position: absolute;
+            left: -2rem;
+            color: var(--accent-primary, #00e5ff);
+            font-weight: bold;
+        }
+
+        .change-item code {
+            padding: 0.125rem 0.375rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 4px;
+            color: var(--accent-primary, #00e5ff);
+            font-size: 0.9em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .change-item a {
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .change-item a:hover {
+            color: var(--accent-secondary, #00c1de);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--accent-primary, #00e5ff);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(0, 229, 255, 0.05);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(-4px);
+        }
+
+        @media (max-width: 768px) {
+            .changelog-title {
+                font-size: 2rem;
+            }
+
+            .version-number {
+                font-size: 1.5rem;
+            }
+
+            .changelog-page {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="changelog-page">
+        <div class="changelog-container">
+            <!-- Header -->
+            <div class="changelog-header">
+                <h1 class="changelog-title">Changelog</h1>
+                <p class="changelog-subtitle">
+                    Track new features, improvements, and bug fixes as we continuously enhance the developer portal
+                </p>
+            </div>
+
+            <!-- Version 5.6.0 - Phase 5F -->
+            <article class="version-section">
+                <div class="version-header">
+                    <h2 class="version-number">v5.6.0</h2>
+                    <span class="version-badge latest">Latest</span>
+                    <time class="version-date" datetime="2025-11-15">2025-11-15</time>
+                </div>
+
+                <div class="changes-list">
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">✨</span>
+                            New Features
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Added scroll progress indicator showing reading position on long pages</li>
+                            <li class="change-item">Enhanced code copy buttons on all code blocks with success feedback</li>
+                            <li class="change-item">Added dark mode toggle in header for quick theme switching</li>
+                            <li class="change-item">Reading time estimator displays expected reading duration for documentation</li>
+                            <li class="change-item">Resource hints and preloading for improved performance</li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">📄</span>
+                            Documentation
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Created comprehensive <a href="/changelog.html">changelog page</a></li>
+                            <li class="change-item">Added security policy for responsible disclosure</li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">⚡</span>
+                            Performance
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Implemented resource preloading for critical CSS and JavaScript</li>
+                            <li class="change-item">Added DNS prefetch for external CDN resources</li>
+                            <li class="change-item">Optimized script loading order with defer and modulepreload</li>
+                            <li class="change-item">Reduced render-blocking resources</li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">🎨</span>
+                            Design
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Smooth theme transitions with CSS variables</li>
+                            <li class="change-item">Improved accessibility with focus indicators</li>
+                            <li class="change-item">Mobile-responsive code copy buttons</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 5.5.0 - Phase 5E -->
+            <article class="version-section">
+                <div class="version-header">
+                    <h2 class="version-number">v5.5.0</h2>
+                    <time class="version-date" datetime="2025-11-15">2025-11-15</time>
+                </div>
+
+                <div class="changes-list">
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">✨</span>
+                            New Features
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Enhanced footer with newsletter signup and social media links</li>
+                            <li class="change-item">Scroll-to-top button with smooth animations</li>
+                            <li class="change-item">Live status indicator in footer</li>
+                            <li class="change-item">Theme selector in footer</li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">📄</span>
+                            Error Pages
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Created beautiful 500 server error page with retry functionality</li>
+                            <li class="change-item">Enhanced 404 page with search preparation and smart suggestions</li>
+                            <li class="change-item">Improved offline page with cached pages list</li>
+                            <li class="change-item">Added maintenance page with countdown timer and progress tracking</li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">🔍</span>
+                            SEO
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Created comprehensive <code>robots.txt</code> with crawler rules</li>
+                            <li class="change-item">Added <code>sitemap.xml</code> with all major pages</li>
+                            <li class="change-item">AI crawler allowances (GPTBot, ChatGPT, Anthropic)</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 5.4.0 - Phase 5D -->
+            <article class="version-section">
+                <div class="version-header">
+                    <h2 class="version-number">v5.4.0</h2>
+                    <time class="version-date" datetime="2025-11-14">2025-11-14</time>
+                </div>
+
+                <div class="changes-list">
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">⚡</span>
+                            Performance
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Enhanced Service Worker with intelligent caching strategies</li>
+                            <li class="change-item">Added cache expiration with timestamp-based invalidation</li>
+                            <li class="change-item">Implemented stale-while-revalidate pattern</li>
+                            <li class="change-item">Expanded precache to 24 critical assets</li>
+                            <li class="change-item">Added runtime caching for dynamic content</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 5.3.0 - Phase 5C -->
+            <article class="version-section">
+                <div class="version-header">
+                    <h2 class="version-number">v5.3.0</h2>
+                    <time class="version-date" datetime="2025-11-13">2025-11-13</time>
+                </div>
+
+                <div class="changes-list">
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">📚</span>
+                            Documentation
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Created comprehensive <a href="/docs/sdks.html">SDKs & Libraries</a> documentation</li>
+                            <li class="change-item">Added <a href="/docs/best-practices.html">Best Practices</a> guide</li>
+                            <li class="change-item">Multi-language code examples (7 languages)</li>
+                            <li class="change-item">Production-ready patterns and architecture guidance</li>
+                        </ul>
+                    </div>
+
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">🎨</span>
+                            Animations
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Complete animations system with scroll triggers</li>
+                            <li class="change-item">Animated counters with easing functions</li>
+                            <li class="change-item">Loading states and skeleton screens</li>
+                            <li class="change-item">Reduced motion accessibility support</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Earlier Versions -->
+            <article class="version-section">
+                <div class="version-header">
+                    <h2 class="version-number">Earlier Versions</h2>
+                </div>
+
+                <div class="changes-list">
+                    <div class="change-category">
+                        <h3 class="category-title">
+                            <span class="category-icon">🎉</span>
+                            Foundation
+                        </h3>
+                        <ul class="change-items">
+                            <li class="change-item">Initial developer portal launch</li>
+                            <li class="change-item">Core API documentation</li>
+                            <li class="change-item">Interactive API playground</li>
+                            <li class="change-item">Multi-language examples system</li>
+                            <li class="change-item">Theme system (dark/light/auto)</li>
+                            <li class="change-item">Keyboard shortcuts</li>
+                            <li class="change-item">Service Worker for offline support</li>
+                            <li class="change-item">Toast notification system</li>
+                            <li class="change-item">Web Vitals monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Back Link -->
+            <a href="/" class="back-link">
+                <span aria-hidden="true">←</span>
+                Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/header-theme-toggle.js" defer></script>
+</body>
+</html>

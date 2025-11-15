@@ -50,6 +50,14 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
+    <!-- Performance: Resource Hints -->
+    <link rel="prefetch" href="/docs/getting-started.html" as="document">
+    <link rel="prefetch" href="/docs/api-reference.html" as="document">
+    <link rel="preload" href="styles/themes.css" as="style">
+    <link rel="preload" href="styles/main.css" as="style">
+    <link rel="preload" href="js/theme.js" as="script">
+    <link rel="modulepreload" href="js/main.js">
+
     <!-- Styles -->
     <link rel="stylesheet" href="styles/themes.css">
     <link rel="stylesheet" href="styles/main.css">
@@ -783,7 +791,11 @@ console.log(data);</code></pre>
     <script src="js/toast.js" defer></script>
     <script src="js/animations.js" defer></script>
     <script src="js/scroll-to-top.js" defer></script>
+    <script src="js/scroll-progress.js" defer></script>
+    <script src="js/code-copy.js" defer></script>
+    <script src="js/reading-time.js" defer></script>
     <script src="js/footer.js" defer></script>
+    <script src="js/header-theme-toggle.js" defer></script>
     <script src="js/theme.js" defer></script>
     <script src="js/multi-lang-examples.js" defer></script>
     <script src="js/playground-enhanced.js" defer></script>
