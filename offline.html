@@ -4,200 +4,434 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offline | Luminous Dynamics</title>
+    <meta name="description" content="You're currently offline. Some cached content may still be available.">
     <meta name="robots" content="noindex, nofollow">
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
     <style>
-        :root {
-            --bg-primary: #0a0b0d;
-            --text-primary: #e8eaed;
-            --text-secondary: #a8b2c1;
-            --accent-primary: #00e5ff;
-            --accent-warning: #ff6d00;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+        .offline-page {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            background: var(--bg-primary, #0a0b0d);
         }
 
         .offline-container {
+            max-width: 700px;
+            width: 100%;
             text-align: center;
-            max-width: 500px;
         }
 
-        .offline-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
+        .offline-illustration {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            font-size: 120px;
+            line-height: 150px;
+            opacity: 0.7;
+            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
         }
 
-        h1 {
-            font-size: 2rem;
+        .offline-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
             margin-bottom: 1rem;
-            color: var(--text-primary);
         }
 
-        p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
+        .offline-message {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
             line-height: 1.6;
             margin-bottom: 2rem;
         }
 
-        .retry-btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: var(--accent-primary);
-            color: var(--bg-primary);
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
+        .connection-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.5rem;
+            background: rgba(255, 109, 0, 0.1);
+            border: 1px solid var(--accent-warning, #ff6d00);
+            border-radius: var(--radius-md, 8px);
+            margin-bottom: 2rem;
+        }
+
+        .connection-status.online {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00ff88;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-warning, #ff6d00);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .connection-status.online .status-dot {
+            background: #00ff88;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary, #e8eaed);
+        }
+
+        .offline-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .cached-pages {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: var(--radius-lg, 12px);
+            text-align: left;
+        }
+
+        .cached-pages h2 {
+            font-size: 1.25rem;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .cached-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .cached-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            background: var(--bg-tertiary, #1a1c22);
+            border: 1px solid var(--border-secondary, rgba(255, 255, 255, 0.05));
+            border-radius: var(--radius-md, 8px);
+            transition: all 0.3s ease;
+        }
+
+        .cached-item:hover {
+            background: var(--bg-elevated, #2a2d35);
+            border-color: var(--accent-primary, #00e5ff);
+            transform: translateX(4px);
+        }
+
+        .cached-item a {
+            color: var(--accent-primary, #00e5ff);
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
+            flex: 1;
+            font-size: 0.95rem;
         }
 
-        .retry-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3);
-        }
-
-        .retry-btn:active {
-            transform: translateY(0);
+        .cached-icon {
+            color: var(--accent-primary, #00e5ff);
+            font-size: 1.25rem;
         }
 
         .tips {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: var(--radius-lg, 12px);
         }
 
-        .tips h2 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
+        .tips h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1.25rem;
         }
 
         .tips ul {
-            text-align: left;
             list-style: none;
-            color: var(--text-secondary);
+            padding: 0;
+            margin: 0;
+            text-align: left;
         }
 
         .tips li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
+            padding: 0.625rem 0;
+            color: var(--text-secondary, #a8b2c1);
+            padding-left: 2rem;
             position: relative;
         }
 
         .tips li::before {
-            content: "→";
+            content: '→';
             position: absolute;
             left: 0;
-            color: var(--accent-primary);
+            color: var(--accent-primary, #00e5ff);
+            font-weight: bold;
         }
 
-        .status {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 109, 0, 0.1);
-            border: 1px solid var(--accent-warning);
-            border-radius: 6px;
-            color: var(--accent-warning);
-            font-size: 0.875rem;
-            margin-top: 1rem;
+        .empty-cache {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-tertiary, #6c757d);
+            font-style: italic;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.5rem;
+        @media (max-width: 640px) {
+            .offline-title {
+                font-size: 2rem;
             }
 
-            p {
+            .offline-message {
                 font-size: 1rem;
             }
 
-            .offline-icon {
-                font-size: 3rem;
+            .offline-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .offline-actions .btn {
+                width: 100%;
+            }
+
+            .cached-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .offline-illustration,
+            .status-dot {
+                animation: none !important;
             }
         }
     </style>
 </head>
 <body>
-    <div class="offline-container">
-        <div class="offline-icon" aria-hidden="true">📡</div>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
-        <h1>You're Offline</h1>
+    <main id="main-content" class="offline-page" role="main">
+        <div class="offline-container">
+            <!-- Illustration -->
+            <div class="offline-illustration" role="img" aria-label="Offline illustration">
+                📡
+            </div>
 
-        <p>
-            It looks like you've lost your internet connection.
-            Some cached content may still be available.
-        </p>
+            <h1 class="offline-title">You're Offline</h1>
 
-        <button class="retry-btn" onclick="window.location.reload()">
-            Try Again
-        </button>
+            <p class="offline-message">
+                It looks like you've lost your internet connection.
+                Don't worry—some content is available from cache while you reconnect.
+            </p>
 
-        <div class="status">
-            <span id="connection-status">Checking connection...</span>
+            <!-- Connection Status -->
+            <div id="connection-status" class="connection-status" role="status" aria-live="polite">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span class="status-text" id="status-text">Checking connection...</span>
+            </div>
+
+            <!-- Actions -->
+            <div class="offline-actions">
+                <button onclick="retryConnection()" class="btn btn-primary" id="retry-btn" aria-label="Retry connection">
+                    Try Again
+                </button>
+                <a href="/" class="btn btn-secondary">
+                    Go to Home
+                </a>
+            </div>
+
+            <!-- Cached Pages -->
+            <div class="cached-pages">
+                <h2>📄 Available Cached Pages</h2>
+                <ul class="cached-list" id="cached-list">
+                    <li class="empty-cache">Loading cached pages...</li>
+                </ul>
+            </div>
+
+            <!-- Troubleshooting Tips -->
+            <div class="tips">
+                <h3>Troubleshooting Tips</h3>
+                <ul>
+                    <li>Check if your WiFi or mobile data is enabled</li>
+                    <li>Try disabling airplane mode if it's on</li>
+                    <li>Restart your router or modem</li>
+                    <li>Check if other websites or apps work</li>
+                    <li>Move closer to your WiFi router</li>
+                    <li>Contact your internet service provider if the issue persists</li>
+                </ul>
+            </div>
         </div>
+    </main>
 
-        <div class="tips">
-            <h2>Troubleshooting Tips</h2>
-            <ul>
-                <li>Check your internet connection</li>
-                <li>Try disabling airplane mode</li>
-                <li>Restart your router</li>
-                <li>Check if other websites work</li>
-                <li>Clear your browser cache</li>
-            </ul>
-        </div>
-    </div>
+    <!-- Scripts -->
+    <script src="js/theme.js" defer></script>
 
     <script>
-        // Check if we're back online
-        window.addEventListener('online', () => {
-            document.getElementById('connection-status').textContent = 'Connection restored!';
+        const statusElement = document.getElementById('connection-status');
+        const statusText = document.getElementById('status-text');
+        const retryBtn = document.getElementById('retry-btn');
+        const cachedList = document.getElementById('cached-list');
+
+        // List of cached pages (from Service Worker precache)
+        const cachedPages = [
+            { url: '/', title: 'Home' },
+            { url: '/status.html', title: 'System Status' },
+            { url: '/docs/getting-started.html', title: 'Getting Started' },
+            { url: '/docs/api-reference.html', title: 'API Reference' },
+            { url: '/docs/sdks.html', title: 'SDKs & Libraries' },
+            { url: '/docs/best-practices.html', title: 'Best Practices' },
+            { url: '/404.html', title: '404 Page' },
+            { url: '/offline.html', title: 'Offline Page (You are here)' }
+        ];
+
+        // Update connection status
+        function updateStatus(online) {
+            if (online) {
+                statusElement.classList.add('online');
+                statusText.textContent = 'Connection restored! Click "Try Again" to reload.';
+            } else {
+                statusElement.classList.remove('online');
+                statusText.textContent = 'No internet connection detected';
+            }
+        }
+
+        // Retry connection
+        function retryConnection() {
+            retryBtn.disabled = true;
+            retryBtn.textContent = 'Retrying...';
+
             setTimeout(() => {
-                window.location.reload();
+                if (navigator.onLine) {
+                    window.location.reload();
+                } else {
+                    retryBtn.disabled = false;
+                    retryBtn.textContent = 'Try Again';
+                    statusText.textContent = 'Still offline. Please check your connection.';
+                }
             }, 1000);
+        }
+
+        // Display cached pages
+        function displayCachedPages() {
+            cachedList.innerHTML = '';
+
+            if (cachedPages.length === 0) {
+                const empty = document.createElement('li');
+                empty.className = 'empty-cache';
+                empty.textContent = 'No cached pages available';
+                cachedList.appendChild(empty);
+                return;
+            }
+
+            cachedPages.forEach(page => {
+                const li = document.createElement('li');
+                li.className = 'cached-item';
+
+                const icon = document.createElement('span');
+                icon.className = 'cached-icon';
+                icon.setAttribute('aria-hidden', 'true');
+                icon.textContent = page.url === window.location.pathname ? '📍' : '📄';
+
+                const link = document.createElement('a');
+                link.href = page.url;
+                link.textContent = page.title;
+
+                if (page.url === window.location.pathname) {
+                    link.setAttribute('aria-current', 'page');
+                    link.style.fontWeight = '600';
+                }
+
+                li.appendChild(icon);
+                li.appendChild(link);
+                cachedList.appendChild(li);
+            });
+        }
+
+        // Listen for online/offline events
+        window.addEventListener('online', () => {
+            updateStatus(true);
+            console.log('[Offline] Connection restored');
         });
 
         window.addEventListener('offline', () => {
-            document.getElementById('connection-status').textContent = 'Still offline';
+            updateStatus(false);
+            console.log('[Offline] Connection lost');
         });
 
         // Initial check
-        if (navigator.onLine) {
-            document.getElementById('connection-status').textContent = 'Connection detected - Try reloading';
-        } else {
-            document.getElementById('connection-status').textContent = 'No connection detected';
-        }
+        updateStatus(navigator.onLine);
 
-        // Periodic check
+        // Display cached pages
+        displayCachedPages();
+
+        // Periodic connection check
         setInterval(() => {
-            if (navigator.onLine) {
-                document.getElementById('connection-status').textContent = 'Connection available - Try reloading';
+            if (navigator.onLine && !statusElement.classList.contains('online')) {
+                updateStatus(true);
             }
         }, 5000);
+
+        // Log offline page view
+        console.log('[Offline] Offline page displayed', {
+            timestamp: new Date().toISOString(),
+            path: window.location.pathname,
+            cachedPages: cachedPages.length
+        });
     </script>
 </body>
 </html>

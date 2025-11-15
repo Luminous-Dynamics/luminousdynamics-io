@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheduled Maintenance | Luminous Dynamics</title>
+    <meta name="description" content="We're currently performing scheduled maintenance. We'll be back shortly.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        .maintenance-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-primary, #0a0b0d);
+        }
+
+        .maintenance-container {
+            max-width: 650px;
+            width: 100%;
+        }
+
+        .maintenance-illustration {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem;
+            font-size: 140px;
+            line-height: 180px;
+            opacity: 0.8;
+            animation: rotate 4s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% {
+                transform: rotate(-5deg) translateY(0);
+            }
+            25% {
+                transform: rotate(5deg) translateY(-5px);
+            }
+            50% {
+                transform: rotate(-5deg) translateY(0);
+            }
+            75% {
+                transform: rotate(5deg) translateY(-5px);
+            }
+        }
+
+        .maintenance-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1rem;
+        }
+
+        .maintenance-message {
+            font-size: 1.15rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            flex: 0 1 auto;
+            min-width: 100px;
+            padding: 1.25rem 1.5rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: var(--radius-lg, 12px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-primary, #00e5ff);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary, #6c757d);
+        }
+
+        .progress-container {
+            margin-bottom: 3rem;
+        }
+
+        .progress-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary, #a8b2c1);
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary, #0f1116);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                var(--accent-primary, #00e5ff),
+                var(--accent-secondary, #00c1de)
+            );
+            border-radius: 4px;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 100%
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            padding: 1.5rem;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: var(--radius-lg, 12px);
+            text-align: left;
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card-icon {
+            font-size: 1.25rem;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .maintenance-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .updates-section {
+            padding: 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: var(--radius-lg, 12px);
+            text-align: left;
+        }
+
+        .updates-section h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1.25rem;
+        }
+
+        .update-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .update-item {
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--border-secondary, rgba(255, 255, 255, 0.05));
+            display: flex;
+            gap: 1rem;
+        }
+
+        .update-item:last-child {
+            border-bottom: none;
+        }
+
+        .update-time {
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            color: var(--text-tertiary, #6c757d);
+            font-family: 'Courier New', monospace;
+        }
+
+        .update-text {
+            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 170, 0, 0.1);
+            border: 1px solid rgba(255, 170, 0, 0.3);
+            border-radius: var(--radius-md, 8px);
+            color: #ffaa00;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffaa00;
+            animation: pulse-status 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-status {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 8px #ffaa00;
+            }
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 16px #ffaa00;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .maintenance-title {
+                font-size: 2rem;
+            }
+
+            .maintenance-message {
+                font-size: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 80px;
+                padding: 1rem;
+            }
+
+            .countdown-value {
+                font-size: 2rem;
+            }
+
+            .action-row {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .action-row .btn {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .maintenance-illustration,
+            .progress-bar-fill::after,
+            .status-dot {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="maintenance-page" role="main">
+        <div class="maintenance-container">
+            <!-- Status Badge -->
+            <div class="status-badge" role="status">
+                <span class="status-dot" aria-hidden="true"></span>
+                Scheduled Maintenance in Progress
+            </div>
+
+            <!-- Illustration -->
+            <div class="maintenance-illustration" role="img" aria-label="Maintenance illustration">
+                🔧
+            </div>
+
+            <h1 class="maintenance-title">We're Making Things Better</h1>
+
+            <p class="maintenance-message">
+                We're currently performing scheduled maintenance to improve our services.
+                We'll be back online shortly with enhanced performance and new features.
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-container" role="timer" aria-live="polite" aria-label="Time remaining">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">30</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-label" id="progress-label">Maintenance progress: <span id="progress-percent">45%</span></div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="progress-bar" style="width: 45%"></div>
+                </div>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>
+                        <span class="info-card-icon" aria-hidden="true">⏰</span>
+                        Expected Duration
+                    </h3>
+                    <p>Approximately 30-45 minutes</p>
+                </div>
+                <div class="info-card">
+                    <h3>
+                        <span class="info-card-icon" aria-hidden="true">🔄</span>
+                        What's Happening
+                    </h3>
+                    <p>Database optimization, security updates, and performance improvements</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="maintenance-actions">
+                <div class="action-row">
+                    <button onclick="checkStatus()" class="btn btn-primary" id="check-btn">
+                        Check Status
+                    </button>
+                    <a href="/status.html" class="btn btn-secondary">
+                        Status Page
+                    </a>
+                </div>
+                <div class="action-row">
+                    <a href="https://github.com/Luminous-Dynamics" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                        GitHub
+                    </a>
+                    <a href="https://discord.gg/luminous" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                        Discord
+                    </a>
+                </div>
+            </div>
+
+            <!-- Live Updates -->
+            <div class="updates-section">
+                <h3>📋 Live Updates</h3>
+                <ul class="update-list" id="update-list">
+                    <li class="update-item">
+                        <span class="update-time">14:00</span>
+                        <span class="update-text">Maintenance started - All services temporarily unavailable</span>
+                    </li>
+                    <li class="update-item">
+                        <span class="update-time">14:15</span>
+                        <span class="update-text">Database optimization in progress</span>
+                    </li>
+                    <li class="update-item">
+                        <span class="update-time">14:30</span>
+                        <span class="update-text">Security updates being applied</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/theme.js" defer></script>
+
+    <script>
+        // Maintenance configuration
+        const MAINTENANCE_CONFIG = {
+            endTime: new Date(Date.now() + 30 * 60 * 1000), // 30 minutes from now
+            checkInterval: 10000, // Check every 10 seconds
+            progressSteps: [
+                { time: 0, percent: 0, message: 'Maintenance started' },
+                { time: 25, percent: 25, message: 'Database backup completed' },
+                { time: 50, percent: 50, message: 'Security updates in progress' },
+                { time: 75, percent: 75, message: 'Performance optimization' },
+                { time: 100, percent: 100, message: 'Finalizing updates' }
+            ]
+        };
+
+        // Update countdown
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = MAINTENANCE_CONFIG.endTime - now;
+
+            if (distance < 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.querySelector('.progress-label').textContent = 'Maintenance complete! Reloading...';
+                setTimeout(() => window.location.href = '/', 2000);
+                return;
+            }
+
+            const hours = Math.floor(distance / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const now = new Date().getTime();
+            const startTime = MAINTENANCE_CONFIG.endTime - (30 * 60 * 1000);
+            const totalDuration = MAINTENANCE_CONFIG.endTime - startTime;
+            const elapsed = now - startTime;
+            const progress = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-percent').textContent = `${Math.round(progress)}%`;
+        }
+
+        // Check status
+        function checkStatus() {
+            const btn = document.getElementById('check-btn');
+            btn.disabled = true;
+            btn.textContent = 'Checking...';
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = 'Check Status';
+
+                // In production, this would check the actual API status
+                // For now, show a notification
+                if (window.Toast) {
+                    window.Toast.info('Maintenance still in progress. Please wait...');
+                }
+            }, 1000);
+        }
+
+        // Add mock update
+        function addUpdate(time, message) {
+            const updateList = document.getElementById('update-list');
+            const item = document.createElement('li');
+            item.className = 'update-item';
+            item.innerHTML = `
+                <span class="update-time">${time}</span>
+                <span class="update-text">${message}</span>
+            `;
+            updateList.appendChild(item);
+        }
+
+        // Initialize
+        updateCountdown();
+        updateProgress();
+
+        // Update every second
+        setInterval(() => {
+            updateCountdown();
+            updateProgress();
+        }, 1000);
+
+        // Log page view
+        console.log('[Maintenance] Maintenance page displayed', {
+            timestamp: new Date().toISOString(),
+            expectedEnd: MAINTENANCE_CONFIG.endTime.toISOString()
+        });
+
+        // Track analytics
+        if (window.Analytics) {
+            window.Analytics.track('maintenance_page_view', {
+                expectedEnd: MAINTENANCE_CONFIG.endTime.toISOString()
+            });
+        }
+    </script>
+</body>
+</html>

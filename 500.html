@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | Luminous Dynamics</title>
+    <meta name="description" content="We're experiencing technical difficulties. Our team has been notified and is working on it.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <style>
+        /* Error Page Specific Styles */
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-primary, #0a0b0d);
+        }
+
+        .error-container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(
+                135deg,
+                var(--accent-primary, #00e5ff),
+                var(--accent-secondary, #00c1de)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+            92% {
+                transform: translate(-2px, 2px);
+                filter: hue-rotate(5deg);
+            }
+            94% {
+                transform: translate(2px, -2px);
+                filter: hue-rotate(-5deg);
+            }
+            96% {
+                transform: translate(-1px, 1px);
+                filter: hue-rotate(5deg);
+            }
+        }
+
+        .error-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: var(--text-secondary, #a8b2c1);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .error-id-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: var(--radius-md, 8px);
+            margin-bottom: 2rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .error-id-label {
+            color: var(--text-tertiary, #6c757d);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .error-id-value {
+            color: var(--accent-primary, #00e5ff);
+            font-weight: 600;
+        }
+
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .error-actions-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .error-illustration {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            font-size: 150px;
+            line-height: 200px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .error-help {
+            padding: 2rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: var(--radius-lg, 12px);
+            margin-bottom: 2rem;
+        }
+
+        .error-help h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary, #e8eaed);
+            margin-bottom: 1rem;
+        }
+
+        .error-help ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .error-help li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary, #a8b2c1);
+            border-bottom: 1px solid var(--border-secondary, rgba(255, 255, 255, 0.05));
+        }
+
+        .error-help li:last-child {
+            border-bottom: none;
+        }
+
+        .error-help li::before {
+            content: '→';
+            color: var(--accent-primary, #00e5ff);
+            margin-right: 0.75rem;
+            font-weight: bold;
+        }
+
+        .retry-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .retry-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .retry-button.loading span {
+            opacity: 0;
+        }
+
+        @media (max-width: 640px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .error-message {
+                font-size: 1rem;
+            }
+
+            .error-actions-row {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .error-actions-row .btn {
+                width: 100%;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .error-code,
+            .error-illustration,
+            .retry-button::after {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="error-page" role="main">
+        <div class="error-container">
+            <!-- Error Illustration -->
+            <div class="error-illustration" role="img" aria-label="Server error illustration">
+                ⚠️
+            </div>
+
+            <!-- Error Code -->
+            <h1 class="error-code" aria-label="Error code: 500">500</h1>
+
+            <!-- Error Title -->
+            <h2 class="error-title">Internal Server Error</h2>
+
+            <!-- Error Message -->
+            <p class="error-message">
+                We're experiencing technical difficulties on our end. Our team has been automatically notified and is working to fix the issue.
+            </p>
+
+            <!-- Error ID -->
+            <div class="error-id-container" role="status">
+                <span class="error-id-label">Error ID:</span>
+                <span class="error-id-value" id="error-id">ERR-500-XXXX</span>
+            </div>
+
+            <!-- Actions -->
+            <div class="error-actions">
+                <div class="error-actions-row">
+                    <button onclick="retryPage()" class="btn btn-primary retry-button" id="retry-btn" aria-label="Retry loading the page">
+                        <span>Retry</span>
+                    </button>
+                    <a href="/status.html" class="btn btn-secondary">
+                        System Status
+                    </a>
+                </div>
+                <div class="error-actions-row">
+                    <a href="/" class="btn btn-outline">
+                        Back to Home
+                    </a>
+                    <a href="mailto:support@luminousdynamics.io?subject=Error%20Report%20(ID:%20ERR-500-XXXX)" class="btn btn-outline">
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="error-help">
+                <h3>What happened?</h3>
+                <ul>
+                    <li>Our servers encountered an unexpected condition</li>
+                    <li>The issue has been logged with ID: <code id="error-id-copy">ERR-500-XXXX</code></li>
+                    <li>Our engineering team has been automatically notified</li>
+                    <li>You can check our <a href="/status.html">status page</a> for updates</li>
+                    <li>If the problem persists, please contact support with the error ID</li>
+                </ul>
+            </div>
+
+            <!-- Additional Links -->
+            <div style="margin-top: 2rem;">
+                <a href="/docs" style="color: var(--accent-primary, #00e5ff); text-decoration: none; margin: 0 1rem;">
+                    Documentation
+                </a>
+                <a href="https://github.com/Luminous-Dynamics" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary, #00e5ff); text-decoration: none; margin: 0 1rem;">
+                    GitHub
+                </a>
+                <a href="https://discord.gg/luminous" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary, #00e5ff); text-decoration: none; margin: 0 1rem;">
+                    Discord
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
+
+    <script>
+        // Generate unique error ID
+        (function() {
+            const timestamp = Date.now();
+            const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+            const errorId = `ERR-500-${random}`;
+
+            // Update error ID in page
+            const errorIdElements = document.querySelectorAll('#error-id, #error-id-copy');
+            errorIdElements.forEach(el => {
+                el.textContent = errorId;
+            });
+
+            // Update email link
+            const emailLink = document.querySelector('a[href*="mailto"]');
+            if (emailLink) {
+                emailLink.href = emailLink.href.replace('ERR-500-XXXX', errorId);
+            }
+
+            // Log error to console for debugging
+            console.error('[500 Error]', {
+                errorId,
+                timestamp: new Date(timestamp).toISOString(),
+                url: window.location.href,
+                referrer: document.referrer,
+                userAgent: navigator.userAgent
+            });
+
+            // Send error report (in production, this would send to analytics)
+            if (window.Analytics) {
+                window.Analytics.track('error_page_view', {
+                    error_code: 500,
+                    error_id: errorId,
+                    url: window.location.href
+                });
+            }
+        })();
+
+        // Retry page function
+        function retryPage() {
+            const retryBtn = document.getElementById('retry-btn');
+
+            // Add loading state
+            retryBtn.classList.add('loading');
+            retryBtn.disabled = true;
+
+            // Show toast notification
+            if (window.Toast) {
+                window.Toast.info('Retrying...');
+            }
+
+            // Wait a moment then reload
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+
+        // Auto-retry after 10 seconds (optional)
+        let autoRetryTimeout;
+        let countdown = 30;
+
+        function startAutoRetry() {
+            const countdownEl = document.createElement('p');
+            countdownEl.style.marginTop = '1rem';
+            countdownEl.style.color = 'var(--text-tertiary, #6c757d)';
+            countdownEl.style.fontSize = '0.9rem';
+            countdownEl.id = 'auto-retry-countdown';
+
+            document.querySelector('.error-actions').appendChild(countdownEl);
+
+            const updateCountdown = () => {
+                countdownEl.textContent = `Auto-retry in ${countdown} seconds...`;
+                countdown--;
+
+                if (countdown < 0) {
+                    clearInterval(countdownInterval);
+                    retryPage();
+                } else {
+                    countdownInterval = setTimeout(updateCountdown, 1000);
+                }
+            };
+
+            let countdownInterval = updateCountdown();
+        }
+
+        // Optional: Uncomment to enable auto-retry
+        // startAutoRetry();
+    </script>
+</body>
+</html>

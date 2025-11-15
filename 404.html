@@ -10,8 +10,26 @@
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#00e5ff">
+
     <!-- Styles -->
+    <link rel="stylesheet" href="styles/themes.css">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/toast.css">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
 
     <style>
         .error-container {
@@ -111,6 +129,69 @@
             color: var(--text-muted);
         }
 
+        .error-illustration {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 2rem;
+            font-size: 120px;
+            line-height: 150px;
+            opacity: 0.8;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .search-container {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .search-container h3 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .search-form {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 3rem 0.875rem 1.25rem;
+            background: var(--bg-secondary, #0f1116);
+            border: 1px solid var(--border-primary, rgba(255, 255, 255, 0.1));
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary, #00e5ff);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            pointer-events: none;
+        }
+
         @media (max-width: 768px) {
             .error-code {
                 font-size: 5rem;
@@ -127,14 +208,41 @@
     </style>
 </head>
 <body>
-    <div class="error-container">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <main id="main-content" class="error-container" role="main">
         <div class="error-content">
+            <!-- Illustration -->
+            <div class="error-illustration" role="img" aria-label="Lost in space illustration">
+                🚀
+            </div>
+
             <div class="error-code" aria-label="Error 404">404</div>
             <h1 class="error-title">Page Not Found</h1>
             <p class="error-description">
-                The page you're looking for doesn't exist or has been moved.
+                Looks like this page took a wrong turn in the digital cosmos!
                 Let's get you back to building sacred technology.
             </p>
+
+            <!-- Search (preparation for future implementation) -->
+            <div class="search-container">
+                <h3>Try searching for what you need:</h3>
+                <form class="search-form" onsubmit="handleSearch(event)" role="search">
+                    <label for="search-input" class="sr-only">Search documentation</label>
+                    <input
+                        type="search"
+                        id="search-input"
+                        class="search-input"
+                        placeholder="Search documentation, APIs, guides..."
+                        aria-label="Search documentation"
+                    />
+                    <span class="search-icon" aria-hidden="true">🔍</span>
+                </form>
+                <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-tertiary);">
+                    Search functionality coming soon. For now, check the popular pages below.
+                </p>
+            </div>
 
             <div class="error-actions">
                 <a href="/" class="btn btn-primary">
@@ -169,11 +277,86 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/toast.js" defer></script>
+    <script src="js/theme.js" defer></script>
 
     <script>
-        // Track 404 for analytics (if implemented)
+        // Track 404 for analytics
         console.log('404 Error - Page not found:', window.location.pathname);
+
+        // Analytics tracking
+        if (window.Analytics) {
+            window.Analytics.track('404_error', {
+                path: window.location.pathname,
+                referrer: document.referrer
+            });
+        }
+
+        // Handle search (preparation for future implementation)
+        function handleSearch(event) {
+            event.preventDefault();
+
+            const searchInput = document.getElementById('search-input');
+            const query = searchInput.value.trim();
+
+            if (!query) {
+                return;
+            }
+
+            // Show toast notification
+            if (window.Toast) {
+                window.Toast.info('Search functionality coming soon! For now, try the popular pages below.');
+            } else {
+                alert('Search functionality coming soon! For now, try the popular pages below.');
+            }
+
+            console.log('Search query:', query);
+
+            // In the future, this would redirect to search page or show search results
+            // window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        }
+
+        // Suggest pages based on current path
+        (function() {
+            const path = window.location.pathname.toLowerCase();
+            const suggestions = [];
+
+            if (path.includes('doc')) {
+                suggestions.push('Documentation');
+            }
+            if (path.includes('api')) {
+                suggestions.push('APIs');
+            }
+            if (path.includes('guide') || path.includes('tutorial')) {
+                suggestions.push('Getting Started');
+            }
+
+            if (suggestions.length > 0 && window.Toast) {
+                setTimeout(() => {
+                    window.Toast.info(`Looking for ${suggestions.join(' or ')}? Check the popular pages below.`);
+                }, 1000);
+            }
+        })();
+
+        // Screen reader only class
+        const style = document.createElement('style');
+        style.textContent = `
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border-width: 0;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
