@@ -3,20 +3,45 @@
  * Provides offline functionality and caching
  */
 
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v2.0.0';
 const CACHE_NAME = `luminous-dynamics-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `luminous-dynamics-runtime-${CACHE_VERSION}`;
+const API_CACHE = `luminous-dynamics-api-${CACHE_VERSION}`;
+
+// Cache expiration times (in seconds)
+const CACHE_MAX_AGE = {
+    STATIC: 60 * 60 * 24 * 30, // 30 days
+    RUNTIME: 60 * 60 * 24 * 7, // 7 days
+    API: 60 * 5 // 5 minutes
+};
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
     '/',
     '/index.html',
+    '/status.html',
+    '/docs/getting-started.html',
+    '/docs/api-reference.html',
+    '/docs/sdks.html',
+    '/docs/best-practices.html',
     '/styles/main.css',
+    '/styles/themes.css',
     '/styles/syntax.css',
+    '/styles/toast.css',
+    '/styles/animations.css',
+    '/styles/docs.css',
+    '/styles/status-dashboard.css',
     '/styles/print.css',
     '/js/main.js',
+    '/js/theme.js',
+    '/js/toast.js',
+    '/js/animations.js',
+    '/js/docs-navigation.js',
+    '/js/status-dashboard.js',
     '/favicon.svg',
     '/404.html',
-    '/offline.html'
+    '/offline.html',
+    '/data/status-data.json'
 ];
 
 // Cache strategies
@@ -68,7 +93,9 @@ self.addEventListener('activate', (event) => {
                         .filter((cacheName) => {
                             // Delete old caches
                             return cacheName.startsWith('luminous-dynamics-') &&
-                                   cacheName !== CACHE_NAME;
+                                   cacheName !== CACHE_NAME &&
+                                   cacheName !== RUNTIME_CACHE &&
+                                   cacheName !== API_CACHE;
                         })
                         .map((cacheName) => {
                             console.log('[Service Worker] Deleting old cache:', cacheName);
@@ -128,22 +155,27 @@ function getStrategy(request) {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // Static assets - cache first
+    // Static assets (CSS, JS, images, fonts) - cache first
     if (path.match(/\.(css|js|svg|png|jpg|jpeg|gif|webp|woff2?|ttf|eot)$/)) {
         return CACHE_STRATEGIES.CACHE_FIRST;
     }
 
-    // HTML pages - network first
+    // JSON data files - stale while revalidate
+    if (path.endsWith('.json') && path.startsWith('/data/')) {
+        return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
+    }
+
+    // HTML pages - network first with cache fallback
     if (path.endsWith('.html') || path === '/') {
         return CACHE_STRATEGIES.NETWORK_FIRST;
     }
 
-    // API calls - network only (when implemented)
+    // API calls - stale while revalidate (short cache time)
     if (path.startsWith('/api/')) {
-        return CACHE_STRATEGIES.NETWORK_ONLY;
+        return CACHE_STRATEGIES.STALE_WHILE_REVALIDATE;
     }
 
-    // Default
+    // Default - network first
     return CACHE_STRATEGIES.NETWORK_FIRST;
 }
 
@@ -154,24 +186,40 @@ function getStrategy(request) {
  */
 async function cacheFirstStrategy(request) {
     try {
-        // Try cache first
-        const cachedResponse = await caches.match(request);
+        // Try cache first (check both precache and runtime)
+        let cachedResponse = await caches.match(request);
+
+        // Check if cache is expired
         if (cachedResponse) {
-            return cachedResponse;
+            const cacheTime = cachedResponse.headers.get('sw-cache-time');
+            if (cacheTime && isCacheExpired(cacheTime, CACHE_MAX_AGE.STATIC)) {
+                console.log('[Service Worker] Cache expired for:', request.url);
+                cachedResponse = null;
+            } else {
+                return cachedResponse;
+            }
         }
 
         // Fallback to network
         const networkResponse = await fetch(request);
 
-        // Cache successful responses
+        // Cache successful responses in runtime cache
         if (networkResponse && networkResponse.status === 200) {
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(request, networkResponse.clone());
+            const responseToCache = addCacheTimestamp(networkResponse.clone());
+            const cache = await caches.open(RUNTIME_CACHE);
+            cache.put(request, responseToCache);
         }
 
         return networkResponse;
     } catch (error) {
         console.error('[Service Worker] Cache first strategy failed:', error);
+
+        // Try cache again as fallback
+        const cachedResponse = await caches.match(request);
+        if (cachedResponse) {
+            return cachedResponse;
+        }
+
         return getOfflinePage();
     }
 }
@@ -229,6 +277,40 @@ async function staleWhileRevalidateStrategy(request) {
 
     // Return cached response or wait for network
     return cachedResponse || networkPromise || getOfflinePage();
+}
+
+/**
+ * Check if cache is expired
+ * @param {string} cacheTimeHeader - Cache timestamp from header
+ * @param {number} maxAge - Maximum age in seconds
+ * @returns {boolean} True if expired
+ */
+function isCacheExpired(cacheTimeHeader, maxAge) {
+    try {
+        const cacheTime = parseInt(cacheTimeHeader, 10);
+        const now = Date.now();
+        const age = (now - cacheTime) / 1000; // Convert to seconds
+        return age > maxAge;
+    } catch (error) {
+        // If we can't parse the time, consider it expired
+        return true;
+    }
+}
+
+/**
+ * Add cache timestamp to response
+ * @param {Response} response - Response to add timestamp to
+ * @returns {Response} Response with timestamp header
+ */
+function addCacheTimestamp(response) {
+    const headers = new Headers(response.headers);
+    headers.append('sw-cache-time', Date.now().toString());
+
+    return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: headers
+    });
 }
 
 /**
