@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Practices - Luminous Dynamics Documentation</title>
+    <meta name="description" content="Best practices for building with Luminous Dynamics APIs. Architecture patterns, error handling, performance tips, and production deployment.">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <link rel="canonical" href="https://luminousdynamics.io/docs/best-practices.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="theme-color" content="#00e5ff">
+
+    <link rel="stylesheet" href="../styles/themes.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/toast.css">
+    <link rel="stylesheet" href="../styles/docs.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">luminous<span class="brand-accent">.io</span></span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#apis" class="nav-link">APIs</a>
+                <a href="/docs/getting-started.html" class="nav-link active">Docs</a>
+                <a href="/#playground" class="nav-link">Playground</a>
+                <a href="/status.html" class="nav-link">Status</a>
+                <a href="https://github.com/Luminous-Dynamics" class="nav-link nav-github" target="_blank" rel="noopener noreferrer">
+                    <svg class="github-icon" viewBox="0 0 16 16" width="20" height="20">
+                        <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="main-container">
+        <div class="docs-container">
+            <aside class="docs-sidebar">
+                <nav class="toc" aria-label="Table of contents">
+                    <h3 class="toc-title">On This Page</h3>
+                    <ul class="toc-list" id="toc-list"></ul>
+                </nav>
+            </aside>
+
+            <article class="docs-content">
+                <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="/" class="breadcrumb-link">Home</a>
+                        <span class="breadcrumb-separator">/</span>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <a href="/docs/getting-started.html" class="breadcrumb-link">Docs</a>
+                        <span class="breadcrumb-separator">/</span>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">Best Practices</span>
+                    </div>
+                </nav>
+
+                <header class="docs-header">
+                    <h1 class="docs-title">Best Practices</h1>
+                    <p class="docs-description">
+                        Production-ready patterns and best practices for building reliable, performant,
+                        and secure applications with Luminous Dynamics APIs.
+                    </p>
+                    <div class="docs-meta">
+                        <span class="meta-item">
+                            <span>📅</span> Last updated: November 2025
+                        </span>
+                        <span class="meta-item">
+                            <span>⏱️</span> 12 minute read
+                        </span>
+                    </div>
+                </header>
+
+                <!-- Architecture -->
+                <section class="docs-section" id="architecture">
+                    <h2>Architecture Patterns</h2>
+
+                    <h3 id="client-configuration">Client Configuration</h3>
+                    <p>
+                        Create a centralized API client instance and reuse it across your application.
+                        This ensures efficient connection pooling and consistent configuration.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// api/client.js - Centralized client configuration
+import { LuminousClient } from '@luminous/api-client';
+
+const client = new LuminousClient({
+  apiKey: process.env.LUMINOUS_API_KEY,
+  timeout: 10000,
+  retries: 3,
+  onRateLimit: (retryAfter) => {
+    console.warn(`Rate limited. Retrying after ${retryAfter}s`);
+  },
+  onError: (error) => {
+    // Centralized error logging
+    console.error('API Error:', error);
+  }
+});
+
+export default client;</code></pre>
+                    </div>
+
+                    <h3 id="service-layer">Service Layer Pattern</h3>
+                    <p>
+                        Encapsulate API calls in a service layer to separate concerns and enable easier testing.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// services/terra-service.js
+import client from '../api/client';
+
+export class TerraService {
+  async findSolarSites({ minCapacity, location }) {
+    try {
+      const sites = await client.terra.sites.list({
+        type: 'solar',
+        minCapacity,
+        ...location
+      });
+
+      return this.transformSites(sites);
+    } catch (error) {
+      throw this.handleError(error);
+    }
+  }
+
+  transformSites(sites) {
+    // Transform API response to match your domain model
+    return sites.map(site => ({
+      id: site.id,
+      displayName: site.name,
+      powerOutput: `${site.capacity} kW`,
+      coordinates: [site.location.lat, site.location.lng]
+    }));
+  }
+
+  handleError(error) {
+    // Transform API errors to application errors
+    if (error.code === 'RATE_LIMIT') {
+      return new RateLimitError(error.retryAfter);
+    }
+    return new ServiceError(error.message);
+  }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Error Handling -->
+                <section class="docs-section" id="error-handling">
+                    <h2>Error Handling</h2>
+
+                    <h3 id="comprehensive-error-handling">Comprehensive Error Handling</h3>
+                    <p>
+                        Always implement comprehensive error handling with specific error types.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">async function callAPI() {
+  try {
+    const result = await client.nix.analyze({
+      data: neuralData,
+      depth: 7
+    });
+
+    return result;
+  } catch (error) {
+    // Handle specific error types
+    if (error.code === 'UNAUTHORIZED') {
+      // Invalid API key - check credentials
+      throw new AuthError('Invalid API key. Please check your credentials.');
+    }
+
+    if (error.code === 'RATE_LIMIT') {
+      // Rate limit exceeded - implement backoff
+      const retryAfter = error.retryAfter || 60;
+      console.warn(`Rate limited. Retry after ${retryAfter}s`);
+
+      return retryWithBackoff(() => callAPI(), retryAfter);
+    }
+
+    if (error.code === 'VALIDATION_ERROR') {
+      // Invalid parameters - fix request
+      console.error('Validation failed:', error.details);
+      throw new ValidationError(error.details);
+    }
+
+    if (error.code === 'SERVER_ERROR') {
+      // Server error - log and retry
+      console.error('Server error:', error);
+      return retryWithExponentialBackoff(() => callAPI());
+    }
+
+    // Unknown error - log for investigation
+    console.error('Unknown API error:', error);
+    throw error;
+  }
+}</code></pre>
+                    </div>
+
+                    <h3 id="retry-strategies">Retry Strategies</h3>
+                    <p>
+                        Implement exponential backoff for transient failures.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">async function retryWithExponentialBackoff(
+  fn,
+  maxRetries = 3,
+  baseDelay = 1000
+) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt === maxRetries) throw error;
+
+      // Exponential backoff: 1s, 2s, 4s, 8s...
+      const delay = baseDelay * Math.pow(2, attempt);
+
+      // Add jitter to prevent thundering herd
+      const jitter = Math.random() * 1000;
+
+      await sleep(delay + jitter);
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <div class="docs-callout warning">
+                        <div class="callout-title">
+                            <span>⚠️</span> Retry Safely
+                        </div>
+                        <p class="callout-content">
+                            Only retry idempotent operations (GET, DELETE) automatically.
+                            For POST/PUT, implement idempotency keys or verify state before retrying.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Performance -->
+                <section class="docs-section" id="performance">
+                    <h2>Performance Optimization</h2>
+
+                    <h3 id="caching">Caching Strategies</h3>
+                    <p>
+                        Cache API responses to reduce latency and API usage.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">import { LRUCache } from 'lru-cache';
+
+const cache = new LRUCache({
+  max: 500,
+  ttl: 1000 * 60 * 5 // 5 minutes
+});
+
+async function getCachedSites(params) {
+  const cacheKey = JSON.stringify(params);
+
+  // Check cache first
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    console.log('Cache hit');
+    return cached;
+  }
+
+  // Fetch from API
+  const sites = await client.terra.sites.list(params);
+
+  // Store in cache
+  cache.set(cacheKey, sites);
+
+  return sites;
+}</code></pre>
+                    </div>
+
+                    <h3 id="pagination">Efficient Pagination</h3>
+                    <p>
+                        For large datasets, use cursor-based pagination when available.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">async function fetchAllSites() {
+  const allSites = [];
+  let page = 1;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await client.terra.sites.list({
+      page,
+      limit: 100 // Fetch in batches
+    });
+
+    allSites.push(...response.data);
+
+    hasMore = page < response.pages;
+    page++;
+
+    // Avoid hitting rate limits
+    if (hasMore) {
+      await sleep(100); // Small delay between pages
+    }
+  }
+
+  return allSites;
+}</code></pre>
+                    </div>
+
+                    <h3 id="parallel-requests">Parallel Requests</h3>
+                    <p>
+                        Execute independent API calls in parallel to reduce total latency.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// ❌ Sequential - slow
+const solarSites = await client.terra.sites.list({ type: 'solar' });
+const windSites = await client.terra.sites.list({ type: 'wind' });
+const hydroSites = await client.terra.sites.list({ type: 'hydro' });
+
+// ✅ Parallel - fast
+const [solarSites, windSites, hydroSites] = await Promise.all([
+  client.terra.sites.list({ type: 'solar' }),
+  client.terra.sites.list({ type: 'wind' }),
+  client.terra.sites.list({ type: 'hydro' })
+]);</code></pre>
+                    </div>
+                </section>
+
+                <!-- Security -->
+                <section class="docs-section" id="security">
+                    <h2>Security Best Practices</h2>
+
+                    <h3 id="api-key-security">API Key Security</h3>
+                    <p>
+                        Never expose API keys in client-side code or version control.
+                    </p>
+
+                    <div class="docs-callout danger">
+                        <div class="callout-title">
+                            <span>🔒</span> Critical
+                        </div>
+                        <div class="callout-content">
+                            <strong>NEVER do this:</strong>
+                            <ul>
+                                <li>Hardcode API keys in source code</li>
+                                <li>Commit API keys to git</li>
+                                <li>Use API keys in client-side JavaScript</li>
+                                <li>Share API keys in public channels</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 id="environment-variables">Environment Variables</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash"># .env (add to .gitignore!)
+LUMINOUS_API_KEY=your_api_key_here
+NODE_ENV=production
+
+# .env.example (commit this)
+LUMINOUS_API_KEY=your_api_key_here
+NODE_ENV=development</code></pre>
+                    </div>
+
+                    <h3 id="backend-proxy">Backend Proxy Pattern</h3>
+                    <p>
+                        For client-side applications, proxy API calls through your backend.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// Backend API route
+app.post('/api/analyze', async (req, res) => {
+  // Validate user authentication
+  if (!req.user) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  // Validate request
+  if (!req.body.data) {
+    return res.status(400).json({ error: 'Missing data' });
+  }
+
+  try {
+    // Call Luminous API with server-side key
+    const result = await client.nix.analyze({
+      data: req.body.data,
+      depth: req.body.depth || 5
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('API error:', error);
+    res.status(500).json({ error: 'Analysis failed' });
+  }
+});</code></pre>
+                    </div>
+                </section>
+
+                <!-- Rate Limiting -->
+                <section class="docs-section" id="rate-limiting">
+                    <h2>Rate Limit Management</h2>
+
+                    <h3 id="track-rate-limits">Track Rate Limits</h3>
+                    <p>
+                        Monitor rate limit headers to prevent hitting limits.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">class RateLimitTracker {
+  constructor() {
+    this.remaining = null;
+    this.limit = null;
+    this.reset = null;
+  }
+
+  update(response) {
+    this.remaining = parseInt(response.headers.get('X-RateLimit-Remaining'));
+    this.limit = parseInt(response.headers.get('X-RateLimit-Limit'));
+    this.reset = new Date(response.headers.get('X-RateLimit-Reset') * 1000);
+  }
+
+  shouldThrottle() {
+    // Throttle when under 10% remaining
+    return this.remaining < (this.limit * 0.1);
+  }
+
+  getWaitTime() {
+    if (!this.reset) return 0;
+    return Math.max(0, this.reset - Date.now());
+  }
+}
+
+const rateLimiter = new RateLimitTracker();</code></pre>
+                    </div>
+                </section>
+
+                <!-- Testing -->
+                <section class="docs-section" id="testing">
+                    <h2>Testing</h2>
+
+                    <h3 id="mock-api-calls">Mock API Calls</h3>
+                    <p>
+                        Use mocks for unit testing to avoid hitting the API.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// __tests__/terra-service.test.js
+import { TerraService } from '../services/terra-service';
+import client from '../api/client';
+
+jest.mock('../api/client');
+
+describe('TerraService', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('finds solar sites', async () => {
+    const mockSites = [
+      { id: '1', name: 'Solar Farm', capacity: 5000 }
+    ];
+
+    client.terra.sites.list.mockResolvedValue(mockSites);
+
+    const service = new TerraService();
+    const sites = await service.findSolarSites({ minCapacity: 1000 });
+
+    expect(client.terra.sites.list).toHaveBeenCalledWith({
+      type: 'solar',
+      minCapacity: 1000
+    });
+    expect(sites).toHaveLength(1);
+  });
+});</code></pre>
+                    </div>
+
+                    <h3 id="integration-testing">Integration Testing</h3>
+                    <p>
+                        Use a test API key for integration tests.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// Use test environment
+const testClient = new LuminousClient({
+  apiKey: process.env.LUMINOUS_TEST_API_KEY,
+  baseUrl: 'https://api-test.luminousdynamics.io'
+});
+
+describe('Integration Tests', () => {
+  it('creates and retrieves a site', async () => {
+    const site = await testClient.terra.sites.create({
+      name: 'Test Solar Farm',
+      type: 'solar',
+      capacity: 1000
+    });
+
+    expect(site.id).toBeDefined();
+
+    const retrieved = await testClient.terra.sites.get(site.id);
+    expect(retrieved.name).toBe('Test Solar Farm');
+
+    // Cleanup
+    await testClient.terra.sites.delete(site.id);
+  });
+});</code></pre>
+                    </div>
+                </section>
+
+                <!-- Production Deployment -->
+                <section class="docs-section" id="deployment">
+                    <h2>Production Deployment</h2>
+
+                    <h3 id="deployment-checklist">Deployment Checklist</h3>
+                    <ul>
+                        <li>✅ Environment variables properly set</li>
+                        <li>✅ API keys rotated from development</li>
+                        <li>✅ Error logging configured</li>
+                        <li>✅ Monitoring and alerts set up</li>
+                        <li>✅ Rate limiting handled gracefully</li>
+                        <li>✅ Retry logic implemented</li>
+                        <li>✅ Caching strategy in place</li>
+                        <li>✅ Timeout values configured</li>
+                        <li>✅ Health checks implemented</li>
+                        <li>✅ Load testing completed</li>
+                    </ul>
+
+                    <h3 id="monitoring">Monitoring</h3>
+                    <p>
+                        Implement comprehensive monitoring and alerting.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">import { logger } from './logger';
+import { metrics } from './metrics';
+
+const monitoredClient = new LuminousClient({
+  apiKey: process.env.LUMINOUS_API_KEY,
+
+  onRequest: (config) => {
+    metrics.increment('api.requests', {
+      endpoint: config.url,
+      method: config.method
+    });
+
+    logger.debug('API Request', {
+      url: config.url,
+      method: config.method
+    });
+  },
+
+  onResponse: (response) => {
+    metrics.timing('api.response_time', response.duration);
+    metrics.increment('api.success', {
+      endpoint: response.url,
+      status: response.status
+    });
+  },
+
+  onError: (error) => {
+    metrics.increment('api.errors', {
+      code: error.code,
+      endpoint: error.url
+    });
+
+    logger.error('API Error', {
+      code: error.code,
+      message: error.message,
+      url: error.url
+    });
+
+    // Alert on critical errors
+    if (error.code === 'UNAUTHORIZED') {
+      alerts.critical('Invalid API key detected');
+    }
+  }
+});</code></pre>
+                    </div>
+
+                    <div class="docs-callout success">
+                        <div class="callout-title">
+                            <span>✓</span> Production Ready
+                        </div>
+                        <p class="callout-content">
+                            Follow these practices to build reliable, performant applications that scale.
+                            For additional help, join our <a href="https://discord.gg/luminous">Discord community</a>.
+                        </p>
+                    </div>
+                </section>
+
+                <nav class="docs-nav-links">
+                    <a href="/docs/sdks.html" class="nav-link-card prev">
+                        <span class="nav-link-label">Previous</span>
+                        <span class="nav-link-title">← SDKs & Libraries</span>
+                    </a>
+                    <a href="/docs/getting-started.html" class="nav-link-card next">
+                        <span class="nav-link-label">Start Over</span>
+                        <span class="nav-link-title">Getting Started →</span>
+                    </a>
+                </nav>
+            </article>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-heading">Luminous Dynamics</h3>
+                <p class="footer-text">Building sacred technology</p>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-heading">Documentation</h3>
+                <ul class="footer-links">
+                    <li><a href="/docs/getting-started.html" class="footer-link">Getting Started</a></li>
+                    <li><a href="/docs/api-reference.html" class="footer-link">API Reference</a></li>
+                    <li><a href="/docs/sdks.html" class="footer-link">SDKs</a></li>
+                    <li><a href="/docs/best-practices.html" class="footer-link">Best Practices</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Luminous Dynamics</p>
+            <p class="tagline">⚡ Built with Consciousness</p>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="toast-container" role="region" aria-label="Notifications"></div>
+
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/toast.js" defer></script>
+    <script src="../js/docs-navigation.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

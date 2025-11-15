@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDKs & Libraries - Luminous Dynamics Documentation</title>
+    <meta name="description" content="Official SDKs and community libraries for Luminous Dynamics APIs. Installation guides, examples, and version compatibility.">
+
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <link rel="canonical" href="https://luminousdynamics.io/docs/sdks.html">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="theme-color" content="#00e5ff">
+
+    <link rel="stylesheet" href="../styles/themes.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/toast.css">
+    <link rel="stylesheet" href="../styles/docs.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <header class="site-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">luminous<span class="brand-accent">.io</span></span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#apis" class="nav-link">APIs</a>
+                <a href="/docs/getting-started.html" class="nav-link active">Docs</a>
+                <a href="/#playground" class="nav-link">Playground</a>
+                <a href="/status.html" class="nav-link">Status</a>
+                <a href="https://github.com/Luminous-Dynamics" class="nav-link nav-github" target="_blank" rel="noopener noreferrer">
+                    <svg class="github-icon" viewBox="0 0 16 16" width="20" height="20">
+                        <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="main-container">
+        <div class="docs-container">
+            <aside class="docs-sidebar">
+                <nav class="toc" aria-label="Table of contents">
+                    <h3 class="toc-title">On This Page</h3>
+                    <ul class="toc-list" id="toc-list"></ul>
+                </nav>
+            </aside>
+
+            <article class="docs-content">
+                <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="/" class="breadcrumb-link">Home</a>
+                        <span class="breadcrumb-separator">/</span>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <a href="/docs/getting-started.html" class="breadcrumb-link">Docs</a>
+                        <span class="breadcrumb-separator">/</span>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">SDKs & Libraries</span>
+                    </div>
+                </nav>
+
+                <header class="docs-header">
+                    <h1 class="docs-title">SDKs & Libraries</h1>
+                    <p class="docs-description">
+                        Official SDKs and community-maintained libraries for integrating Luminous Dynamics APIs
+                        into your applications. Choose from multiple programming languages with idiomatic interfaces.
+                    </p>
+                    <div class="docs-meta">
+                        <span class="meta-item">
+                            <span>📅</span> Last updated: November 2025
+                        </span>
+                        <span class="meta-item">
+                            <span>⏱️</span> 10 minute read
+                        </span>
+                    </div>
+                </header>
+
+                <!-- Official SDKs -->
+                <section class="docs-section" id="official-sdks">
+                    <h2>Official SDKs</h2>
+                    <p>
+                        Luminous Dynamics maintains official SDKs for the most popular programming languages.
+                        All official SDKs are open-source, thoroughly tested, and actively maintained.
+                    </p>
+
+                    <h3 id="javascript-sdk">JavaScript / Node.js</h3>
+                    <p>
+                        Full-featured SDK for Node.js and browser environments with TypeScript support.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                        </div>
+                        <pre><code class="language-bash"># npm
+npm install @luminous/api-client
+
+# yarn
+yarn add @luminous/api-client
+
+# pnpm
+pnpm add @luminous/api-client</code></pre>
+                    </div>
+
+                    <h4>Quick Start</h4>
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">import { LuminousClient } from '@luminous/api-client';
+
+const client = new LuminousClient({
+  apiKey: process.env.LUMINOUS_API_KEY
+});
+
+// Terra Atlas - Find solar sites
+const sites = await client.terra.sites.list({
+  type: 'solar',
+  minCapacity: 1000
+});
+
+// Luminous Nix - Analyze consciousness
+const analysis = await client.nix.analyze({
+  data: [0.45, 0.78, 0.92],
+  depth: 7
+});
+
+// Sacred Bridge - Integrate patterns
+const integration = await client.bridge.integrate({
+  patterns: [...patterns],
+  mode: 'balanced'
+});</code></pre>
+                    </div>
+
+                    <h4>Features</h4>
+                    <ul>
+                        <li>✅ TypeScript definitions included</li>
+                        <li>✅ Promise-based async/await API</li>
+                        <li>✅ Automatic retry with exponential backoff</li>
+                        <li>✅ Request/response interceptors</li>
+                        <li>✅ Built-in error handling</li>
+                        <li>✅ Rate limit tracking</li>
+                        <li>✅ Webhook signature verification</li>
+                    </ul>
+
+                    <div class="docs-callout info">
+                        <div class="callout-title">
+                            <span>ℹ️</span> Documentation
+                        </div>
+                        <p class="callout-content">
+                            Full documentation: <a href="https://github.com/Luminous-Dynamics/js-sdk">github.com/Luminous-Dynamics/js-sdk</a>
+                        </p>
+                    </div>
+
+                    <h3 id="python-sdk">Python</h3>
+                    <p>
+                        Pythonic SDK with async support and comprehensive type hints.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-language">bash</span>
+                        </div>
+                        <pre><code class="language-bash"># pip
+pip install luminous-api
+
+# poetry
+poetry add luminous-api</code></pre>
+                    </div>
+
+                    <h4>Quick Start</h4>
+                    <div class="docs-code-block">
+                        <pre><code class="language-python">from luminous import LuminousClient
+
+client = LuminousClient(api_key=os.getenv('LUMINOUS_API_KEY'))
+
+# Terra Atlas
+sites = client.terra.sites.list(
+    type='solar',
+    min_capacity=1000
+)
+
+# Luminous Nix
+analysis = client.nix.analyze(
+    data=[0.45, 0.78, 0.92],
+    depth=7
+)
+
+# Async support
+import asyncio
+
+async def main():
+    async with LuminousClient(api_key=api_key) as client:
+        sites = await client.terra.sites.list(type='solar')
+        print(sites)
+
+asyncio.run(main())</code></pre>
+                    </div>
+
+                    <h4>Features</h4>
+                    <ul>
+                        <li>✅ Full type hints (mypy compatible)</li>
+                        <li>✅ Sync and async APIs</li>
+                        <li>✅ Pydantic models for validation</li>
+                        <li>✅ Automatic pagination</li>
+                        <li>✅ Context manager support</li>
+                        <li>✅ Logging integration</li>
+                    </ul>
+
+                    <h3 id="go-sdk">Go</h3>
+                    <p>
+                        Idiomatic Go SDK with comprehensive error handling.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash">go get github.com/luminous-dynamics/go-sdk</code></pre>
+                    </div>
+
+                    <h4>Quick Start</h4>
+                    <div class="docs-code-block">
+                        <pre><code class="language-go">package main
+
+import (
+    "context"
+    "log"
+    luminous "github.com/luminous-dynamics/go-sdk"
+)
+
+func main() {
+    client := luminous.NewClient(os.Getenv("LUMINOUS_API_KEY"))
+
+    // Terra Atlas
+    sites, err := client.Terra.Sites.List(context.Background(), &luminous.SiteListParams{
+        Type: luminous.String("solar"),
+        MinCapacity: luminous.Int64(1000),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for _, site := range sites.Data {
+        log.Printf("Site: %s, Capacity: %d kW", site.Name, site.Capacity)
+    }
+}</code></pre>
+                    </div>
+
+                    <h4>Features</h4>
+                    <ul>
+                        <li>✅ Context-aware operations</li>
+                        <li>✅ Comprehensive error types</li>
+                        <li>✅ Automatic retries</li>
+                        <li>✅ Structured logging</li>
+                        <li>✅ Mock client for testing</li>
+                    </ul>
+
+                    <h3 id="rust-sdk">Rust</h3>
+                    <p>
+                        High-performance Rust SDK with strong type safety.
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash"># Cargo.toml
+[dependencies]
+luminous-api = "0.1"
+tokio = { version = "1", features = ["full"] }</code></pre>
+                    </div>
+
+                    <h4>Quick Start</h4>
+                    <div class="docs-code-block">
+                        <pre><code class="language-rust">use luminous_api::{Client, SiteType};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let client = Client::new(std::env::var("LUMINOUS_API_KEY")?);
+
+    let sites = client.terra().sites()
+        .list()
+        .site_type(SiteType::Solar)
+        .min_capacity(1000)
+        .send()
+        .await?;
+
+    for site in sites.data {
+        println!("Site: {}, Capacity: {} kW", site.name, site.capacity);
+    }
+
+    Ok(())
+}</code></pre>
+                    </div>
+
+                    <h4>Features</h4>
+                    <ul>
+                        <li>✅ Builder pattern for requests</li>
+                        <li>✅ Strong type safety</li>
+                        <li>✅ Async/await with tokio</li>
+                        <li>✅ Zero-copy deserialization</li>
+                        <li>✅ Comprehensive error handling</li>
+                    </ul>
+                </section>
+
+                <!-- Community SDKs -->
+                <section class="docs-section" id="community-sdks">
+                    <h2>Community SDKs</h2>
+                    <p>
+                        Community-maintained SDKs for additional languages. While not officially supported,
+                        these libraries are widely used and actively maintained.
+                    </p>
+
+                    <h3 id="ruby-sdk">Ruby</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash"># Gemfile
+gem 'luminous-api'
+
+# Or install directly
+gem install luminous-api</code></pre>
+                    </div>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-ruby">require 'luminous'
+
+client = Luminous::Client.new(api_key: ENV['LUMINOUS_API_KEY'])
+
+sites = client.terra.sites.list(type: 'solar', min_capacity: 1000)
+sites.each do |site|
+  puts "#{site.name}: #{site.capacity} kW"
+end</code></pre>
+                    </div>
+
+                    <h3 id="php-sdk">PHP</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash">composer require luminous/api-client</code></pre>
+                    </div>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-php">&lt;?php
+require 'vendor/autoload.php';
+
+use Luminous\Client;
+
+$client = new Client(getenv('LUMINOUS_API_KEY'));
+
+$sites = $client->terra->sites->list([
+    'type' => 'solar',
+    'minCapacity' => 1000
+]);
+
+foreach ($sites->data as $site) {
+    echo "{$site->name}: {$site->capacity} kW\n";
+}</code></pre>
+                    </div>
+
+                    <h3 id="java-sdk">Java</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-xml">&lt;!-- Maven --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;io.luminousdynamics&lt;/groupId&gt;
+    &lt;artifactId&gt;luminous-api&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+                    </div>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-java">import io.luminousdynamics.LuminousClient;
+import io.luminousdynamics.models.Site;
+
+public class Example {
+    public static void main(String[] args) {
+        LuminousClient client = new LuminousClient(
+            System.getenv("LUMINOUS_API_KEY")
+        );
+
+        List&lt;Site&gt; sites = client.terra().sites()
+            .list()
+            .type("solar")
+            .minCapacity(1000)
+            .execute();
+
+        sites.forEach(site ->
+            System.out.printf("%s: %d kW%n", site.getName(), site.getCapacity())
+        );
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Version Compatibility -->
+                <section class="docs-section" id="version-compatibility">
+                    <h2>Version Compatibility</h2>
+                    <p>SDK version compatibility with API versions:</p>
+
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>SDK</th>
+                                <th>Latest Version</th>
+                                <th>API Version</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JavaScript</td>
+                                <td><code>2.1.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #00c853;">✓ Stable</span></td>
+                            </tr>
+                            <tr>
+                                <td>Python</td>
+                                <td><code>1.5.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #00c853;">✓ Stable</span></td>
+                            </tr>
+                            <tr>
+                                <td>Go</td>
+                                <td><code>0.8.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #ff6d00;">⚠ Beta</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rust</td>
+                                <td><code>0.5.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #ff6d00;">⚠ Beta</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ruby</td>
+                                <td><code>1.2.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #00b8d4;">◐ Community</span></td>
+                            </tr>
+                            <tr>
+                                <td>PHP</td>
+                                <td><code>1.0.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #00b8d4;">◐ Community</span></td>
+                            </tr>
+                            <tr>
+                                <td>Java</td>
+                                <td><code>1.0.0</code></td>
+                                <td><code>v1</code></td>
+                                <td><span style="color: #00b8d4;">◐ Community</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- SDK Features Comparison -->
+                <section class="docs-section" id="features-comparison">
+                    <h2>Features Comparison</h2>
+
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>JS</th>
+                                <th>Python</th>
+                                <th>Go</th>
+                                <th>Rust</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TypeScript/Types</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Async/Await</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Auto Retry</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Pagination</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                            <tr>
+                                <td>Webhooks</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                                <td>○</td>
+                                <td>○</td>
+                            </tr>
+                            <tr>
+                                <td>Streaming</td>
+                                <td>✓</td>
+                                <td>○</td>
+                                <td>✓</td>
+                                <td>✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-tertiary);">
+                        ✓ = Supported | ○ = Coming Soon | - = Not Planned
+                    </p>
+                </section>
+
+                <!-- Support & Contributing -->
+                <section class="docs-section" id="support">
+                    <h2>Support & Contributing</h2>
+
+                    <h3 id="getting-help">Getting Help</h3>
+                    <ul>
+                        <li><strong>GitHub Issues</strong> - Report bugs or request features</li>
+                        <li><strong>Discord Community</strong> - Chat with developers</li>
+                        <li><strong>Stack Overflow</strong> - Tag with <code>luminous-dynamics</code></li>
+                        <li><strong>Email Support</strong> - dev@luminousdynamics.io</li>
+                    </ul>
+
+                    <h3 id="contributing">Contributing</h3>
+                    <p>
+                        We welcome contributions to our SDKs! See the CONTRIBUTING.md in each repository
+                        for guidelines.
+                    </p>
+
+                    <div class="docs-callout success">
+                        <div class="callout-title">
+                            <span>✨</span> Building a new SDK?
+                        </div>
+                        <p class="callout-content">
+                            If you're building an SDK for a language we don't support, let us know!
+                            We can help promote it and potentially adopt it as an official SDK.
+                        </p>
+                    </div>
+                </section>
+
+                <nav class="docs-nav-links">
+                    <a href="/docs/api-reference.html" class="nav-link-card prev">
+                        <span class="nav-link-label">Previous</span>
+                        <span class="nav-link-title">← API Reference</span>
+                    </a>
+                    <a href="/docs/best-practices.html" class="nav-link-card next">
+                        <span class="nav-link-label">Next</span>
+                        <span class="nav-link-title">Best Practices →</span>
+                    </a>
+                </nav>
+            </article>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-heading">Luminous Dynamics</h3>
+                <p class="footer-text">Building sacred technology</p>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-heading">Documentation</h3>
+                <ul class="footer-links">
+                    <li><a href="/docs/getting-started.html" class="footer-link">Getting Started</a></li>
+                    <li><a href="/docs/api-reference.html" class="footer-link">API Reference</a></li>
+                    <li><a href="/docs/sdks.html" class="footer-link">SDKs</a></li>
+                    <li><a href="/docs/best-practices.html" class="footer-link">Best Practices</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Luminous Dynamics</p>
+            <p class="tagline">⚡ Built with Consciousness</p>
+        </div>
+    </footer>
+
+    <div id="toast-container" class="toast-container" role="region" aria-label="Notifications"></div>
+
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/toast.js" defer></script>
+    <script src="../js/docs-navigation.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>
