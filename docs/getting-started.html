@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Luminous Dynamics Documentation</title>
+    <meta name="description" content="Get started with Luminous Dynamics APIs. Quick start guide, authentication setup, and your first API call.">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://luminousdynamics.io/docs/getting-started.html">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#00e5ff">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/themes.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/toast.css">
+    <link rel="stylesheet" href="../styles/docs.css">
+
+    <!-- Prism for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <!-- Theme initialization -->
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('luminous_theme_preference') || 'dark';
+                const systemPreference = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                const effectiveTheme = savedTheme === 'auto' ? systemPreference : savedTheme;
+                document.documentElement.classList.add('theme-' + effectiveTheme);
+                document.documentElement.setAttribute('data-theme', effectiveTheme);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="site-header" role="banner">
+        <nav class="nav-container" role="navigation">
+            <div class="nav-brand">
+                <a href="/" class="brand-link">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">luminous<span class="brand-accent">.io</span></span>
+                </a>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+            <div class="nav-menu" id="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#apis" class="nav-link">APIs</a>
+                <a href="/docs/getting-started.html" class="nav-link active">Docs</a>
+                <a href="/#playground" class="nav-link">Playground</a>
+                <a href="/status.html" class="nav-link">Status</a>
+                <a href="https://github.com/Luminous-Dynamics" class="nav-link nav-github" target="_blank" rel="noopener noreferrer">
+                    <svg class="github-icon" viewBox="0 0 16 16" width="20" height="20">
+                        <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-container">
+        <div class="docs-container">
+            <!-- Sidebar with TOC -->
+            <aside class="docs-sidebar" role="complementary">
+                <nav class="toc" aria-label="Table of contents">
+                    <h3 class="toc-title">On This Page</h3>
+                    <ul class="toc-list" id="toc-list"></ul>
+                </nav>
+            </aside>
+
+            <!-- Documentation Content -->
+            <article class="docs-content">
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <div class="breadcrumb-item">
+                        <a href="/" class="breadcrumb-link">Home</a>
+                        <span class="breadcrumb-separator">/</span>
+                    </div>
+                    <div class="breadcrumb-item">
+                        <span class="breadcrumb-current">Getting Started</span>
+                    </div>
+                </nav>
+
+                <!-- Page Header -->
+                <header class="docs-header">
+                    <h1 class="docs-title">Getting Started</h1>
+                    <p class="docs-description">
+                        Learn how to quickly integrate Luminous Dynamics APIs into your applications.
+                        This guide covers authentication, making your first API call, and common patterns.
+                    </p>
+                    <div class="docs-meta">
+                        <span class="meta-item">
+                            <span aria-hidden="true">📅</span>
+                            Last updated: November 2025
+                        </span>
+                        <span class="meta-item">
+                            <span aria-hidden="true">⏱️</span>
+                            5 minute read
+                        </span>
+                    </div>
+                </header>
+
+                <!-- Section: Prerequisites -->
+                <section class="docs-section" id="prerequisites">
+                    <h2>Prerequisites</h2>
+                    <p>
+                        Before you begin, ensure you have the following:
+                    </p>
+                    <ul>
+                        <li>A Luminous Dynamics account (sign up at <a href="https://luminousdynamics.io">luminousdynamics.io</a>)</li>
+                        <li>An API key from your dashboard</li>
+                        <li>Basic knowledge of HTTP/REST APIs</li>
+                        <li>A programming language runtime (Node.js, Python, etc.)</li>
+                    </ul>
+
+                    <div class="docs-callout info">
+                        <div class="callout-title">
+                            <span aria-hidden="true">ℹ️</span>
+                            New to APIs?
+                        </div>
+                        <p class="callout-content">
+                            If you're new to working with APIs, check out our <a href="/docs/api-basics.html">API Basics Guide</a>
+                            for a gentle introduction to HTTP requests, authentication, and JSON.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section: Authentication -->
+                <section class="docs-section" id="authentication">
+                    <h2>Authentication</h2>
+                    <p>
+                        All Luminous Dynamics APIs use API key authentication. Your API key should be included
+                        in the <code>Authorization</code> header of every request.
+                    </p>
+
+                    <h3 id="get-api-key">Getting Your API Key</h3>
+                    <ol>
+                        <li>Log in to your <a href="https://dashboard.luminousdynamics.io">dashboard</a></li>
+                        <li>Navigate to <strong>Settings → API Keys</strong></li>
+                        <li>Click <strong>Generate New Key</strong></li>
+                        <li>Give your key a descriptive name (e.g., "Production App")</li>
+                        <li>Copy the key immediately (you won't be able to see it again)</li>
+                    </ol>
+
+                    <div class="docs-callout warning">
+                        <div class="callout-title">
+                            <span aria-hidden="true">⚠️</span>
+                            Security Warning
+                        </div>
+                        <p class="callout-content">
+                            Never commit API keys to version control. Use environment variables or secure secret
+                            management services. Treat API keys like passwords.
+                        </p>
+                    </div>
+
+                    <h3 id="using-api-key">Using Your API Key</h3>
+                    <p>
+                        Include your API key in the <code>Authorization</code> header with the <code>Bearer</code> scheme:
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-http">GET /v1/sites HTTP/1.1
+Host: api.luminousdynamics.io
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json</code></pre>
+                    </div>
+
+                    <h3 id="environment-variables">Environment Variables</h3>
+                    <p>
+                        Store your API key in an environment variable:
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash"># .env file
+LUMINOUS_API_KEY=your_api_key_here</code></pre>
+                    </div>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// Node.js
+require('dotenv').config();
+const apiKey = process.env.LUMINOUS_API_KEY;</code></pre>
+                    </div>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-python"># Python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+api_key = os.getenv('LUMINOUS_API_KEY')</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: First API Call -->
+                <section class="docs-section" id="first-api-call">
+                    <h2>Your First API Call</h2>
+                    <p>
+                        Let's make a simple API call to verify your setup by fetching your account information.
+                    </p>
+
+                    <h3 id="javascript-example">JavaScript / Node.js</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">const apiKey = process.env.LUMINOUS_API_KEY;
+
+async function getAccountInfo() {
+  const response = await fetch('https://api.luminousdynamics.io/v1/account', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  console.log('Account:', data);
+  return data;
+}
+
+getAccountInfo();</code></pre>
+                    </div>
+
+                    <h3 id="python-example">Python</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-python">import os
+import requests
+
+api_key = os.getenv('LUMINOUS_API_KEY')
+
+def get_account_info():
+    url = 'https://api.luminousdynamics.io/v1/account'
+    headers = {
+        'Authorization': f'Bearer {api_key}',
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+
+    data = response.json()
+    print('Account:', data)
+    return data
+
+get_account_info()</code></pre>
+                    </div>
+
+                    <h3 id="curl-example">cURL</h3>
+                    <div class="docs-code-block">
+                        <pre><code class="language-bash">curl -X GET https://api.luminousdynamics.io/v1/account \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"</code></pre>
+                    </div>
+
+                    <div class="docs-callout success">
+                        <div class="callout-title">
+                            <span aria-hidden="true">✓</span>
+                            Success!
+                        </div>
+                        <p class="callout-content">
+                            If you received a JSON response with your account details, congratulations!
+                            You've successfully authenticated with the Luminous Dynamics API.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section: Common Patterns -->
+                <section class="docs-section" id="common-patterns">
+                    <h2>Common Patterns</h2>
+
+                    <h3 id="error-handling">Error Handling</h3>
+                    <p>
+                        Always implement proper error handling. The API uses standard HTTP status codes:
+                    </p>
+
+                    <ul>
+                        <li><code>200</code> - Success</li>
+                        <li><code>400</code> - Bad Request (validation error)</li>
+                        <li><code>401</code> - Unauthorized (invalid API key)</li>
+                        <li><code>404</code> - Resource not found</li>
+                        <li><code>429</code> - Too many requests (rate limit)</li>
+                        <li><code>500</code> - Server error</li>
+                    </ul>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">async function makeRequest(url, options) {
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`${response.status}: ${error.message || response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('API Error:', error);
+    throw error;
+  }
+}</code></pre>
+                    </div>
+
+                    <h3 id="pagination">Pagination</h3>
+                    <p>
+                        List endpoints return paginated results. Use the <code>page</code> and <code>limit</code> parameters:
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">const response = await fetch(
+  'https://api.luminousdynamics.io/v1/sites?page=1&limit=20',
+  {
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    }
+  }
+);
+
+const data = await response.json();
+console.log(`Total: ${data.total}, Page: ${data.page}/${data.pages}`);</code></pre>
+                    </div>
+
+                    <h3 id="filtering">Filtering and Sorting</h3>
+                    <p>
+                        Most endpoints support filtering and sorting via query parameters:
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">// Filter by type and sort by capacity
+const url = new URL('https://api.luminousdynamics.io/v1/sites');
+url.searchParams.set('type', 'solar');
+url.searchParams.set('sort', '-capacity'); // minus for descending
+url.searchParams.set('minCapacity', '1000');
+
+const response = await fetch(url, { headers });</code></pre>
+                    </div>
+
+                    <h3 id="rate-limiting">Rate Limiting</h3>
+                    <p>
+                        API requests are rate-limited to ensure fair usage. Check response headers:
+                    </p>
+
+                    <div class="docs-code-block">
+                        <pre><code class="language-javascript">const response = await fetch(url, options);
+
+const rateLimit = {
+  limit: response.headers.get('X-RateLimit-Limit'),
+  remaining: response.headers.get('X-RateLimit-Remaining'),
+  reset: new Date(response.headers.get('X-RateLimit-Reset') * 1000)
+};
+
+console.log(`${rateLimit.remaining}/${rateLimit.limit} requests remaining`);</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: Next Steps -->
+                <section class="docs-section" id="next-steps">
+                    <h2>Next Steps</h2>
+                    <p>
+                        Now that you've made your first API call, explore these resources:
+                    </p>
+
+                    <ul>
+                        <li><a href="/docs/api-reference.html">API Reference</a> - Complete endpoint documentation</li>
+                        <li><a href="/docs/sdks.html">SDKs & Libraries</a> - Official client libraries</li>
+                        <li><a href="/docs/best-practices.html">Best Practices</a> - Patterns and tips</li>
+                        <li><a href="/#playground">API Playground</a> - Interactive testing</li>
+                    </ul>
+
+                    <div class="docs-callout info">
+                        <div class="callout-title">
+                            <span aria-hidden="true">💬</span>
+                            Need Help?
+                        </div>
+                        <p class="callout-content">
+                            Join our <a href="https://discord.gg/luminousdynamics">Discord community</a> or
+                            check our <a href="https://github.com/Luminous-Dynamics/discussions">GitHub Discussions</a>
+                            for support.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Navigation Links -->
+                <nav class="docs-nav-links" aria-label="Documentation navigation">
+                    <a href="/docs/api-reference.html" class="nav-link-card next">
+                        <span class="nav-link-label">Next</span>
+                        <span class="nav-link-title">API Reference →</span>
+                    </a>
+                </nav>
+            </article>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-heading">Luminous Dynamics</h3>
+                <p class="footer-text">Building sacred technology that serves consciousness</p>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-heading">Documentation</h3>
+                <ul class="footer-links">
+                    <li><a href="/docs/getting-started.html" class="footer-link">Getting Started</a></li>
+                    <li><a href="/docs/api-reference.html" class="footer-link">API Reference</a></li>
+                    <li><a href="/docs/sdks.html" class="footer-link">SDKs</a></li>
+                    <li><a href="/docs/best-practices.html" class="footer-link">Best Practices</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 class="footer-heading">Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="/#playground" class="footer-link">API Playground</a></li>
+                    <li><a href="/status.html" class="footer-link">System Status</a></li>
+                    <li><a href="https://github.com/Luminous-Dynamics" class="footer-link">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 Luminous Dynamics. All rights reserved.</p>
+            <p class="tagline">⚡ Built with Consciousness</p>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container" role="region" aria-label="Notifications"></div>
+
+    <!-- Scripts -->
+    <script src="../js/theme.js" defer></script>
+    <script src="../js/toast.js" defer></script>
+    <script src="../js/docs-navigation.js" defer></script>
+    <script src="../js/main.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-http.min.js"></script>
+</body>
+</html>
