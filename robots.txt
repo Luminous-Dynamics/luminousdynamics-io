@@ -16,6 +16,19 @@ Disallow: /*.json$
 Allow: /styles/*.css
 Allow: /js/*.js
 
+# Allow all documentation and community pages
+Allow: /docs/
+Allow: /examples.html
+Allow: /faq.html
+Allow: /roadmap.html
+Allow: /community.html
+Allow: /changelog.html
+Allow: /contributing.html
+Allow: /code-of-conduct.html
+Allow: /security.html
+Allow: /status.html
+Allow: /humans.txt
+
 # Crawl delay (optional, helps prevent server overload)
 Crawl-delay: 1
 
