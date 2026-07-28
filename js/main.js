@@ -264,89 +264,12 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// =========================
-// Live Activity Feed Simulation
-// =========================
-const activityTypes = [
-    { icon: '⚡', class: 'commit', title: 'New commit to {repo}', repos: ['luminous-nix', 'terra-atlas', 'sacred-bridge'] },
-    { icon: '🚀', class: 'release', title: '{repo} v{version} released', repos: ['Terra Atlas', 'Luminous Nix', 'Mycelix'] },
-    { icon: '🔀', class: 'pr', title: 'PR merged: {feature}', features: ['Add GraphQL support', 'Improve performance', 'Fix memory leak'] },
-    { icon: '⭐', class: 'star', title: '{repo} reached {count} stars', repos: ['luminous-nix', 'terra-atlas'], counts: [1000, 2000, 5000] }
-];
-
-function addActivityItem() {
-    const feed = document.querySelector('.activity-feed');
-    if (!feed) return;
-    
-    // Get random activity type
-    const activityType = activityTypes[Math.floor(Math.random() * activityTypes.length)];
-    
-    // Build title with random data
-    let title = activityType.title;
-    if (activityType.repos) {
-        title = title.replace('{repo}', activityType.repos[Math.floor(Math.random() * activityType.repos.length)]);
-    }
-    if (activityType.features) {
-        title = title.replace('{feature}', activityType.features[Math.floor(Math.random() * activityType.features.length)]);
-    }
-    if (activityType.counts) {
-        title = title.replace('{count}', activityType.counts[Math.floor(Math.random() * activityType.counts.length)]);
-    }
-    title = title.replace('{version}', `1.${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 20)}`);
-    
-    // Create new activity item
-    const item = document.createElement('div');
-    item.className = 'activity-item';
-    item.style.opacity = '0';
-    item.innerHTML = `
-        <span class="activity-icon ${activityType.class}">${activityType.icon}</span>
-        <div class="activity-content">
-            <div class="activity-title">${title}</div>
-            <div class="activity-meta">Just now</div>
-        </div>
-    `;
-    
-    // Add to feed
-    feed.insertBefore(item, feed.firstChild);
-    
-    // Animate in
-    setTimeout(() => {
-        item.style.transition = 'opacity 0.5s';
-        item.style.opacity = '1';
-    }, 10);
-    
-    // Remove old items if too many
-    const items = feed.querySelectorAll('.activity-item');
-    if (items.length > 4) {
-        const lastItem = items[items.length - 1];
-        lastItem.style.opacity = '0';
-        setTimeout(() => lastItem.remove(), 500);
-    }
-    
-    // Update timestamps of existing items
-    items.forEach((item, index) => {
-        if (index > 0) {
-            const meta = item.querySelector('.activity-meta');
-            if (meta.textContent === 'Just now') {
-                meta.textContent = '1 minute ago';
-            } else if (meta.textContent === '1 minute ago') {
-                meta.textContent = '5 minutes ago';
-            } else if (meta.textContent === '5 minutes ago') {
-                meta.textContent = '15 minutes ago';
-            }
-        }
-    });
-}
-
-// Start activity feed simulation after page load
-window.addEventListener('load', () => {
-    // Add an activity every 5-10 seconds
-    setInterval(() => {
-        if (Math.random() > 0.3) { // 70% chance
-            addActivityItem();
-        }
-    }, 7000);
-});
+// Note: the previous version of this file simulated a "live activity feed"
+// and a "live API status" indicator with Math.random() and hardcoded fake
+// numbers (commit messages, release versions, star counts, uptime %). That
+// was fabricated data presented as real. It has been removed rather than
+// replaced with more fake data — see the "Open Source" section in
+// index.html, which links to real GitHub data instead.
 
 // =========================
 // Open Playground with specific API
@@ -445,30 +368,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// =========================
-// Live API Status Check (Optional)
-// =========================
-async function checkAPIStatus() {
-    const statusDot = document.querySelector('.status-dot');
-    const statusText = document.querySelector('.status-operational');
-    
-    try {
-        // In production, this would check real endpoints
-        // For now, simulate with random success
-        const isOperational = Math.random() > 0.05; // 95% uptime simulation
-        
-        if (isOperational) {
-            statusDot.style.background = '#00c853';
-            statusText.textContent = 'All Systems Operational';
-        } else {
-            statusDot.style.background = '#ff6d00';
-            statusText.textContent = 'Minor Degradation';
-        }
-    } catch (error) {
-        statusDot.style.background = '#ff1744';
-        statusText.textContent = 'Status Unknown';
-    }
-}
-
-// Check status every 30 seconds
-setInterval(checkAPIStatus, 30000);
+// (Fake "live API status" simulator removed — see note above.)

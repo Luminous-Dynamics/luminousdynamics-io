@@ -69,20 +69,12 @@
                 </button>
             </div>
             
-            <!-- Live Status Bar -->
+            <!-- Open Source Badges (live data from GitHub, not simulated) -->
             <div class="status-bar">
-                <div class="status-item status-operational">
-                    <span class="status-dot"></span>
-                    All Systems Operational
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Uptime:</span>
-                    <span class="status-value">99.98%</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Latency:</span>
-                    <span class="status-value">12ms</span>
-                </div>
+                <a class="status-item" href="https://github.com/Luminous-Dynamics" target="_blank" rel="noopener">
+                    <img src="https://img.shields.io/github/followers/Luminous-Dynamics?label=followers&style=social" alt="GitHub followers" height="20">
+                </a>
+                <span class="status-item status-label">Open source · early stage · in active development</span>
             </div>
         </div>
     </section>
@@ -149,7 +141,7 @@ node.on('peer', peer => {
     <section id="apis" class="section">
         <div class="container">
             <h2 class="section-title">Available APIs</h2>
-            <p class="section-subtitle">Production-ready endpoints with 99.9% uptime</p>
+            <p class="section-subtitle">Projects and prototypes we're building in the open — check each repo for current status</p>
             
             <div class="api-grid">
                 <!-- Terra Atlas API -->
@@ -167,16 +159,6 @@ node.on('peer', peer => {
                         <div class="feature">✓ Investment analytics</div>
                         <div class="feature">✓ WebSocket streaming</div>
                     </div>
-                    <div class="api-stats">
-                        <div class="stat">
-                            <span class="stat-value">500M+</span>
-                            <span class="stat-label">API Calls/Month</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">12ms</span>
-                            <span class="stat-label">Avg Response</span>
-                        </div>
-                    </div>
                     <div class="api-actions">
                         <a href="/docs/terra-atlas/api" class="btn btn-small">API Docs</a>
                         <button class="btn btn-small btn-outline" onclick="openPlayground('terra')">Try It</button>
@@ -193,20 +175,9 @@ node.on('peer', peer => {
                         Natural language interface for NixOS system operations
                     </p>
                     <div class="api-features">
-                        <div class="feature">✓ 98.5% accuracy</div>
-                        <div class="feature">✓ 100+ languages</div>
+                        <div class="feature">✓ 100+ languages (design target)</div>
                         <div class="feature">✓ Semantic understanding</div>
                         <div class="feature">✓ Safe execution</div>
-                    </div>
-                    <div class="api-stats">
-                        <div class="stat">
-                            <span class="stat-value">1.5M</span>
-                            <span class="stat-label">Commands/Day</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value"><100ms</span>
-                            <span class="stat-label">Response Time</span>
-                        </div>
                     </div>
                     <div class="api-actions">
                         <a href="/docs/luminous-nix/api" class="btn btn-small">API Docs</a>
@@ -228,16 +199,6 @@ node.on('peer', peer => {
                         <div class="feature">✓ Service mesh</div>
                         <div class="feature">✓ State sync</div>
                         <div class="feature">✓ GraphQL support</div>
-                    </div>
-                    <div class="api-stats">
-                        <div class="stat">
-                            <span class="stat-value">10K</span>
-                            <span class="stat-label">Events/Second</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-value">1ms</span>
-                            <span class="stat-label">Propagation</span>
-                        </div>
                     </div>
                     <div class="api-actions">
                         <a href="/docs/sacred-bridge/api" class="btn btn-small">API Docs</a>
@@ -394,57 +355,28 @@ console.log(data);</code></pre>
         </div>
     </section>
 
-    <!-- Live Activity Feed -->
+    <!-- Open Source -->
     <section class="section section-dark">
         <div class="container">
-            <h2 class="section-title">Live Development Activity</h2>
-            <p class="section-subtitle">Real-time updates from our ecosystem</p>
-            
+            <h2 class="section-title">Open Source</h2>
+            <p class="section-subtitle">Everything here is early-stage and developed in the open. See real, current activity on GitHub — not a simulated feed.</p>
+
             <div class="activity-container">
-                <div class="activity-feed">
-                    <div class="activity-item">
-                        <span class="activity-icon commit">⚡</span>
-                        <div class="activity-content">
-                            <div class="activity-title">New commit to luminous-nix</div>
-                            <div class="activity-meta">feat: Add GPT-4 integration - 2 minutes ago</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <span class="activity-icon release">🚀</span>
-                        <div class="activity-content">
-                            <div class="activity-title">Terra Atlas v1.0.3 released</div>
-                            <div class="activity-meta">Performance improvements - 15 minutes ago</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <span class="activity-icon pr">🔀</span>
-                        <div class="activity-content">
-                            <div class="activity-title">PR merged: Add WebSocket support</div>
-                            <div class="activity-meta">sacred-bridge #142 - 1 hour ago</div>
-                        </div>
-                    </div>
-                    <div class="activity-item">
-                        <span class="activity-icon star">⭐</span>
-                        <div class="activity-content">
-                            <div class="activity-title">luminous-nix reached 1,000 stars</div>
-                            <div class="activity-meta">Thank you community! - 3 hours ago</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="activity-stats">
-                    <div class="stat-card">
-                        <div class="stat-number">127</div>
-                        <div class="stat-label">Commits Today</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">42</div>
-                        <div class="stat-label">Active PRs</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">Releases This Week</div>
-                    </div>
+                <div class="docs-grid">
+                    <a href="https://github.com/Luminous-Dynamics/luminous-nix" class="docs-card" target="_blank" rel="noopener">
+                        <h3>Luminous Nix</h3>
+                        <p>Natural-language NixOS interface</p>
+                        <img src="https://img.shields.io/github/stars/Luminous-Dynamics/luminous-nix?style=social" alt="luminous-nix GitHub stars" height="20">
+                    </a>
+                    <a href="https://github.com/Luminous-Dynamics/symthaea" class="docs-card" target="_blank" rel="noopener">
+                        <h3>Symthaea</h3>
+                        <p>Consciousness-first cognitive architecture</p>
+                        <img src="https://img.shields.io/github/stars/Luminous-Dynamics/symthaea?style=social" alt="symthaea GitHub stars" height="20">
+                    </a>
+                    <a href="https://github.com/Luminous-Dynamics" class="docs-card" target="_blank" rel="noopener">
+                        <h3>All Repositories</h3>
+                        <p>Browse commits, releases, and issues directly on GitHub</p>
+                    </a>
                 </div>
             </div>
         </div>
